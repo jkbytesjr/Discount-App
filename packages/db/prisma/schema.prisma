@@ -384,6 +384,7 @@ model Premise {
   discounts    DiscountPremise[]
 
   @@index([businessId])
+  @@index([lat, lng])
   @@map("premises")
 }
 

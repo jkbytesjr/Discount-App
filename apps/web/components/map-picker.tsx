@@ -8,7 +8,8 @@ const MAPUTO = { lat: -25.9692, lng: 32.5732 };
 
 interface LatLng { lat: number; lng: number }
 let loader: Promise<any> | undefined;
-function loadMaps(): Promise<any> {
+export const MAPS_KEY = KEY;
+export function loadMaps(): Promise<any> {
   const w = window as any;
   if (w.google?.maps?.importLibrary) return Promise.resolve(w.google.maps);
   loader ??= new Promise((resolve, reject) => {

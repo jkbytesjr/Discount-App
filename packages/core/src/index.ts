@@ -22,3 +22,4 @@ export * from "./geo";
 export * from "./offers";
 export * from "./premise";
 export * from "./discount";
+export * from "./discovery";

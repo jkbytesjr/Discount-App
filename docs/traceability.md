@@ -1,6 +1,6 @@
 # Traceability (requirement -> tests -> status)
 
-Test files: `C1` core/test/auth.integration, `C2` core/test/admin.integration, `U` core/src/*.test.ts (lockout, policy, clock), `S` shared/src/*.test.ts, `W1` web/test/api.test.ts, `W2` web/test/admin-api.test.ts, `E` web/e2e/portal.spec.ts (Playwright + axe), `C3` core/test/discounts.integration, `O` core/src/offers.test.ts (TD-6 vectors in shared/test-vectors/matching.json), `W3` web/test/discounts-api.test.ts.
+Test files: `C1` core/test/auth.integration, `C2` core/test/admin.integration, `U` core/src/*.test.ts (lockout, policy, clock), `S` shared/src/*.test.ts, `W1` web/test/api.test.ts, `W2` web/test/admin-api.test.ts, `E` web/e2e/portal.spec.ts (Playwright + axe), `C3` core/test/discounts.integration, `O` core/src/offers.test.ts (TD-6 vectors in shared/test-vectors/matching.json), `W3` web/test/discounts-api.test.ts, `C4` core/test/discovery.integration, `W4` web/test/discovery-api.test.ts, `M` web/e2e/map.spec.ts.
 
 | ID | Tests | Status |
 |---|---|---|
@@ -27,4 +27,6 @@ Test files: `C1` core/test/auth.integration, `C2` core/test/admin.integration, `
 | BR-R1 / R2 / R3 | O (22 TD-6 vectors + unit tests) | Done |
 | BR-R11 | C3 (S17 publish blocked, suspend pauses discounts) | Done |
 | TD-6 | shared/test-vectors/matching.json via O | TypeScript done; Swift port in Phase 6-7 |
+| BR-11 | C4 (S10, S11, S12, S19, S21, chips, bbox, pagination, privacy), W4, M (chips, panel, axe light/dark, 375 px) | Done; Google map not exercised with a live key (list fallback tested); favourites need Phase 7 |
+| IOS-6/7/8 API | C4, W4 (nearby, recent, ending soon, geofence sync + ETag/304) | Server side done; iOS client in Phases 6-8 |
 | Others | | Not started |

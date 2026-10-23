@@ -16,6 +16,7 @@ export default async function Home() {
         <div className="row" style={{ justifyContent: "center" }}>
           <Link className="btn" href="/login">{t("auth.login")}</Link>
           <Link className="btn secondary" href="/register">{t("auth.register")}</Link>
+          <Link className="btn ghost" href="/map">{t("map.title")}</Link>
         </div>
       </div>
     </main>
