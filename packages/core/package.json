@@ -19,6 +19,7 @@
     "@moz/db": "workspace:*",
     "@moz/shared": "workspace:*",
     "argon2": "^0.45.1",
+    "exceljs": "4.4.0",
     "jose": "^6.2.13",
     "otplib": "^13.5.0",
     "zod": "^4.6.7"

@@ -6,6 +6,7 @@ import { notFoundDenied, requireCan } from "./authz";
 import { dateKey, isPastValidity, maputoDate, rankOffers, toMinutes, WEEKDAYS, type OfferCandidate } from "./offers";
 import { actingBusiness } from "./premise";
 import { page, pageSchema } from "./pagination";
+import { materialChanges, notifyFavourites, schedulePush } from "./favourite-push";
 import type { AuthContext } from "./auth/sessions";
 import type { AuthDeps, Meta } from "./auth/deps";
 
@@ -172,7 +173,7 @@ async function loadVisible(d: AuthDeps, ctx: AuthContext, discountId: string, me
 
 const snapshot = (x: Full) => ({
   status: x.status, titlePt: x.titlePt, titleEn: x.titleEn, validFrom: dateKey(x.validFrom), validTo: dateKey(x.validTo),
-  schedule: { days: x.scheduleDays, from: x.scheduleFrom, to: x.scheduleTo }, isOnline: x.isOnline,
+  schedule: { days: x.scheduleDays, from: x.scheduleFrom, to: x.scheduleTo }, isOnline: x.isOnline, terms: { pt: x.termsPt, en: x.termsEn },
   premises: x.premises.map((p) => p.premiseId), eligibility: x.eligibility.map(({ id: _id, discountId: _d, ...r }) => r),
 });
 
@@ -249,7 +250,8 @@ export async function updateDiscount(d: AuthDeps, ctx: AuthContext, discountId: 
     return updated;
   });
   await writeAudit(d.db, d.clock, { action: "discount.update", summary: "Discount updated", actor: actorOf(ctx, before.businessId), entityType: "discount", entityId: discountId, changes: { before: snapshot(before), after: snapshot(after) }, meta });
-  // Phase 8 (BR-R7, IOS-7): notify users who favourited this discount when the change is material.
+  // BR-R7 / IOS-7: tell the people who favourited it when the change is material.
+  await schedulePush(d, () => notifyFavourites(d, discountId, materialChanges(snapshot(before), snapshot(after)), after.status));
   return present(after, d.clock.now());
 }
 
@@ -300,6 +302,7 @@ export async function transitionDiscount(d: AuthDeps, ctx: AuthContext, discount
     include,
   });
   await writeAudit(d.db, d.clock, { action: `discount.${action}`, summary: `Discount ${action}`, actor: actorOf(ctx, before.businessId), entityType: "discount", entityId: discountId, changes: { before: { status: before.status }, after: { status: after.status } }, meta });
+  if (action !== "publish") await schedulePush(d, () => notifyFavourites(d, discountId, ["status"], after.status));
   return present(after, d.clock.now());
 }
 
@@ -313,6 +316,7 @@ export async function extendValidity(d: AuthDeps, ctx: AuthContext, discountId: 
   if (validTo < maputoDate(d.clock.now())) throw new AppError(422, "VALIDITY_PAST", "The new end date is in the past");
   // A persisted EXPIRED discount is not silently re-published: it returns as PAUSED for the owner to republish.
   const after = await d.db.discount.update({ where: { id: discountId }, data: { validTo: asDate(validTo), ...(before.status === "EXPIRED" ? { status: "PAUSED" } : {}) }, include });
+  await schedulePush(d, () => notifyFavourites(d, discountId, ["validity"]));
   await writeAudit(d.db, d.clock, { action: "discount.extend", summary: "Validity extended", actor: actorOf(ctx, before.businessId), entityType: "discount", entityId: discountId, changes: { before: { validTo: current, status: before.status }, after: { validTo, status: after.status } }, meta });
   return present(after, d.clock.now());
 }
@@ -457,6 +461,7 @@ export async function pauseBusinessDiscounts(d: AuthDeps, businessId: string, ac
   const live = await d.db.discount.findMany({ where: { businessId, status: "PUBLISHED" }, select: { id: true } });
   if (!live.length) return 0;
   await d.db.discount.updateMany({ where: { id: { in: live.map((x) => x.id) } }, data: { status: "PAUSED" } });
+  for (const x of live) await schedulePush(d, () => notifyFavourites(d, x.id, ["status"], "PAUSED"));
   await writeAudit(d.db, d.clock, { action: "discount.pause_all", summary: `Paused ${live.length} discounts (business suspended)`, actor: { ...actor, businessId }, entityType: "business", entityId: businessId, changes: { ids: live.map((x) => x.id) }, meta });
   return live.length;
 }

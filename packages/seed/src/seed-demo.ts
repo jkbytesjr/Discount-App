@@ -100,6 +100,16 @@ for (const a of load<any[]>("accounts.json")) {
   const user = existing
     ? await db.user.update({ where: { id: existing.id }, data })
     : await db.user.create({ data: { email: a.email, passwordHash: await hashPassword(password), ...data } });
+  // SD-8 personas: cards, wallets, alert preferences and favourites (product level only: no card numbers)
+  if (a.cards || a.wallets || a.prefs || a.favourites) {
+    await db.userCard.deleteMany({ where: { userId: user.id } });
+    await db.userWallet.deleteMany({ where: { userId: user.id } });
+    await db.favorite.deleteMany({ where: { userId: user.id } });
+    if (a.cards?.length) await db.userCard.createMany({ data: a.cards.map((cardProductId: string) => ({ userId: user.id, cardProductId })) });
+    if (a.wallets?.length) await db.userWallet.createMany({ data: a.wallets.map((walletProviderId: string) => ({ userId: user.id, walletProviderId })) });
+    if (a.favourites?.length) await db.favorite.createMany({ data: a.favourites.map((discountId: string) => ({ userId: user.id, discountId })) });
+    if (a.prefs) await db.alertPreference.upsert({ where: { userId: user.id }, create: { userId: user.id, ...a.prefs }, update: a.prefs });
+  }
   if (a.business) await db.businessMember.upsert({ where: { userId: user.id }, create: { userId: user.id, businessId: a.business }, update: { businessId: a.business } });
 }
 

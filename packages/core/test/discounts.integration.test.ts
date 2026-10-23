@@ -155,7 +155,7 @@ describe("BR-7 / BR-9 discounts", () => {
     expect((await transitionDiscount(t.deps, owner.ctx, d0.id, "archive", owner.meta)).status).toBe("ARCHIVED");
     expect(await code(updateDiscount(t.deps, owner.ctx, d0.id, { isOnline: true }, owner.meta))).toBe("INVALID_STATE");
     expect((await transitionDiscount(t.deps, owner.ctx, d0.id, "restore", owner.meta)).status).toBe("DRAFT");
-    const actions = (await db.auditLog.findMany({ where: { entityId: d0.id }, orderBy: { occurredAt: "asc" } })).map((a) => a.action);
+    const actions = (await db.auditLog.findMany({ where: { entityId: d0.id }, orderBy: { id: "asc" } })).map((a) => a.action);
     expect(actions).toEqual(["discount.create", "discount.update", "discount.publish", "discount.update", "discount.pause", "discount.publish", "discount.archive", "discount.restore"]);
     expect(await db.auditLog.findFirst({ where: { entityId: d0.id, action: "discount.pause" } })).toMatchObject({ changes: { before: { status: "PUBLISHED" }, after: { status: "PAUSED" } } });
   });

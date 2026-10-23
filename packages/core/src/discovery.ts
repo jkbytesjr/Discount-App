@@ -7,6 +7,7 @@ import { AppError } from "./errors";
 import { benefitLabel, type Lang } from "./discount";
 import { distanceM } from "./geo";
 import { dateKey, isActiveAt, isPastValidity, maputoDate, rankOffers, type EligibilityRowLike, type OfferCandidate } from "./offers";
+import { publicSettings } from "./settings";
 import type { AuthDeps } from "./auth/deps";
 
 export const NEARBY_RADIUS = { default: 2000, min: 500, max: 10_000 } as const;
@@ -277,9 +278,9 @@ export async function geofenceSync(d: AuthDeps, raw: unknown) {
   const offers = discounts.filter((x) => needed.has(x.id)).sort((a, b) => (a.id < b.id ? -1 : 1)).map((x) => ({
     id: x.id, titlePt: x.titlePt, titleEn: x.titleEn, businessName: x.business.tradingName, publishedAt: x.publishedAt,
     validFrom: dateKey(x.validFrom), validTo: dateKey(x.validTo), days: x.scheduleDays, from: x.scheduleFrom, to: x.scheduleTo,
-    rows: x.eligibility.map((r) => ({ scope: r.scope, cardProductId: r.cardProductId, issuerId: r.issuerId, walletId: r.walletId, cardType: r.cardType, networkId: r.networkId, benefit: r.benefit, value: r.value, valueMzn: r.valueMzn, minSpendMzn: r.minSpendMzn, maxDiscountMzn: r.maxDiscountMzn })),
+    rows: x.eligibility.map((r) => ({ scope: r.scope, cardProductId: r.cardProductId, issuerId: r.issuerId, walletId: r.walletId, cardType: r.cardType, networkId: r.networkId, benefit: r.benefit, value: r.value, valueMzn: r.valueMzn, valueTextPt: r.valueTextPt, valueTextEn: r.valueTextEn, minSpendMzn: r.minSpendMzn, maxDiscountMzn: r.maxDiscountMzn, commentPt: r.commentPt, commentEn: r.commentEn })),
   }));
-  const body = { premises: premises.map(({ dist: _d, ...p }) => ({ ...p, discountIds: p.discountIds.sort() })), offers, limit: GEOFENCE_LIMIT };
+  const body = { premises: premises.map(({ dist: _d, ...p }) => ({ ...p, discountIds: p.discountIds.sort() })), offers, limit: GEOFENCE_LIMIT, settings: await publicSettings(d) };
   const etag = `"${createHash("sha256").update(JSON.stringify(body)).digest("hex").slice(0, 24)}"`;
   return { body, etag };
 }

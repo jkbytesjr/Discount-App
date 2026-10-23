@@ -32,3 +32,18 @@ export async function api<T = unknown>(path: string, opts: { method?: string; bo
   }
   return data as T;
 }
+
+/** Downloads a file from the API (Excel exports) using the session cookie. */
+export async function download(path: string, fallbackName: string): Promise<void> {
+  const res = await fetch(`/api/v1${path}`, { credentials: "same-origin" });
+  if (!res.ok) {
+    let code = "INTERNAL";
+    try { code = ((await res.json()) as { code?: string }).code ?? code; } catch { /* not json */ }
+    throw new ApiError(res.status, code);
+  }
+  const name = /filename="([^"]+)"/.exec(res.headers.get("content-disposition") ?? "")?.[1] ?? fallbackName;
+  const url = URL.createObjectURL(await res.blob());
+  const a = Object.assign(document.createElement("a"), { href: url, download: name });
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+}

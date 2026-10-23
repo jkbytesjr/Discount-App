@@ -1,4 +1,5 @@
-import { ConsoleMailer, FileMailer, ResendMailer, pgRateLimiter, systemClock, type AuthDeps, type Clock, type Mailer } from "@moz/core";
+import { after } from "next/server";
+import { ApnsPushSender, ConsoleMailer, ConsolePushSender, FileMailer, ResendMailer, pgRateLimiter, systemClock, type AuthDeps, type Clock, type Mailer, type PushSender } from "@moz/core";
 import { getDb } from "@moz/db";
 
 type AppEnv = AuthDeps["config"]["appEnv"];
@@ -9,6 +10,15 @@ function need(name: string): string {
   const v = process.env[name];
   if (!v) throw new Error(`${name} is not set`);
   return v;
+}
+
+let push: PushSender | undefined;
+function getPush(): PushSender {
+  // APNs needs the Apple Developer Program key; without it pushes are printed to the server log.
+  push ??= process.env.APNS_KEY_P8 && process.env.APNS_KEY_ID && process.env.APNS_TEAM_ID && process.env.APNS_BUNDLE_ID
+    ? new ApnsPushSender({ keyP8: process.env.APNS_KEY_P8, keyId: process.env.APNS_KEY_ID, teamId: process.env.APNS_TEAM_ID, bundleId: process.env.APNS_BUNDLE_ID, sandbox: process.env.APNS_ENV !== "production" })
+    : new ConsolePushSender();
+  return push;
 }
 
 // Test-only clock override: X-Test-Now is honoured only when APP_ENV is local/test (TD-2).
@@ -44,7 +54,7 @@ export function getDeps(req: Request): AuthDeps {
   const db = getDb();
   const clock = clockFor(req);
   return {
-    db, clock, mailer: getMailer(), limiter: pgRateLimiter(db, clock), verifyCaptcha: verifyTurnstile,
+    db, clock, mailer: getMailer(), limiter: pgRateLimiter(db, clock), verifyCaptcha: verifyTurnstile, push: getPush(), defer: (fn) => { try { after(fn); } catch { void fn(); } }, // outside a Next request scope (unit tests) run inline
     config: {
       appEnv, appUrl: process.env.APP_URL ?? "http://localhost:3000",
       jwtSecret: need("JWT_SECRET"), mfaKey: need("MFA_ENC_KEY"),

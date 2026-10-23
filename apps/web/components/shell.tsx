@@ -14,14 +14,15 @@ const NAV: Record<string, Item[]> = {
   ADMIN: [
     { href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/admin/users", label: "nav.users", icon: "users" },
     { href: "/admin/businesses", label: "nav.businesses", icon: "building" }, { href: "/admin/catalogue", label: "nav.catalogue", icon: "tag" },
+    { href: "/admin/audit", label: "nav.audit", icon: "shield" }, { href: "/admin/alerts", label: "nav.alerts", icon: "bell" }, { href: "/admin/settings", label: "nav.settings", icon: "settings" },
     { href: "/account", label: "nav.account", icon: "user" },
   ],
   BUSINESS_OWNER: [
     { href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/business", label: "nav.myBusiness", icon: "building" },
-    { href: "/business/premises", label: "nav.premises", icon: "pin" }, { href: "/business/discounts", label: "nav.discounts", icon: "tag" },
+    { href: "/business/premises", label: "nav.premises", icon: "pin" }, { href: "/business/discounts", label: "nav.discounts", icon: "tag" }, { href: "/business/reports", label: "nav.reports", icon: "chart" },
     { href: "/account", label: "nav.account", icon: "user" },
   ],
-  USER: [{ href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/account", label: "nav.account", icon: "user" }],
+  USER: [{ href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/my/cards", label: "nav.myCards", icon: "card" }, { href: "/my/favourites", label: "nav.favourites", icon: "heart" }, { href: "/map", label: "map.title" as MessageKey, icon: "pin" }, { href: "/account", label: "nav.account", icon: "user" }],
 };
 
 function useOutside(ref: React.RefObject<HTMLElement | null>, on: () => void, active: boolean) {

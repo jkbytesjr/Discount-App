@@ -85,7 +85,7 @@ test.describe("accessibility and responsiveness", () => {
     await expect(page).toHaveURL(/dashboard/);
     for (const scheme of ["light", "dark"] as const) {
       await page.emulateMedia({ colorScheme: scheme });
-      for (const path of ["/dashboard", "/admin/users", "/admin/businesses", "/admin/catalogue", "/account"]) {
+      for (const path of ["/dashboard", "/admin/users", "/admin/businesses", "/admin/catalogue", "/admin/audit", "/admin/alerts", "/admin/settings", "/account"]) {
         await page.goto(path);
         await expect(page.locator("main#main h1")).toBeVisible();
         await expectAccessible(page, `${path} ${scheme}`);

@@ -1,6 +1,6 @@
 # Traceability (requirement -> tests -> status)
 
-Test files: `C1` core/test/auth.integration, `C2` core/test/admin.integration, `U` core/src/*.test.ts (lockout, policy, clock), `S` shared/src/*.test.ts, `W1` web/test/api.test.ts, `W2` web/test/admin-api.test.ts, `E` web/e2e/portal.spec.ts (Playwright + axe), `C3` core/test/discounts.integration, `O` core/src/offers.test.ts (TD-6 vectors in shared/test-vectors/matching.json), `W3` web/test/discounts-api.test.ts, `C4` core/test/discovery.integration, `W4` web/test/discovery-api.test.ts, `M` web/e2e/map.spec.ts.
+Test files: `C1` core/test/auth.integration, `C2` core/test/admin.integration, `U` core/src/*.test.ts (lockout, policy, clock), `S` shared/src/*.test.ts, `W1` web/test/api.test.ts, `W2` web/test/admin-api.test.ts, `E` web/e2e/portal.spec.ts (Playwright + axe), `C3` core/test/discounts.integration, `O` core/src/offers.test.ts (TD-6 vectors in shared/test-vectors/matching.json), `W3` web/test/discounts-api.test.ts, `C4` core/test/discovery.integration, `W4` web/test/discovery-api.test.ts, `M` web/e2e/map.spec.ts, `C5` core/test/phase5.integration, `W5` web/test/phase5-api.test.ts, `E5` web/e2e/phase5.spec.ts, `SW` apps/ios/MozCore tests (swift test).
 
 | ID | Tests | Status |
 |---|---|---|
@@ -29,4 +29,13 @@ Test files: `C1` core/test/auth.integration, `C2` core/test/admin.integration, `
 | TD-6 | shared/test-vectors/matching.json via O | TypeScript done; Swift port in Phase 6-7 |
 | BR-11 | C4 (S10, S11, S12, S19, S21, chips, bbox, pagination, privacy), W4, M (chips, panel, axe light/dark, 375 px) | Done; Google map not exercised with a live key (list fallback tested); favourites need Phase 7 |
 | IOS-6/7/8 API | C4, W4 (nearby, recent, ending soon, geofence sync + ETag/304) | Server side done; iOS client in Phases 6-8 |
+| BR-3 (UI + Excel) | C5 (filters, cursor, export, audited export, formula defusing), W5, E5 | Done (admin only, POC) |
+| BR-10 | C5 (ingest, idempotency, coarse location, reasons, admin list/export, own history), W5, SW (offline queue) | Done; OPENED within 5 s needs a device check |
+| BR-12 (POC) | C5 (admin + business stats, report export), E5 | Done (no charts library, simple SVG line chart) |
+| BR-R6 / assumption 11, 18 | C5 (settings ranges, demo mode cooldown) | Done |
+| BR-R7 / IOS-7 push | C5 (material vs typo changes, language, opt-out, failure isolation) | Server done; APNs not run against Apple |
+| IOS-1 .. IOS-4 | SW (API client, refresh, errors), build; Face ID lock, login/register, profile in the app | App builds and runs in the simulator; no device/XCUITest run yet |
+| IOS-5, IOS-6, IOS-7 | C5 (cards, wallets, prefs, favourites), W5, E5 (web), app screens | Built; manual device check pending |
+| IOS-8 | SW (S01-S08, S20 on the engine, region planner, queue) | Engine verified; background region monitoring needs a real device walk (S13, S22) |
+| TD-6 (Swift) | SW MatchingVectorTests (22 vectors) | Done |
 | Others | | Not started |

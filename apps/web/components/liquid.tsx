@@ -48,7 +48,7 @@ export function useLiquid<T extends HTMLElement = HTMLElement>(key: unknown, opt
     el.className = `liquid${opts.seg ? " seg" : ""}`; el.setAttribute("aria-hidden", "true");
     c.prepend(el); ind.current = el;
     return () => { anim.current?.cancel(); el.remove(); ind.current = null; cur.current = null; };
-  }, []); // eslint-disable-line
+  }, []);
 
   // Move when the active item changes.
   useLayoutEffect(() => {
@@ -56,7 +56,7 @@ export function useLiquid<T extends HTMLElement = HTMLElement>(key: unknown, opt
     const el = c.querySelector<HTMLElement>(ACTIVE);
     if (!el) return snap(null);
     if (!cur.current || reduced()) snap(el); else go(el);
-  }, [key]); // eslint-disable-line
+  }, [key]);
 
   // Re-snap (no animation) on resize, once fonts are ready and on load.
   useEffect(() => {
@@ -64,7 +64,7 @@ export function useLiquid<T extends HTMLElement = HTMLElement>(key: unknown, opt
     window.addEventListener("resize", resnap); window.addEventListener("load", resnap);
     void document.fonts?.ready.then(resnap);
     return () => { window.removeEventListener("resize", resnap); window.removeEventListener("load", resnap); };
-  }, []); // eslint-disable-line
+  }, []);
 
   return box;
 }

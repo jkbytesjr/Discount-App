@@ -47,6 +47,7 @@ export async function expectAccessible(page: Page, label: string) {
 
 export async function cleanupE2E() {
   await db.user.deleteMany({ where: { email: { startsWith: "e2e-" } } });
+  await db.alertEvent.deleteMany({ where: { premiseId: { startsWith: "e2e-" } } });
   await db.discount.deleteMany({ where: { business: { tradingName: { startsWith: "E2E " } } } });
   await db.premise.deleteMany({ where: { business: { tradingName: { startsWith: "E2E " } } } });
   await db.business.deleteMany({ where: { tradingName: { startsWith: "E2E " } } });
@@ -59,4 +60,8 @@ export async function cleanupE2E() {
 export async function makeApprovedOwner(email: string, tradingName: string) {
   const u = await db.user.create({ data: { email, role: "BUSINESS_OWNER", firstName: "E2E", lastName: "Owner", passwordHash: await hashPassword(PW), status: "ACTIVE", emailVerifiedAt: new Date() } });
   return db.business.create({ data: { type: "MERCHANT", tradingName, status: "APPROVED", dataOrigin: "REAL", contactEmail: "info@e2e.test", contactPhone: "+258841234567", address: "Av. Marginal", members: { create: { userId: u.id } } } });
+}
+
+export async function makeUser(email: string) {
+  return db.user.create({ data: { email, role: "USER", firstName: "E2E", lastName: "User", passwordHash: await hashPassword(PW), status: "ACTIVE", emailVerifiedAt: new Date() } });
 }

@@ -1,4 +1,4 @@
-import { AppError, authenticate, requireFullAuth, type AuthContext, type AuthDeps, type Meta } from "@moz/core";
+import { AppError, XLSX_TYPE, authenticate, requireFullAuth, type AuthContext, type AuthDeps, type Meta } from "@moz/core";
 import { ZodError } from "zod";
 import { getDeps, isSecure } from "./server";
 
@@ -85,4 +85,9 @@ export function handleWithId(fn: (c: Ctx, id: string) => Promise<Response>) {
     const { id } = await params;
     return handle((c) => fn(c, id))(req);
   };
+}
+
+/** Excel download (BR-3, BR-10, BR-12). The file name carries no personal data. */
+export function xlsxResponse(file: Buffer, name: string, extra: Record<string, string> = {}) {
+  return new Response(new Uint8Array(file), { status: 200, headers: { "Content-Type": XLSX_TYPE, "Content-Disposition": `attachment; filename="${name}"`, "Cache-Control": "no-store", ...extra } });
 }

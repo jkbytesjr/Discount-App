@@ -3,6 +3,7 @@ import type { Clock } from "../clock";
 import type { Mailer } from "../mailer";
 import type { RateLimiter } from "../rate-limit";
 import type { RequestMeta } from "../audit";
+import type { PushSender } from "../push";
 
 export interface AuthConfig {
   appEnv: "local" | "test" | "poc" | "production";
@@ -19,6 +20,10 @@ export interface AuthDeps {
   mailer: Mailer;
   limiter: RateLimiter;
   config: AuthConfig;
+  /** APNs (or a stand-in) for favourite-update pushes. */
+  push?: PushSender;
+  /** Run work after the response (Next `after()`); absent = run inline, which keeps tests deterministic. */
+  defer?: (fn: () => Promise<unknown>) => void;
   /** Returns true when the Turnstile token is valid. */
   verifyCaptcha: (token: string | undefined, ip?: string | null) => Promise<boolean>;
 }

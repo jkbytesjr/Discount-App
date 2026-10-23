@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6587F0AE4FF5FF5340CF7ACC /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B60FBD99F3F684C390AC9B /* AppModel.swift */; };
+		49AAFA55840595B8F24C04EF /* AuthViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276BAC7BBB183AF111D1E6A5 /* AuthViews.swift */; };
+		25994CC45D82C8552AFA4447 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AAA0330F54791D0CCAEC53 /* Keychain.swift */; };
+		8C6BD6984C9948C42C7A5B85 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC46072C11B9FEBA6D4FD8E /* L10n.swift */; };
+		CC09A574A406364906502337 /* MainViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE8AE618537A41169F3687 /* MainViews.swift */; };
+		8C9A5F54FD7071D4073D3EE6 /* MozDiscountsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F261448508F1380F89A8393E /* MozDiscountsApp.swift */; };
+		05709E0581F02F36F5412841 /* ProfileViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A0F10E91157909F51BB2D5 /* ProfileViews.swift */; };
+		F501B0E0193003655F5FC65D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99434C7AC70C96032DC63112 /* Services.swift */; };
+		3CE9E92A18EC61DAA21A6072 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C612EF37DEF6456204642 /* Theme.swift */; };
+		0E6469C82B38633DA090D51B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BB636196F91ED59D7A4919 /* Assets.xcassets */; };
+		39CA2D6E8E1399CA430452B7 /* MozCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2BAFBE90D711F96380E9193E /* MozCore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		61B60FBD99F3F684C390AC9B /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/AppModel.swift; sourceTree = "<group>"; };
+		276BAC7BBB183AF111D1E6A5 /* AuthViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/AuthViews.swift; sourceTree = "<group>"; };
+		A6AAA0330F54791D0CCAEC53 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Keychain.swift; sourceTree = "<group>"; };
+		4FC46072C11B9FEBA6D4FD8E /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/L10n.swift; sourceTree = "<group>"; };
+		71CE8AE618537A41169F3687 /* MainViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MainViews.swift; sourceTree = "<group>"; };
+		F261448508F1380F89A8393E /* MozDiscountsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MozDiscountsApp.swift; sourceTree = "<group>"; };
+		45A0F10E91157909F51BB2D5 /* ProfileViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/ProfileViews.swift; sourceTree = "<group>"; };
+		99434C7AC70C96032DC63112 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Services.swift; sourceTree = "<group>"; };
+		1F0C612EF37DEF6456204642 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Theme.swift; sourceTree = "<group>"; };
+		707A1B8AA6F495C9BF6658C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32BB636196F91ED59D7A4919 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F5BF48AA40CAD7891EB709FC /* MozDiscounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MozDiscounts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F758B95EA811C07A1426482F /* MozCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MozCore; path = MozCore; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF6AA633395B1B76148E35B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39CA2D6E8E1399CA430452B7 /* MozCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B731CEFC6751AAE0EC69B98 = {
+			isa = PBXGroup;
+			children = (
+				D8DBA3F9900DD17689CA0C4D /* App */,
+				F758B95EA811C07A1426482F /* MozCore */,
+				A8CBE22D73EBCC4E5F27B59C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D8DBA3F9900DD17689CA0C4D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				61B60FBD99F3F684C390AC9B /* AppModel.swift */,
+				276BAC7BBB183AF111D1E6A5 /* AuthViews.swift */,
+				A6AAA0330F54791D0CCAEC53 /* Keychain.swift */,
+				4FC46072C11B9FEBA6D4FD8E /* L10n.swift */,
+				71CE8AE618537A41169F3687 /* MainViews.swift */,
+				F261448508F1380F89A8393E /* MozDiscountsApp.swift */,
+				45A0F10E91157909F51BB2D5 /* ProfileViews.swift */,
+				99434C7AC70C96032DC63112 /* Services.swift */,
+				1F0C612EF37DEF6456204642 /* Theme.swift */,
+				707A1B8AA6F495C9BF6658C2 /* Info.plist */,
+				32BB636196F91ED59D7A4919 /* Assets.xcassets */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A8CBE22D73EBCC4E5F27B59C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5BF48AA40CAD7891EB709FC /* MozDiscounts.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* MozDiscounts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9150498069B5DCF7272312D9;
+			buildPhases = (
+				0F78FE532035D122ED352DBA /* Sources */,
+				DAF6AA633395B1B76148E35B /* Frameworks */,
+				943E4BBD9B51C81965501BA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MozDiscounts;
+			packageProductDependencies = (
+				2BAFBE90D711F96380E9193E /* MozCore */,
+			);
+			productName = MozDiscounts;
+			productReference = F5BF48AA40CAD7891EB709FC /* MozDiscounts.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+			};
+			buildConfigurationList = 01076EBF22530E406F54B419;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = pt;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				pt,
+				en,
+				Base,
+			);
+			mainGroup = 2B731CEFC6751AAE0EC69B98;
+			packageReferences = (
+				00399ED3B3FA2FCA129B1CCE /* XCLocalSwiftPackageReference "MozCore" */,
+			);
+			productRefGroup = A8CBE22D73EBCC4E5F27B59C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* MozDiscounts */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		943E4BBD9B51C81965501BA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E6469C82B38633DA090D51B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0F78FE532035D122ED352DBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6587F0AE4FF5FF5340CF7ACC /* AppModel.swift in Sources */,
+				49AAFA55840595B8F24C04EF /* AuthViews.swift in Sources */,
+				25994CC45D82C8552AFA4447 /* Keychain.swift in Sources */,
+				8C6BD6984C9948C42C7A5B85 /* L10n.swift in Sources */,
+				CC09A574A406364906502337 /* MainViews.swift in Sources */,
+				8C9A5F54FD7071D4073D3EE6 /* MozDiscountsApp.swift in Sources */,
+				05709E0581F02F36F5412841 /* ProfileViews.swift in Sources */,
+				F501B0E0193003655F5FC65D /* Services.swift in Sources */,
+				3CE9E92A18EC61DAA21A6072 /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2D53B50AE2273FABAAF8B8FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				MTL_FAST_MATH = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2B645610CD3D8D67581A2E9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				MTL_FAST_MATH = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA7C752E798F561D7D156D98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+				MOZ_API_BASE_URL = "http:/$()/localhost:3000";
+			};
+			name = Debug;
+		};
+		6791BF1F1E8A3A0981023556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+				MOZ_API_BASE_URL = "https:/$()/CHANGE-ME.vercel.app";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01076EBF22530E406F54B419 /* Build configuration list for PBXProject "MozDiscounts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D53B50AE2273FABAAF8B8FA /* Debug */,
+				2B645610CD3D8D67581A2E9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9150498069B5DCF7272312D9 /* Build configuration list for PBXNativeTarget "MozDiscounts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA7C752E798F561D7D156D98 /* Debug */,
+				6791BF1F1E8A3A0981023556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		00399ED3B3FA2FCA129B1CCE /* XCLocalSwiftPackageReference "MozCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = MozCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2BAFBE90D711F96380E9193E /* MozCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MozCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
