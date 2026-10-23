@@ -1,0 +1,26 @@
+{
+  "name": "@moz/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "lint": "echo 'linted from repo root'"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "dotenv": "^18.0.8",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "@moz/db": "workspace:*",
+    "@moz/shared": "workspace:*",
+    "argon2": "^0.45.1",
+    "jose": "^6.2.13",
+    "otplib": "^13.5.0",
+    "zod": "^4.6.7"
+  }
+}

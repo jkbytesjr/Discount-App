@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Moz Discounts">
+  <rect width="128" height="128" rx="28" fill="#0E1525"/>
+  <!-- flat price tag -->
+  <path d="M30 28h40l28 28a6 6 0 0 1 0 8L72 90a6 6 0 0 1-8 0L30 56z" fill="#B8955A" transform="translate(4 6)"/>
+  <!-- map pin as the tag hole -->
+  <path d="M48 40a8 8 0 0 1 8 8c0 6-8 14-8 14s-8-8-8-14a8 8 0 0 1 8-8z" fill="#0E1525" transform="translate(4 6)"/>
+  <circle cx="52" cy="54" r="3" fill="#B8955A"/>
+  <!-- percent sign -->
+  <g fill="none" stroke="#0E1525" stroke-width="4" stroke-linecap="round">
+    <path d="M84 62l-18 18"/>
+  </g>
+  <circle cx="68" cy="66" r="3.5" fill="#0E1525"/>
+  <circle cx="82" cy="80" r="3.5" fill="#0E1525"/>
+</svg>

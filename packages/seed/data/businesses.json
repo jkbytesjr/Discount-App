@@ -1,0 +1,16 @@
+[
+  { "id": "biz-absa", "type": "BANK", "tradingName": "Absa Bank Moçambique", "issuerId": "iss-absa", "status": "APPROVED" },
+  { "id": "biz-bci", "type": "BANK", "tradingName": "BCI", "issuerId": "iss-bci", "status": "APPROVED" },
+  { "id": "biz-mbim", "type": "BANK", "tradingName": "Millennium bim", "issuerId": "iss-mbim", "status": "APPROVED" },
+  { "id": "biz-moza", "type": "BANK", "tradingName": "Moza Banco", "issuerId": "iss-moza", "status": "APPROVED" },
+  { "id": "biz-mpesa", "type": "WALLET_PROVIDER", "tradingName": "Vodacom M-Pesa", "walletProviderId": "wl-mpesa", "status": "APPROVED" },
+  { "id": "biz-emola", "type": "WALLET_PROVIDER", "tradingName": "Movitel e-Mola", "walletProviderId": "wl-emola", "status": "APPROVED" },
+  { "id": "biz-marisco", "type": "MERCHANT", "tradingName": "Restaurante Marisco da Baía (fictional)", "status": "APPROVED" },
+  { "id": "biz-solnascente", "type": "MERCHANT", "tradingName": "Supermercado Sol Nascente (fictional)", "status": "APPROVED" },
+  { "id": "biz-cafejardim", "type": "MERCHANT", "tradingName": "Café Jardim (fictional)", "status": "APPROVED" },
+  { "id": "biz-beleza", "type": "MERCHANT", "tradingName": "Salão Beleza Africana (fictional)", "status": "APPROVED" },
+  { "id": "biz-forca", "type": "MERCHANT", "tradingName": "Ginásio Força Total (fictional)", "status": "APPROVED" },
+  { "id": "biz-cinema", "type": "MERCHANT", "tradingName": "Cinema Baía Lazer (fictional)", "status": "APPROVED" },
+  { "id": "biz-ilhasabor", "type": "MERCHANT", "tradingName": "Restaurante Ilha Sabor (fictional)", "status": "APPROVED" },
+  { "id": "biz-pending", "type": "MERCHANT", "tradingName": "Pastelaria Nova Aurora (fictional)", "status": "PENDING_APPROVAL" }
+]

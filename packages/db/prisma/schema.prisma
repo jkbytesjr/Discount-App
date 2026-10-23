@@ -1,0 +1,318 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  BUSINESS_OWNER
+  USER
+}
+enum UserStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+enum EmailTokenType {
+  VERIFY
+  RESET
+  EMAIL_CHANGE
+}
+enum BusinessType {
+  BANK
+  WALLET_PROVIDER
+  MERCHANT
+}
+enum BusinessStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+enum CardType {
+  DEBIT
+  CREDIT
+  PREPAID
+}
+enum DataOrigin {
+  REAL
+  SEED_VERIFIED
+  SEED_ILLUSTRATIVE
+  SYNTHETIC
+}
+
+model User {
+  id                String     @id @default(uuid(7)) @db.Uuid
+  email             String     @unique // stored lower-case (DEC-006)
+  passwordHash      String     @map("password_hash")
+  role              Role
+  status            UserStatus @default(PENDING_VERIFICATION)
+  firstName         String     @map("first_name")
+  lastName          String     @map("last_name")
+  phone             String?
+  avatarUrl         String?    @map("avatar_url")
+  locale            String     @default("pt-MZ")
+  emailVerifiedAt   DateTime?  @map("email_verified_at")
+  mfaSecretEnc      String?    @map("mfa_secret_enc") // AES-GCM encrypted
+  mfaEnabled        Boolean    @default(false) @map("mfa_enabled")
+  failedLoginCount  Int        @default(0) @map("failed_login_count")
+  lockCount         Int        @default(0) @map("lock_count")
+  lockedUntil       DateTime?  @map("locked_until")
+  dataOrigin        DataOrigin @default(REAL) @map("data_origin")
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt @map("updated_at")
+  deletedAt         DateTime?  @map("deleted_at")
+
+  emailTokens  EmailToken[]
+  sessions     Session[]
+  refreshTokens RefreshToken[]
+  devices      Device[]
+  loginEvents  LoginEvent[]
+  memberships  BusinessMember[]
+
+  @@map("users")
+}
+
+model EmailToken {
+  id        String         @id @default(uuid(7)) @db.Uuid
+  userId    String         @map("user_id") @db.Uuid
+  type      EmailTokenType
+  tokenHash String         @unique @map("token_hash")
+  newEmail  String?        @map("new_email")
+  expiresAt DateTime       @map("expires_at")
+  usedAt    DateTime?      @map("used_at")
+  createdAt DateTime       @default(now()) @map("created_at")
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+  @@map("email_tokens")
+}
+
+// Web portal server-side session (cookie holds the random id; only its hash is stored)
+model Session {
+  id         String   @id @default(uuid(7)) @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  tokenHash  String   @unique @map("token_hash")
+  csrfToken  String   @map("csrf_token")
+  mfaPassed  Boolean  @default(false) @map("mfa_passed")
+  ip         String?
+  userAgent  String?  @map("user_agent")
+  createdAt  DateTime @default(now()) @map("created_at")
+  lastSeenAt DateTime @default(now()) @map("last_seen_at")
+  expiresAt  DateTime @map("expires_at") // absolute 12h
+  revokedAt  DateTime? @map("revoked_at")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// iOS rotating refresh token with reuse detection (family)
+model RefreshToken {
+  id         String    @id @default(uuid(7)) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  deviceId   String?   @map("device_id") @db.Uuid
+  familyId   String    @map("family_id") @db.Uuid
+  tokenHash  String    @unique @map("token_hash")
+  expiresAt  DateTime  @map("expires_at")
+  usedAt     DateTime? @map("used_at")
+  revokedAt  DateTime? @map("revoked_at")
+  ip         String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device     Device?   @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+
+  @@index([familyId])
+  @@map("refresh_tokens")
+}
+
+model Device {
+  id                String    @id @default(uuid(7)) @db.Uuid
+  userId            String    @map("user_id") @db.Uuid
+  vendorId          String    @map("vendor_id")
+  model             String?
+  osVersion         String?   @map("os_version")
+  appVersion        String?   @map("app_version")
+  pushToken         String?   @map("push_token")
+  biometricsEnabled Boolean   @default(false) @map("biometrics_enabled")
+  lastSeenAt        DateTime  @default(now()) @map("last_seen_at")
+  revokedAt         DateTime? @map("revoked_at")
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokens     RefreshToken[]
+  loginEvents       LoginEvent[]
+
+  @@unique([userId, vendorId])
+  @@map("devices")
+}
+
+model LoginEvent {
+  id            String   @id @default(uuid(7)) @db.Uuid
+  userId        String?  @map("user_id") @db.Uuid
+  deviceId      String?  @map("device_id") @db.Uuid
+  success       Boolean
+  failureReason String?  @map("failure_reason")
+  ip            String?
+  userAgent     String?  @map("user_agent")
+  coarseLat     Float?   @map("coarse_lat") // rounded to ~100 m by the API
+  coarseLng     Float?   @map("coarse_lng")
+  occurredAt    DateTime @default(now()) @map("occurred_at")
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  device        Device?  @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+
+  @@index([userId, occurredAt])
+  @@map("login_events")
+}
+
+// Rate limits and lockout counters live in Postgres (POC, no Redis)
+model RateLimit {
+  key         String   @id
+  count       Int
+  windowStart DateTime @map("window_start")
+
+  @@map("rate_limits")
+}
+
+model AuditLog {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  occurredAt  DateTime @default(now()) @map("occurred_at")
+  actorUserId String?  @map("actor_user_id") @db.Uuid
+  actorEmail  String?  @map("actor_email")
+  actorRole   String?  @map("actor_role")
+  businessId  String?  @map("business_id") @db.Uuid
+  action      String
+  entityType  String?  @map("entity_type")
+  entityId    String?  @map("entity_id")
+  summary     String
+  changes     Json?
+  ip          String?
+  userAgent   String?  @map("user_agent")
+  deviceId    String?  @map("device_id")
+  requestId   String?  @map("request_id")
+  result      String   @default("success")
+
+  @@index([occurredAt])
+  @@index([action])
+  @@index([actorUserId])
+  @@map("audit_logs")
+}
+
+model SystemSetting {
+  key       String   @id
+  value     Json
+  updatedBy String?  @map("updated_by") @db.Uuid
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}
+
+model Issuer {
+  id         String     @id // stable seed ids, e.g. iss-absa
+  name       String
+  shortName  String     @map("short_name")
+  logoUrl    String?    @map("logo_url")
+  country    String     @default("MZ")
+  note       String?
+  active     Boolean    @default(true)
+  dataOrigin DataOrigin @default(REAL) @map("data_origin")
+  sourceUrl  String?    @map("source_url")
+  cardProducts CardProduct[]
+  businesses Business[]
+
+  @@map("issuers")
+}
+
+model CardNetwork {
+  id       String @id
+  name     String
+  logoUrl  String? @map("logo_url")
+  cardProducts CardProduct[]
+
+  @@map("card_networks")
+}
+
+model CardProduct {
+  id         String     @id
+  issuerId   String     @map("issuer_id")
+  networkId  String     @map("network_id")
+  cardType   CardType   @map("card_type")
+  segment    String
+  name       String
+  imageUrl   String?    @map("image_url")
+  note       String?
+  active     Boolean    @default(true)
+  dataOrigin DataOrigin @default(REAL) @map("data_origin")
+  sourceUrl  String?    @map("source_url")
+  issuer     Issuer      @relation(fields: [issuerId], references: [id])
+  network    CardNetwork @relation(fields: [networkId], references: [id])
+
+  @@map("card_products")
+}
+
+model WalletProvider {
+  id         String     @id
+  name       String
+  operator   String
+  logoUrl    String?    @map("logo_url")
+  active     Boolean    @default(true)
+  dataOrigin DataOrigin @default(REAL) @map("data_origin")
+  businesses Business[]
+
+  @@map("wallet_providers")
+}
+
+model PremiseCategory {
+  id        String @id
+  namePt    String @map("name_pt")
+  nameEn    String @map("name_en")
+  icon      String
+  sortOrder Int    @map("sort_order")
+
+  @@map("premise_categories")
+}
+
+model Business {
+  id               String         @id // seed ids like biz-absa; new rows get uuid in code
+  type             BusinessType
+  legalName        String?        @map("legal_name")
+  tradingName      String         @map("trading_name")
+  nuit             String?
+  logoUrl          String?        @map("logo_url")
+  brandColor       String?        @map("brand_color")
+  description      String?
+  website          String?
+  contactEmail     String?        @map("contact_email")
+  contactPhone     String?        @map("contact_phone")
+  address          String?
+  issuerId         String?        @map("issuer_id")
+  walletProviderId String?        @map("wallet_provider_id")
+  status           BusinessStatus @default(DRAFT)
+  rejectionReason  String?        @map("rejection_reason")
+  approvedBy       String?        @map("approved_by") @db.Uuid
+  approvedAt       DateTime?      @map("approved_at")
+  dataOrigin       DataOrigin     @default(REAL) @map("data_origin")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  issuer           Issuer?        @relation(fields: [issuerId], references: [id])
+  walletProvider   WalletProvider? @relation(fields: [walletProviderId], references: [id])
+  members          BusinessMember[]
+
+  @@map("businesses")
+}
+
+// POC: one owner per business, no staff role (assumption 5)
+model BusinessMember {
+  businessId String   @map("business_id")
+  userId     String   @unique @map("user_id") @db.Uuid // one business per account
+  invitedAt  DateTime @default(now()) @map("invited_at")
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([businessId, userId])
+  @@map("business_members")
+}

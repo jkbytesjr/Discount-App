@@ -1,0 +1,24 @@
+{
+  "name": "moz-discounts",
+  "private": true,
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "lint": "eslint .",
+    "dev": "pnpm --filter @moz/web dev",
+    "seed:demo": "pnpm --filter @moz/seed seed:demo",
+    "build": "pnpm --filter @moz/web build"
+  },
+  "dependencies": {
+    "@neon/config": "^1.9.3",
+    "@neon/env": "^1.6.4"
+  },
+  "devDependencies": {
+    "eslint": "^10.13.0",
+    "typescript-eslint": "^8.72.0"
+  }
+}

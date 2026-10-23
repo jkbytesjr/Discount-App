@@ -1,0 +1,9 @@
+# Local dev services (requires Docker; not installed on Jai's Mac yet, see DEC-005)
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment: { POSTGRES_USER: moz, POSTGRES_PASSWORD: moz, POSTGRES_DB: moz }
+    ports: ["5432:5432"]
+  mailpit:
+    image: axllent/mailpit
+    ports: ["8025:8025", "1025:1025"]

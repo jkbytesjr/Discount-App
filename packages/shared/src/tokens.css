@@ -1,0 +1,16 @@
+/* UX-2 design tokens. Gold is for large text/accents only (contrast on ivory). */
+:root {
+  --ink: #0e1525; --canvas: #f8f6f1; --surface: #ffffff;
+  --gold: #b8955a; --emerald: #1f6f5c; --slate: #5b6475;
+  --line: #e6e1d6; --danger: #b3413b;
+  --radius: 14px; --space: 8px;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-ui: Inter, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f5f2ec; --canvas: #0b111d; --surface: #141c2b;
+    --gold: #d4b47a; --emerald: #3fa58a; --slate: #9aa3b2;
+    --line: #253047; --danger: #e06a63;
+  }
+}

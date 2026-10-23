@@ -1,0 +1,24 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: test
+      # Integration tests need a Neon TEST branch (never the main dev data). Add these repository secrets.
+      DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+      DIRECT_URL: ${{ secrets.TEST_DIRECT_URL }}
+      JWT_SECRET: ${{ secrets.TEST_JWT_SECRET }}
+      MFA_ENC_KEY: ${{ secrets.TEST_MFA_ENC_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @moz/db generate
+      - run: pnpm --filter @moz/db migrate
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build

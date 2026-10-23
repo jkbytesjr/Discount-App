@@ -1,0 +1,22 @@
+{
+  "name": "@moz/seed",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed:demo": "tsx src/seed-demo.ts",
+    "typecheck": "tsc -p .",
+    "test": "echo 'seed checked via seed:demo run'",
+    "lint": "echo 'linted from repo root'"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "dotenv": "^18.0.8",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@moz/core": "workspace:*",
+    "@moz/db": "workspace:*"
+  }
+}

@@ -1,0 +1,18 @@
+[
+  { "email": "admin@mozdiscounts.test", "first": "Admin", "last": "Moz", "role": "ADMIN" },
+  { "email": "absa.owner@mozdiscounts.test", "first": "Absa", "last": "Owner", "role": "BUSINESS_OWNER", "business": "biz-absa" },
+  { "email": "bci.owner@mozdiscounts.test", "first": "BCI", "last": "Owner", "role": "BUSINESS_OWNER", "business": "biz-bci" },
+  { "email": "mpesa.owner@mozdiscounts.test", "first": "MPesa", "last": "Owner", "role": "BUSINESS_OWNER", "business": "biz-mpesa" },
+  { "email": "marisco.owner@mozdiscounts.test", "first": "Marisco", "last": "Owner", "role": "BUSINESS_OWNER", "business": "biz-marisco" },
+  { "email": "cafe.owner@mozdiscounts.test", "first": "Café", "last": "Owner", "role": "BUSINESS_OWNER", "business": "biz-cafejardim" },
+  { "email": "pending.owner@mozdiscounts.test", "first": "Pending", "last": "Owner", "role": "BUSINESS_OWNER", "business": "biz-pending" },
+  { "email": "ana@mozdiscounts.test", "first": "Ana", "last": "Machava", "role": "USER" },
+  { "email": "bruno@mozdiscounts.test", "first": "Bruno", "last": "Sitoe", "role": "USER" },
+  { "email": "carla@mozdiscounts.test", "first": "Carla", "last": "Nhantumbo", "role": "USER" },
+  { "email": "dercio@mozdiscounts.test", "first": "Dércio", "last": "Mondlane", "role": "USER" },
+  { "email": "elisa@mozdiscounts.test", "first": "Elisa", "last": "Cossa", "role": "USER" },
+  { "email": "fabio@mozdiscounts.test", "first": "Fábio", "last": "Tembe", "role": "USER" },
+  { "email": "gina@mozdiscounts.test", "first": "Gina", "last": "Macuácua", "role": "USER" },
+  { "email": "hugo@mozdiscounts.test", "first": "Hugo", "last": "Matsinhe", "role": "USER" },
+  { "email": "ines@mozdiscounts.test", "first": "Inês", "last": "Chissano", "role": "USER", "unverified": true }
+]
