@@ -82,7 +82,9 @@ export function Shell({ children }: { children: ReactNode }) {
           ) : null}
           <span className="grow" />
           <button type="button" className="btn ghost sm" onClick={() => { setLocaleCookie(other); router.refresh(); }} lang={other}><Icon name="globe" size={18} />{other === "en" ? "English" : "Português"}</button>
-          <div className="menu" ref={popRef}>
+          {/* One ref around both pop-ups: a click inside either counts as "inside" (otherwise the menu closed on mousedown and Log out never fired). */}
+          <div className="row" style={{ gap: 0, flexWrap: "nowrap" }} ref={popRef}>
+          <div className="menu">
             <button type="button" className="btn ghost icon-btn" aria-label={t("nav.notifications")} aria-expanded={menu === "bell"} onClick={() => setMenu(menu === "bell" ? null : "bell")}><Icon name="bell" /></button>
             {menu === "bell" ? <div className="menu-pop" role="region" aria-label={t("nav.notifications")}><p className="muted" style={{ margin: 8 }}>{t("nav.noNotifications")}</p></div> : null}
           </div>
@@ -95,6 +97,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 <button type="button" className="btn ghost sm" onClick={logout}><Icon name="logout" size={18} />{t("auth.logout")}</button>
               </div>
             ) : null}
+          </div>
           </div>
         </header>
         <main id="main" className="content">{children}</main>

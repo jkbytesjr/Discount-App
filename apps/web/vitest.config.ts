@@ -4,6 +4,7 @@ import { defineConfig } from "vitest/config";
 
 config({ path: path.resolve(import.meta.dirname, "../../.env") });
 process.env.APP_ENV = "test";
+process.env.SKIP_EMAIL_VERIFICATION = ""; // tests exercise the real email flow, whatever .env says
 
 // Tests must never touch dev data: prefer the Neon TEST branch when configured.
 if (process.env.TEST_DATABASE_URL) {

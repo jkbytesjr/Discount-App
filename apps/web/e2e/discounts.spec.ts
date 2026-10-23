@@ -127,4 +127,14 @@ test.describe.serial("premises and discounts", () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `${path} fits 375px`).toBe(true);
     }
   });
+
+  test("the avatar menu logs out and the session is really gone", async ({ page }) => {
+    await login(page, owner);
+    await expect(page).toHaveURL(/dashboard/);
+    await page.getByRole("button", { name: /E2E Owner/ }).click();
+    await page.getByRole("button", { name: /terminar sessão|sign out/i }).click();
+    await expect(page).toHaveURL(/login/);
+    await page.goto("/dashboard");
+    await expect(page).toHaveURL(/login/);
+  });
 });

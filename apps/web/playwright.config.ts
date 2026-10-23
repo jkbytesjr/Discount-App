@@ -24,6 +24,6 @@ export default defineConfig({
     url: "http://localhost:3100/login",
     reuseExistingServer: false,
     timeout: 60_000,
-    env: { ...process.env as Record<string, string>, APP_ENV: "test", APP_URL: "http://localhost:3100", MAIL_OUTBOX_DIR: OUTBOX },
+    env: { ...process.env as Record<string, string>, APP_ENV: "test", SKIP_EMAIL_VERIFICATION: "", APP_URL: "http://localhost:3100", MAIL_OUTBOX_DIR: OUTBOX },
   },
 });
