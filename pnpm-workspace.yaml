@@ -4,6 +4,7 @@ packages:
 allowBuilds:
   '@prisma/engines': false
   argon2: false
+  esbuild: false
   prisma: false
 minimumReleaseAgeExclude:
   - '@next/env@16.4.3'

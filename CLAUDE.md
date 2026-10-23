@@ -12,7 +12,7 @@ Source of truth: `docs/SPEC.md` (POC-Profile overrides production sections). Req
 apps/web (Next.js portal + public map + /api/v1) · apps/ios (SwiftUI, Phase 6+) · packages/core (framework-free rules, Clock) · packages/shared (tokens, constants) · packages/seed · docs/
 
 ## Rules
-- Do not keep the repo in iCloud-synced folders (DEC-016).
+- The repo lives at ~/Developer/moz-discounts. Never keep it in iCloud-synced folders such as ~/Documents (DEC-016).
 - UI: tokens only, strings via `useT()` (PT+EN), run axe via e2e; follow docs/decisions-log.md DEC-017..021.
 - Business logic in packages/core; time only via `Clock`, never `Date.now()`.
 - Never store PAN/CVV/expiry/last4. Seed data carries `data_origin`; no fake data as real.
