@@ -4,6 +4,9 @@ import UIKit
 import CoreLocation
 import UserNotifications
 import MozCore
+import os
+
+private let logger = Logger(subsystem: "mz.mozdiscounts.app", category: "alerts")
 
 @MainActor
 final class AppModel: ObservableObject {
@@ -36,6 +39,8 @@ final class AppModel: ObservableObject {
     private var lastPlanCenter: Coordinate?
     private let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     private var pushToken: String?
+    private var inside: Set<String> = []          // premises whose circle we are currently in (foreground check)
+    private var lastEntry: [String: Date] = [:]   // de-duplicates region events and foreground checks
 
     init() {
         let saved = UserDefaults.standard.string(forKey: "lang").flatMap(Lang.init(rawValue:))
@@ -76,7 +81,7 @@ final class AppModel: ObservableObject {
         notifications.onOpened = { [weak self] premise, ids in Task { @MainActor in self?.record(.OPENED, premise, ids); self?.openOfferId = ids.first } }
         notifications.onDismissed = { [weak self] premise, ids in Task { @MainActor in self?.record(.DISMISSED, premise, ids) } }
         location.onEnterRegion = { [weak self] id, loc in Task { @MainActor in await self?.handleEntry(premiseId: id, at: loc) } }
-        location.onSignificantMove = { [weak self] loc in Task { @MainActor in await self?.refreshRegions(near: loc) } }
+        location.onSignificantMove = { [weak self] loc in Task { @MainActor in await self?.refreshRegions(near: loc); await self?.checkInside(loc) } }
     }
 
     func bootstrap() async {
@@ -97,7 +102,7 @@ final class AppModel: ObservableObject {
     func finishOnboarding() { UserDefaults.standard.set(true, forKey: "onboardingSeen"); phase = .signedOut }
 
     func loadBundle() async {
-        do { let b = try await api.bundle(); cards = b.cards; wallets = b.wallets; prefs = b.prefs; favouriteIds = Set(b.favouriteIds) } catch { flash(error) }
+        do { let b = try await api.bundle(); cards = b.cards; wallets = b.wallets; prefs = b.prefs; favouriteIds = Set(b.favouriteIds); logger.info("bundle: \(b.cards.count, privacy: .public) cards, \(b.wallets.count, privacy: .public) wallets") } catch { logger.error("bundle failed: \(String(describing: error), privacy: .public)"); flash(error) }
     }
     func afterSignIn() async {
         needsCardOnboarding = cards.isEmpty && wallets.isEmpty && !UserDefaults.standard.bool(forKey: "cardsOnboardingDone")
@@ -141,11 +146,26 @@ final class AppModel: ObservableObject {
         do {
             let s = try await api.sync(at: c)
             sync = s; settings = s.settings; lastPlanCenter = c
-            location.monitor(RegionPlanner.plan(premises: s.premises, around: c))
+            let plan = RegionPlanner.plan(premises: s.premises, around: c)
+            location.monitor(plan)
+            logger.info("monitoring \(plan.count, privacy: .public) regions, \(s.offers.count, privacy: .public) offers")
         } catch { /* keep the previous regions: offline is fine */ }
     }
 
+    /// Foreground fallback: CoreLocation region events can be late or missing (and never fire in the simulator for a jump), so each position update also checks the monitored circles.
+    func checkInside(_ l: CLLocation) async {
+        guard let s = sync else { return }
+        let here = Coordinate(lat: l.coordinate.latitude, lng: l.coordinate.longitude)
+        var now: Set<String> = []
+        for p in RegionPlanner.plan(premises: s.premises, around: here) where distanceM(here, Coordinate(lat: p.lat, lng: p.lng)) <= Double(p.radiusM) { now.insert(p.id) }
+        let entered = now.subtracting(inside); inside = now
+        for id in entered { await handleEntry(premiseId: id, at: l) }
+    }
+
     func handleEntry(premiseId: String, at loc: CLLocation?) async {
+        if let last = lastEntry[premiseId], Date().timeIntervalSince(last) < 60 { return }
+        lastEntry[premiseId] = Date()
+        logger.info("entered region \(premiseId, privacy: .public)")
         guard let s = sync, let premise = s.premises.first(where: { $0.id == premiseId }) else { return }
         let now = Date()
         let here = loc.map { Coordinate(lat: $0.coordinate.latitude, lng: $0.coordinate.longitude) }
@@ -153,9 +173,11 @@ final class AppModel: ObservableObject {
         record(.TRIGGERED, premiseId, premise.discountIds, distance: dist, at: here)
         switch AlertEngine.decide(premise: premise, offers: s.offers, user: userContext, state: alertState, settings: s.settings, catalogue: catalogue, now: now) {
         case .suppressed(let reason, let ids):
+            logger.info("suppressed \(reason.rawValue, privacy: .public)")
             record(.SUPPRESSED, premiseId, ids, reason: reason, distance: dist, at: here)
             log.add(AlertLogEntry(date: now, title: premise.name, body: reason.rawValue, premiseId: premiseId, discountIds: ids, suppressedReason: reason.rawValue)); alertLog = log.entries
         case .alert(let content):
+            logger.info("alert \(content.title, privacy: .public)")
             alertState.recordAlert(premiseId: premiseId, at: now); persistState()
             await notifications.show(content)
             record(.DELIVERED, premiseId, content.discountIds, distance: dist, at: here)
@@ -169,6 +191,9 @@ final class AppModel: ObservableObject {
         queue.enqueue(AlertEvent(type: type, reason: reason, premiseId: premiseId, discountIds: ids, occurredAt: Date(), distanceM: distance, location: c, appVersion: deviceInfo.appVersion, osVersion: deviceInfo.osVersion))
         Task { await flushQueue() }
     }
-    func flushQueue() async { await queue.flush { [api] batch in try await api.postEvents(batch) } }
+    func flushQueue() async {
+        let n = await queue.flush { [api] batch in try await api.postEvents(batch) }
+        if n > 0 { logger.info("sent \(n, privacy: .public) events") } else if queue.count > 0 { logger.error("\(self.queue.count, privacy: .public) events still queued") }
+    }
     func viewed(premiseId: String, discountIds: [String]) { record(.DETAIL_VIEWED, premiseId, discountIds) }
 }
