@@ -77,22 +77,25 @@ export async function register(d: AuthDeps, raw: unknown, meta: Meta) {
   }
   const passwordHash = await hashPassword(input.password); // always hash: same timing for existing emails
   const existing = await d.db.user.findUnique({ where: { email: input.email } });
+  // Never honoured outside local/test, whatever the caller configured.
+  const skip = d.config.skipEmailVerification === true && (d.config.appEnv === "local" || d.config.appEnv === "test");
   if (!existing) {
     const user = await d.db.user.create({
       data: {
         email: input.email, passwordHash, firstName: input.firstName, lastName: input.lastName,
         role: input.accountType === "business" ? "BUSINESS_OWNER" : "USER", locale: input.locale,
         createdAt: d.clock.now(),
+        ...(skip ? { status: "ACTIVE" as const, emailVerifiedAt: d.clock.now() } : {}),
       },
     });
-    await sendVerification(d, user);
+    if (!skip) await sendVerification(d, user);
     await writeAudit(d.db, d.clock, {
       action: "auth.register", summary: `Registered ${input.accountType} account`,
       actor: actorOf(user), entityType: "user", entityId: user.id, meta,
     });
   }
-  // Same response either way, so emails cannot be enumerated.
-  return { ok: true };
+  // Same response either way, so emails cannot be enumerated. (`autoVerified` only exists when the local/test skip flag is on.)
+  return skip && !existing ? { ok: true, autoVerified: true } : { ok: true };
 }
 
 // ---------- Verify email / confirm email change ----------

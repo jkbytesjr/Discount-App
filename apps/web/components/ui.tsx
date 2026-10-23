@@ -20,6 +20,7 @@ const PATHS: Record<string, string> = {
   shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4",
   chevron: "M9 6l6 6-6 6",
   plus: "M12 5v14M5 12h14",
+  pin: "M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
   globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18",
 };
 export function Icon({ name, size = 20 }: { name: keyof typeof PATHS | string; size?: number }) {

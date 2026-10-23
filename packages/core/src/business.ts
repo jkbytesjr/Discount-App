@@ -8,6 +8,7 @@ import { buildMail } from "./emails";
 import { page, pageSchema } from "./pagination";
 import type { AuthContext } from "./auth/sessions";
 import type { AuthDeps, Meta } from "./auth/deps";
+import { pauseBusinessDiscounts } from "./discount";
 
 const text = (n: number) => z.string().trim().min(1).max(n);
 const phone = z.string().regex(/^\+258\d{9}$/, "Use +258 followed by 9 digits");
@@ -151,7 +152,7 @@ async function decide(
       ...(opts.to === "APPROVED" ? { approvedBy: ctx.user.id, approvedAt: now } : {}),
     },
   });
-  // BR-R11: suspending pauses every published discount. Discounts arrive in Phase 3, which hooks in here.
+  if (opts.to === "SUSPENDED") await pauseBusinessDiscounts(d, id, actorOf(ctx), meta); // BR-R11
   await writeAudit(d.db, d.clock, { action: `business.${opts.action}`, summary: `Business ${opts.action}`, actor: actorOf(ctx), entityType: "business", entityId: id, changes: { before: { status: biz.status }, after: { status: after.status, reason: opts.reason } }, meta });
   const owner = await ownerOf(d, id);
   if (owner && opts.mail) await d.mailer.send(buildMail(opts.mail, owner.user.locale as Locale, owner.user.email, opts.mail === "businessApproved" ? d.config.appUrl : undefined, opts.reason));

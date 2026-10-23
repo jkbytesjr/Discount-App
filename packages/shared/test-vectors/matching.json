@@ -1,0 +1,1227 @@
+[
+ {
+  "id": "S01",
+  "name": "Ana at the Polana spa: Absa Wealth 15%",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-absa-wealth",
+     "issuerId": "iss-absa",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-01",
+    "status": "PUBLISHED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 15,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-01#0"
+  ]
+ },
+ {
+  "id": "S02",
+  "name": "Ana at Marisco: Absa Wealth 12%, then any bank card 3%",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-absa-wealth",
+     "issuerId": "iss-absa",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   },
+   {
+    "discountId": "d-03",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "WALLET",
+      "benefit": "PERCENT",
+      "walletId": "wl-mpesa",
+      "value": 5
+     },
+     {
+      "scope": "ANY_BANK_CARD",
+      "benefit": "PERCENT",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "discountId": "d-18",
+    "status": "DRAFT",
+    "validFrom": "2026-11-01",
+    "validTo": "2027-02-14",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-sbm-prestige",
+      "value": 20,
+      "issuerId": "iss-sbm"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-02#1",
+   "d-03#1"
+  ]
+ },
+ {
+  "id": "S03",
+  "name": "Bruno at Marisco: BCI Gold 10, M-Pesa 5, any card 3",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-bci-gold",
+     "issuerId": "iss-bci",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": [
+    "wl-mpesa"
+   ]
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   },
+   {
+    "discountId": "d-03",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "WALLET",
+      "benefit": "PERCENT",
+      "walletId": "wl-mpesa",
+      "value": 5
+     },
+     {
+      "scope": "ANY_BANK_CARD",
+      "benefit": "PERCENT",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "discountId": "d-18",
+    "status": "DRAFT",
+    "validFrom": "2026-11-01",
+    "validTo": "2027-02-14",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-sbm-prestige",
+      "value": 20,
+      "issuerId": "iss-sbm"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-02#0",
+   "d-03#0",
+   "d-03#1"
+  ]
+ },
+ {
+  "id": "S04",
+  "name": "Bruno on Saturday: weekday offer inactive, M-Pesa 5 first",
+  "now": "2026-11-07T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-bci-gold",
+     "issuerId": "iss-bci",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": [
+    "wl-mpesa"
+   ]
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   },
+   {
+    "discountId": "d-03",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "WALLET",
+      "benefit": "PERCENT",
+      "walletId": "wl-mpesa",
+      "value": 5
+     },
+     {
+      "scope": "ANY_BANK_CARD",
+      "benefit": "PERCENT",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "discountId": "d-18",
+    "status": "DRAFT",
+    "validFrom": "2026-11-01",
+    "validTo": "2027-02-14",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-sbm-prestige",
+      "value": 20,
+      "issuerId": "iss-sbm"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-03#0",
+   "d-03#1"
+  ]
+ },
+ {
+  "id": "S05",
+  "name": "Carla skipped cards: everything active, best first",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   },
+   {
+    "discountId": "d-03",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "WALLET",
+      "benefit": "PERCENT",
+      "walletId": "wl-mpesa",
+      "value": 5
+     },
+     {
+      "scope": "ANY_BANK_CARD",
+      "benefit": "PERCENT",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "discountId": "d-18",
+    "status": "DRAFT",
+    "validFrom": "2026-11-01",
+    "validTo": "2027-02-14",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-sbm-prestige",
+      "value": 20,
+      "issuerId": "iss-sbm"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-02#1",
+   "d-02#0",
+   "d-03#0",
+   "d-03#1"
+  ]
+ },
+ {
+  "id": "S06",
+  "name": "Dércio (e-Mola) at Polana, personalised only: no match",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": [
+    "wl-emola"
+   ]
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-01",
+    "status": "PUBLISHED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 15,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "S06b",
+  "name": "Dércio with Absa ticked for general alerts sees the Polana offer",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": [
+    "wl-emola"
+   ]
+  },
+  "mode": "PERSONALISED_PLUS_GENERAL",
+  "favourites": [],
+  "generalIssuers": [
+   "iss-absa"
+  ],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-01",
+    "status": "PUBLISHED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 15,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-01#0"
+  ]
+ },
+ {
+  "id": "S10",
+  "name": "Expired offer never ranks",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-eco-prepaid",
+     "issuerId": "iss-eco",
+     "cardType": "PREPAID",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-16",
+    "status": "EXPIRED",
+    "validFrom": "2026-06-01",
+    "validTo": "2026-09-30",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "ISSUER_ANY",
+      "benefit": "PERCENT",
+      "issuerId": "iss-eco",
+      "value": 10
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "S11a",
+  "name": "Future offer hidden at 23:59 Maputo the day before valid_from",
+  "now": "2026-12-14T21:59:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-17",
+    "status": "PUBLISHED",
+    "validFrom": "2026-12-15",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "FIXED",
+      "valueMzn": 500
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "S11b",
+  "name": "Future offer shown at 00:00 Maputo on valid_from",
+  "now": "2026-12-14T22:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-17",
+    "status": "PUBLISHED",
+    "validFrom": "2026-12-15",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "FIXED",
+      "valueMzn": 500
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-17#0"
+  ]
+ },
+ {
+  "id": "E01",
+  "name": "Schedule window start is inclusive (12:00)",
+  "now": "2026-11-04T10:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-bci-gold",
+     "issuerId": "iss-bci",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": [
+    "wl-mpesa"
+   ]
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-02#0"
+  ]
+ },
+ {
+  "id": "E02",
+  "name": "Schedule window end is exclusive (15:00)",
+  "now": "2026-11-04T13:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-bci-gold",
+     "issuerId": "iss-bci",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": [
+    "wl-mpesa"
+   ]
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "E03a",
+  "name": "valid_to is inclusive through 23:59 Maputo",
+  "now": "2026-09-30T21:59:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-end",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2026-09-30",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "FIXED",
+      "valueMzn": 100
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-end#0"
+  ]
+ },
+ {
+  "id": "E03b",
+  "name": "valid_to ends at 00:00 Maputo the next day",
+  "now": "2026-09-30T22:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-end",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2026-09-30",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "FIXED",
+      "valueMzn": 100
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "E04",
+  "name": "Business not approved: hidden",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-absa-wealth",
+     "issuerId": "iss-absa",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-01",
+    "status": "PUBLISHED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": false,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 15,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "E05",
+  "name": "Paused offer hidden",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-absa-wealth",
+     "issuerId": "iss-absa",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-01",
+    "status": "PAUSED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 15,
+      "issuerId": "iss-absa"
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "E06",
+  "name": "ISSUER_ANY honours card_type: BCI debit does not match a credit-only row",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-bci-bio",
+     "issuerId": "iss-bci",
+     "cardType": "DEBIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-06",
+    "status": "PUBLISHED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-11-30",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "ISSUER_ANY",
+      "benefit": "CASHBACK",
+      "issuerId": "iss-bci",
+      "cardType": "CREDIT",
+      "value": 3
+     }
+    ]
+   }
+  ],
+  "expected": []
+ },
+ {
+  "id": "E06b",
+  "name": "ISSUER_ANY with matching card type matches",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-bci-gold",
+     "issuerId": "iss-bci",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-06",
+    "status": "PUBLISHED",
+    "validFrom": "2026-10-01",
+    "validTo": "2026-11-30",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "ISSUER_ANY",
+      "benefit": "CASHBACK",
+      "issuerId": "iss-bci",
+      "cardType": "CREDIT",
+      "value": 3
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-06#0"
+  ]
+ },
+ {
+  "id": "E07",
+  "name": "Favourites are kept and ranked first even without a match",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [
+    {
+     "productId": "cp-absa-wealth",
+     "issuerId": "iss-absa",
+     "cardType": "CREDIT",
+     "networkId": "net-visa"
+    }
+   ],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [
+   "d-03"
+  ],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-02",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": "2027-03-31",
+    "scheduleDays": [
+     "MON",
+     "TUE",
+     "WED",
+     "THU",
+     "FRI"
+    ],
+    "scheduleFrom": "12:00",
+    "scheduleTo": "15:00",
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-bci-gold",
+      "value": 10,
+      "issuerId": "iss-bci"
+     },
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-absa-wealth",
+      "value": 12,
+      "issuerId": "iss-absa"
+     }
+    ]
+   },
+   {
+    "discountId": "d-03",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "WALLET",
+      "benefit": "PERCENT",
+      "walletId": "wl-mpesa",
+      "value": 5
+     },
+     {
+      "scope": "ANY_BANK_CARD",
+      "benefit": "PERCENT",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "discountId": "d-18",
+    "status": "DRAFT",
+    "validFrom": "2026-11-01",
+    "validTo": "2027-02-14",
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "CARD_PRODUCT",
+      "benefit": "PERCENT",
+      "cardProductId": "cp-sbm-prestige",
+      "value": 20,
+      "issuerId": "iss-sbm"
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-03#0",
+   "d-03#1",
+   "d-02#1"
+  ]
+ },
+ {
+  "id": "E08",
+  "name": "Equal value: newest published first",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-a",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-10-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "PERCENT",
+      "value": 10
+     }
+    ]
+   },
+   {
+    "discountId": "d-b",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-10-05T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "PERCENT",
+      "value": 10
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-b#0",
+   "d-a#0"
+  ]
+ },
+ {
+  "id": "E09",
+  "name": "Percent/cashback by value, then fixed, then other types",
+  "now": "2026-11-04T11:00:00Z",
+  "holdings": {
+   "cards": [],
+   "wallets": []
+  },
+  "mode": "PERSONALISED",
+  "favourites": [],
+  "generalIssuers": [],
+  "generalWallets": [],
+  "offers": [
+   {
+    "discountId": "d-m",
+    "status": "PUBLISHED",
+    "validFrom": "2026-09-01",
+    "validTo": null,
+    "scheduleDays": [],
+    "scheduleFrom": null,
+    "scheduleTo": null,
+    "businessApproved": true,
+    "publishedAt": "2026-09-01T00:00:00Z",
+    "rows": [
+     {
+      "scope": "GENERAL",
+      "benefit": "BOGO"
+     },
+     {
+      "scope": "GENERAL",
+      "benefit": "FIXED",
+      "valueMzn": 500
+     },
+     {
+      "scope": "GENERAL",
+      "benefit": "CASHBACK",
+      "value": 2
+     },
+     {
+      "scope": "GENERAL",
+      "benefit": "PERCENT",
+      "value": 8
+     }
+    ]
+   }
+  ],
+  "expected": [
+   "d-m#3",
+   "d-m#2",
+   "d-m#1",
+   "d-m#0"
+  ]
+ }
+]

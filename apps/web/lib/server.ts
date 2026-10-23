@@ -48,6 +48,7 @@ export function getDeps(req: Request): AuthDeps {
     config: {
       appEnv, appUrl: process.env.APP_URL ?? "http://localhost:3000",
       jwtSecret: need("JWT_SECRET"), mfaKey: need("MFA_ENC_KEY"),
+      skipEmailVerification: process.env.SKIP_EMAIL_VERIFICATION === "1" && (appEnv === "local" || appEnv === "test"),
     },
   };
 }

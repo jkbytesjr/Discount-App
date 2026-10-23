@@ -55,6 +55,39 @@ for (const b of load<any[]>("businesses.json")) {
   await db.business.upsert({ where: { id: b.id }, create: { id: b.id, ...data }, update: data });
 }
 
+for (const p of load<any[]>("premises.json")) {
+  const data = {
+    businessId: p.businessId, categoryId: p.categoryId, name: p.name, address: p.address, city: p.city,
+    lat: p.lat, lng: p.lng, approx: p.approx, dataOrigin: "SEED_ILLUSTRATIVE" as Origin,
+  };
+  await db.premise.upsert({ where: { id: p.id }, create: { id: p.id, ...data }, update: data });
+}
+
+const productIssuer = new Map<string, string>(cat.cardProducts.map((c: any) => [c.id, c.issuer]));
+const day = (s: string | null) => (s ? new Date(`${s}T00:00:00.000Z`) : null);
+for (const d of load<any[]>("discounts.json")) {
+  const data = {
+    businessId: d.business, titlePt: d.title.pt, titleEn: d.title.en, status: d.status,
+    dataOrigin: (d.dataOrigin ?? "SEED_ILLUSTRATIVE") as Origin, sourceRef: d.source ?? null, isOnline: d.isOnline,
+    validFrom: day(d.validFrom), validTo: day(d.validTo),
+    scheduleDays: d.schedule?.days ?? [], scheduleFrom: d.schedule?.from ?? null, scheduleTo: d.schedule?.to ?? null,
+    publishedAt: d.status === "PUBLISHED" || d.status === "EXPIRED" ? (day(d.validFrom) ?? new Date()) : null,
+  };
+  await db.discount.upsert({ where: { id: d.id }, create: { id: d.id, ...data }, update: data });
+  await db.discountPremise.deleteMany({ where: { discountId: d.id } });
+  await db.discountEligibility.deleteMany({ where: { discountId: d.id } });
+  await db.discountPremise.createMany({ data: d.premises.map((premiseId: string) => ({ discountId: d.id, premiseId })) });
+  await db.discountEligibility.createMany({
+    data: d.eligibility.map((e: any, position: number) => ({
+      discountId: d.id, position, scope: e.scope, benefit: e.benefit,
+      cardProductId: e.cardProduct ?? null, issuerId: e.issuer ?? productIssuer.get(e.cardProduct) ?? null, // CARD_PRODUCT rows carry the product's issuer
+      walletId: e.wallet ?? null, cardType: e.cardType ?? null,
+      value: e.value ?? null, valueMzn: e.valueMzn ?? null, valueTextPt: e.valueText?.pt ?? null, valueTextEn: e.valueText?.en ?? null,
+      minSpendMzn: e.minSpendMzn ?? null, maxDiscountMzn: e.maxDiscountMzn ?? null, commentPt: e.comment?.pt ?? null, commentEn: e.comment?.en ?? null,
+    })),
+  });
+}
+
 for (const a of load<any[]>("accounts.json")) {
   const now = new Date();
   const data = {
@@ -71,5 +104,5 @@ for (const a of load<any[]>("accounts.json")) {
 }
 
 await writeAudit(db, systemClock, { action: "seed.demo", summary: "seed:demo executed", actor: { role: "SYSTEM" } });
-console.log(`seed:demo done: ${await db.issuer.count()} issuers, ${await db.cardProduct.count()} card products, ${await db.business.count()} businesses, ${await db.user.count({ where: { dataOrigin: "SEED_ILLUSTRATIVE" } })} demo users`);
+console.log(`seed:demo done: ${await db.issuer.count()} issuers, ${await db.cardProduct.count()} card products, ${await db.business.count()} businesses, ${await db.premise.count()} premises, ${await db.discount.count()} discounts, ${await db.user.count({ where: { dataOrigin: "SEED_ILLUSTRATIVE" } })} demo users`);
 await db.$disconnect();

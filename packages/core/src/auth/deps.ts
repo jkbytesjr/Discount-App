@@ -9,6 +9,8 @@ export interface AuthConfig {
   appUrl: string; // used in email links
   jwtSecret: string;
   mfaKey: string; // base64, 32 bytes
+  /** Local/test only: new accounts are verified on registration and no email is sent (POC convenience). */
+  skipEmailVerification?: boolean;
 }
 
 export interface AuthDeps {

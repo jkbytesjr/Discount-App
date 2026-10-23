@@ -18,3 +18,7 @@ export * from "./pagination";
 export * from "./catalogue";
 export * from "./business";
 export * from "./admin-users";
+export * from "./geo";
+export * from "./offers";
+export * from "./premise";
+export * from "./discount";

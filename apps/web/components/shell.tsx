@@ -17,6 +17,7 @@ const NAV: Record<string, Item[]> = {
   ],
   BUSINESS_OWNER: [
     { href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/business", label: "nav.myBusiness", icon: "building" },
+    { href: "/business/premises", label: "nav.premises", icon: "pin" }, { href: "/business/discounts", label: "nav.discounts", icon: "tag" },
     { href: "/account", label: "nav.account", icon: "user" },
   ],
   USER: [{ href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/account", label: "nav.account", icon: "user" }],
@@ -43,6 +44,8 @@ export function Shell({ children }: { children: ReactNode }) {
   const [q, setQ] = useState("");
   const popRef = useRef<HTMLDivElement>(null);
   const items = me.mfaPending ? NAV.USER!.filter((i) => i.href === "/account") : NAV[me.role] ?? [];
+  // The most specific nav entry for this path is the current one (so /business is not current on /business/premises).
+  const current = items.filter((i) => path === i.href || path.startsWith(`${i.href}/`)).sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
   useEffect(() => { try { setCollapsed(localStorage.getItem("moz_nav") === "1"); } catch { /* storage blocked: stay expanded */ } }, []);
   useEffect(() => setOpen(false), [path]);
@@ -58,7 +61,7 @@ export function Shell({ children }: { children: ReactNode }) {
       <nav className={`sidebar ${open ? "open" : ""}`} aria-label="Main">
         <Link href="/dashboard" className="brand"><img src="/brand/logo.svg" alt="" /><span>{t("app.name")}</span></Link>
         {items.map((i) => (
-          <Link key={i.href} href={i.href} className="nav-link" aria-current={path === i.href || (i.href !== "/dashboard" && path.startsWith(i.href)) ? "page" : undefined} title={collapsed ? t(i.label) : undefined}>
+          <Link key={i.href} href={i.href} className="nav-link" aria-current={i.href === current ? "page" : undefined} title={collapsed ? t(i.label) : undefined}>
             <Icon name={i.icon} /><span className="nav-label">{t(i.label)}</span>
           </Link>
         ))}

@@ -1,0 +1,599 @@
+[
+ {
+  "id": "d-01",
+  "business": "biz-absa",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "15% no Spa do Polana",
+   "en": "15% at the Polana Spa"
+  },
+  "premises": [
+   "pr-polana-spa"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-absa-wealth",
+    "value": 15,
+    "comment": {
+     "pt": "Mostre o cartão na recepção do spa",
+     "en": "Show your card at the spa reception"
+    }
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-02",
+  "business": "biz-marisco",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Almoço executivo com cartão",
+   "en": "Executive lunch with your card"
+  },
+  "premises": [
+   "pr-marisco"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-bci-gold",
+    "value": 10
+   },
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-absa-wealth",
+    "value": 12
+   }
+  ],
+  "validFrom": "2026-09-01",
+  "validTo": "2027-03-31",
+  "status": "PUBLISHED",
+  "isOnline": false,
+  "schedule": {
+   "days": [
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI"
+   ],
+   "from": "12:00",
+   "to": "15:00"
+  }
+ },
+ {
+  "id": "d-03",
+  "business": "biz-marisco",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Pague com M-Pesa ou cartão",
+   "en": "Pay with M-Pesa or any card"
+  },
+  "premises": [
+   "pr-marisco"
+  ],
+  "eligibility": [
+   {
+    "scope": "WALLET",
+    "benefit": "PERCENT",
+    "wallet": "wl-mpesa",
+    "value": 5
+   },
+   {
+    "scope": "ANY_BANK_CARD",
+    "benefit": "PERCENT",
+    "value": 3
+   }
+  ],
+  "validFrom": "2026-09-01",
+  "validTo": null,
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-04",
+  "business": "biz-solnascente",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "7% nas compras Prestige",
+   "en": "7% off for Prestige clients"
+  },
+  "premises": [
+   "pr-sol-sommerschield",
+   "pr-sol-matola"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-mbim-prestige",
+    "value": 7,
+    "minSpendMzn": 2000,
+    "maxDiscountMzn": 1500
+   }
+  ],
+  "validFrom": "2026-10-15",
+  "validTo": "2027-01-15",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-05",
+  "business": "biz-solnascente",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "5% com Letshego Mastercard",
+   "en": "5% with Letshego Mastercard"
+  },
+  "premises": [
+   "pr-sol-sommerschield",
+   "pr-sol-matola"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-letshego-debit",
+    "value": 5
+   }
+  ],
+  "validFrom": "2026-10-20",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-06",
+  "business": "biz-bci",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "3% de cashback em combustível",
+   "en": "3% fuel cashback"
+  },
+  "premises": [
+   "pr-posto-avenida"
+  ],
+  "eligibility": [
+   {
+    "scope": "ISSUER_ANY",
+    "benefit": "CASHBACK",
+    "issuer": "iss-bci",
+    "cardType": "CREDIT",
+    "value": 3
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2026-11-30",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-07",
+  "business": "biz-beleza",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Terças de beleza com e-Mola",
+   "en": "Beauty Tuesdays with e-Mola"
+  },
+  "premises": [
+   "pr-beleza"
+  ],
+  "eligibility": [
+   {
+    "scope": "WALLET",
+    "benefit": "PERCENT",
+    "wallet": "wl-emola",
+    "value": 20
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2027-06-30",
+  "status": "PUBLISHED",
+  "isOnline": false,
+  "schedule": {
+   "days": [
+    "TUE"
+   ]
+  }
+ },
+ {
+  "id": "d-08",
+  "business": "biz-cafejardim",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Pequeno-almoço Nedbank",
+   "en": "Nedbank breakfast"
+  },
+  "premises": [
+   "pr-cafejardim"
+  ],
+  "eligibility": [
+   {
+    "scope": "ISSUER_ANY",
+    "benefit": "PERCENT",
+    "issuer": "iss-ned",
+    "value": 10
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false,
+  "schedule": {
+   "days": [
+    "MON",
+    "TUE",
+    "WED",
+    "THU",
+    "FRI",
+    "SAT",
+    "SUN"
+   ],
+   "from": "06:00",
+   "to": "10:00"
+  }
+ },
+ {
+  "id": "d-09",
+  "business": "biz-forca",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Primeiro mês grátis",
+   "en": "First month free"
+  },
+  "premises": [
+   "pr-forca"
+  ],
+  "eligibility": [
+   {
+    "scope": "GENERAL",
+    "benefit": "FREE_ITEM",
+    "valueText": {
+     "pt": "1.º mês de mensalidade",
+     "en": "1st month's fee"
+    }
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-10",
+  "business": "biz-cinema",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Quartas 2 por 1 com carteira móvel",
+   "en": "2-for-1 Wednesdays with any wallet"
+  },
+  "premises": [
+   "pr-cinema"
+  ],
+  "eligibility": [
+   {
+    "scope": "ANY_WALLET",
+    "benefit": "BOGO"
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2027-03-31",
+  "status": "PUBLISHED",
+  "isOnline": false,
+  "schedule": {
+   "days": [
+    "WED"
+   ]
+  }
+ },
+ {
+  "id": "d-11",
+  "business": "biz-bci",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "10% em informática com BCI BIO",
+   "en": "10% on computers with BCI BIO"
+  },
+  "premises": [
+   "pr-tecnomoz"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-bci-bio",
+    "value": 10
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-12",
+  "business": "biz-moza",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "10% em consultas dentárias",
+   "en": "10% on dental check-ups"
+  },
+  "premises": [
+   "pr-sorriso"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-moza-credit",
+    "value": 10
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2027-03-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-13",
+  "business": "biz-mpesa",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "15% no aluguer de viaturas",
+   "en": "15% on car rental"
+  },
+  "premises": [
+   "pr-savana"
+  ],
+  "eligibility": [
+   {
+    "scope": "WALLET",
+    "benefit": "PERCENT",
+    "wallet": "wl-mpesa",
+    "value": 15
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-14",
+  "business": "biz-absa",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "12% em Vilankulo",
+   "en": "12% in Vilankulo"
+  },
+  "premises": [
+   "pr-areia-branca"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-absa-premier",
+    "value": 12
+   },
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-absa-wealth",
+    "value": 15
+   }
+  ],
+  "validFrom": "2026-11-01",
+  "validTo": "2027-04-30",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-15",
+  "business": "biz-mpesa",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "10% na Bela Vista com M-Pesa",
+   "en": "10% at Bela Vista with M-Pesa"
+  },
+  "premises": [
+   "pr-bela-vista"
+  ],
+  "eligibility": [
+   {
+    "scope": "WALLET",
+    "benefit": "PERCENT",
+    "wallet": "wl-mpesa",
+    "value": 10
+   }
+  ],
+  "validFrom": "2026-10-01",
+  "validTo": "2027-01-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-16",
+  "business": "biz-ilhasabor",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "10% com Ecobank",
+   "en": "10% with Ecobank"
+  },
+  "premises": [
+   "pr-ilhasabor"
+  ],
+  "eligibility": [
+   {
+    "scope": "ISSUER_ANY",
+    "benefit": "PERCENT",
+    "issuer": "iss-eco",
+    "value": 10
+   }
+  ],
+  "validFrom": "2026-06-01",
+  "validTo": "2026-09-30",
+  "status": "EXPIRED",
+  "isOnline": false
+ },
+ {
+  "id": "d-17",
+  "business": "biz-cafejardim",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Natal: 500 MT de desconto",
+   "en": "Christmas: 500 MT off"
+  },
+  "premises": [
+   "pr-cafejardim"
+  ],
+  "eligibility": [
+   {
+    "scope": "GENERAL",
+    "benefit": "FIXED",
+    "valueMzn": 500,
+    "minSpendMzn": 3000
+   }
+  ],
+  "validFrom": "2026-12-15",
+  "validTo": "2026-12-31",
+  "status": "PUBLISHED",
+  "isOnline": false
+ },
+ {
+  "id": "d-18",
+  "business": "biz-marisco",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "Jantar romântico com Standard Bank",
+   "en": "Romantic dinner with Standard Bank"
+  },
+  "premises": [
+   "pr-marisco"
+  ],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-sbm-prestige",
+    "value": 20
+   }
+  ],
+  "validFrom": "2026-11-01",
+  "validTo": "2027-02-14",
+  "status": "DRAFT",
+  "isOnline": false
+ },
+ {
+  "id": "d-19",
+  "business": "biz-pending",
+  "dataOrigin": "SEED_ILLUSTRATIVE",
+  "title": {
+   "pt": "5% com e-Mola",
+   "en": "5% with e-Mola"
+  },
+  "premises": [],
+  "eligibility": [
+   {
+    "scope": "WALLET",
+    "benefit": "PERCENT",
+    "wallet": "wl-emola",
+    "value": 5
+   }
+  ],
+  "validFrom": "2026-11-01",
+  "validTo": "2026-12-31",
+  "status": "DRAFT",
+  "isOnline": false
+ },
+ {
+  "id": "d-20",
+  "business": "biz-moza",
+  "dataOrigin": "SEED_VERIFIED",
+  "title": {
+   "pt": "5% nas Farmácias de Moçambique",
+   "en": "5% at Farmácias de Moçambique"
+  },
+  "premises": [
+   "pr-farmac-tbc"
+  ],
+  "eligibility": [
+   {
+    "scope": "ISSUER_ANY",
+    "benefit": "PERCENT",
+    "issuer": "iss-moza",
+    "value": 5,
+    "comment": {
+     "pt": "Condições a confirmar com o Moza Banco",
+     "en": "Terms to be confirmed with Moza Banco"
+    }
+   }
+  ],
+  "validFrom": "2026-07-09",
+  "validTo": null,
+  "status": "PUBLISHED",
+  "isOnline": false,
+  "source": "SRC-1"
+ },
+ {
+  "id": "d-21",
+  "business": "biz-mbim",
+  "dataOrigin": "SEED_VERIFIED",
+  "title": {
+   "pt": "MLÍDER: 5% em viagens Cotur",
+   "en": "MLÍDER: 5% on Cotur travel"
+  },
+  "premises": [],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-mbim-mlider",
+    "value": 5,
+    "comment": {
+     "pt": "5% na tarifa base aérea e em alojamento ou pacotes",
+     "en": "5% on base air fare and on accommodation or packages"
+    }
+   }
+  ],
+  "validFrom": null,
+  "validTo": null,
+  "status": "DRAFT",
+  "isOnline": false,
+  "source": "SRC-2"
+ },
+ {
+  "id": "d-22",
+  "business": "biz-mbim",
+  "dataOrigin": "SEED_VERIFIED",
+  "title": {
+   "pt": "MLÍDER: 10% nas mensalidades Vodacom",
+   "en": "MLÍDER: 10% on Vodacom monthly fees"
+  },
+  "premises": [],
+  "eligibility": [
+   {
+    "scope": "CARD_PRODUCT",
+    "benefit": "PERCENT",
+    "cardProduct": "cp-mbim-mlider",
+    "value": 10,
+    "comment": {
+     "pt": "Internet fixa e móvel, ofertas integradas e IoT",
+     "en": "Fixed and mobile internet, bundled and IoT plans"
+    }
+   }
+  ],
+  "validFrom": null,
+  "validTo": null,
+  "status": "PUBLISHED",
+  "isOnline": true,
+  "source": "SRC-2"
+ }
+]

@@ -50,6 +50,8 @@ export async function makeCaller(t: ReturnType<typeof makeDeps>, role: "ADMIN" |
 }
 
 export async function cleanupBusinesses() {
+  await db.discount.deleteMany({ where: { business: { tradingName: { startsWith: "IT " } } } });
+  await db.premise.deleteMany({ where: { business: { tradingName: { startsWith: "IT " } } } });
   await db.business.deleteMany({ where: { tradingName: { startsWith: "IT " } } });
   await db.issuer.deleteMany({ where: { name: { startsWith: "IT " } } });
   await db.cardNetwork.deleteMany({ where: { name: { startsWith: "IT " } } });

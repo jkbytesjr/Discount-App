@@ -114,14 +114,15 @@ export async function authenticate(d: AuthDeps, c: Credentials): Promise<AuthCon
   if (c.cookieToken) {
     const s = await d.db.session.findUnique({ where: { tokenHash: sha256(c.cookieToken) }, include: { user: true } });
     const idleOk = s && s.lastSeenAt.getTime() + WEB_IDLE_MS > now.getTime();
-    if (!s || s.revokedAt || s.expiresAt <= now || !idleOk || s.user.status !== "ACTIVE") {
+    if (!s || s.revokedAt || s.expiresAt <= now || !idleOk || s.user?.status !== "ACTIVE") {
       throw new AppError(401, "UNAUTHENTICATED", "Authentication required");
     }
     // CSRF: state-changing cookie requests must echo the session's token.
     if (!SAFE.has(c.method.toUpperCase()) && !(c.csrfHeader && safeEqual(c.csrfHeader, s.csrfToken))) {
       throw new AppError(403, "CSRF_INVALID", "Invalid CSRF token");
     }
-    await d.db.session.update({ where: { id: s.id }, data: { lastSeenAt: now } });
+    // The session or user can vanish between the read and this write (account deleted, logged out elsewhere): that is a 401, not a 500.
+    await d.db.session.update({ where: { id: s.id }, data: { lastSeenAt: now } }).catch(() => { throw new AppError(401, "UNAUTHENTICATED", "Authentication required"); });
     const { user, ...session } = s;
     return { user, via: "cookie", session, mfaPending: user.role === "ADMIN" && !s.mfaPassed };
   }

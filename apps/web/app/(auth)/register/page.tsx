@@ -30,8 +30,8 @@ export default function Page() {
     if (p.length) return;
     setBusy(true);
     try {
-      await api("/auth/register", { method: "POST", body: { ...f, locale } });
-      router.replace(`/check-email?email=${encodeURIComponent(f.email)}`);
+      const r = await api<{ autoVerified?: boolean }>("/auth/register", { method: "POST", body: { ...f, locale } });
+      router.replace(r.autoVerified ? "/login" : `/check-email?email=${encodeURIComponent(f.email)}`); // SKIP_EMAIL_VERIFICATION (local/test only)
     } catch (err) {
       setProblems([{ message: err instanceof ApiError && err.code === "VALIDATION_FAILED" ? t("err.VALIDATION_FAILED") : errText(err) }]);
       setBusy(false);

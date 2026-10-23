@@ -12,22 +12,26 @@ enum Role {
   BUSINESS_OWNER
   USER
 }
+
 enum UserStatus {
   PENDING_VERIFICATION
   ACTIVE
   SUSPENDED
   DELETED
 }
+
 enum EmailTokenType {
   VERIFY
   RESET
   EMAIL_CHANGE
 }
+
 enum BusinessType {
   BANK
   WALLET_PROVIDER
   MERCHANT
 }
+
 enum BusinessStatus {
   DRAFT
   PENDING_APPROVAL
@@ -35,11 +39,45 @@ enum BusinessStatus {
   REJECTED
   SUSPENDED
 }
+
 enum CardType {
   DEBIT
   CREDIT
   PREPAID
 }
+
+enum PremiseStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum DiscountStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  PAUSED
+  EXPIRED
+  ARCHIVED
+}
+
+enum EligibilityScope {
+  CARD_PRODUCT
+  ISSUER_ANY
+  ANY_BANK_CARD
+  WALLET
+  ANY_WALLET
+  GENERAL
+}
+
+enum BenefitType {
+  PERCENT
+  FIXED
+  CASHBACK
+  BOGO
+  FREE_ITEM
+  POINTS
+}
+
 enum DataOrigin {
   REAL
   SEED_VERIFIED
@@ -48,33 +86,33 @@ enum DataOrigin {
 }
 
 model User {
-  id                String     @id @default(uuid(7)) @db.Uuid
-  email             String     @unique // stored lower-case (DEC-006)
-  passwordHash      String     @map("password_hash")
-  role              Role
-  status            UserStatus @default(PENDING_VERIFICATION)
-  firstName         String     @map("first_name")
-  lastName          String     @map("last_name")
-  phone             String?
-  avatarUrl         String?    @map("avatar_url")
-  locale            String     @default("pt-MZ")
-  emailVerifiedAt   DateTime?  @map("email_verified_at")
-  mfaSecretEnc      String?    @map("mfa_secret_enc") // AES-GCM encrypted
-  mfaEnabled        Boolean    @default(false) @map("mfa_enabled")
-  failedLoginCount  Int        @default(0) @map("failed_login_count")
-  lockCount         Int        @default(0) @map("lock_count")
-  lockedUntil       DateTime?  @map("locked_until")
-  dataOrigin        DataOrigin @default(REAL) @map("data_origin")
-  createdAt         DateTime   @default(now()) @map("created_at")
-  updatedAt         DateTime   @updatedAt @map("updated_at")
-  deletedAt         DateTime?  @map("deleted_at")
+  id               String     @id @default(uuid(7)) @db.Uuid
+  email            String     @unique // stored lower-case (DEC-006)
+  passwordHash     String     @map("password_hash")
+  role             Role
+  status           UserStatus @default(PENDING_VERIFICATION)
+  firstName        String     @map("first_name")
+  lastName         String     @map("last_name")
+  phone            String?
+  avatarUrl        String?    @map("avatar_url")
+  locale           String     @default("pt-MZ")
+  emailVerifiedAt  DateTime?  @map("email_verified_at")
+  mfaSecretEnc     String?    @map("mfa_secret_enc") // AES-GCM encrypted
+  mfaEnabled       Boolean    @default(false) @map("mfa_enabled")
+  failedLoginCount Int        @default(0) @map("failed_login_count")
+  lockCount        Int        @default(0) @map("lock_count")
+  lockedUntil      DateTime?  @map("locked_until")
+  dataOrigin       DataOrigin @default(REAL) @map("data_origin")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+  deletedAt        DateTime?  @map("deleted_at")
 
-  emailTokens  EmailToken[]
-  sessions     Session[]
+  emailTokens   EmailToken[]
+  sessions      Session[]
   refreshTokens RefreshToken[]
-  devices      Device[]
-  loginEvents  LoginEvent[]
-  memberships  BusinessMember[]
+  devices       Device[]
+  loginEvents   LoginEvent[]
+  memberships   BusinessMember[]
 
   @@map("users")
 }
@@ -96,18 +134,18 @@ model EmailToken {
 
 // Web portal server-side session (cookie holds the random id; only its hash is stored)
 model Session {
-  id         String   @id @default(uuid(7)) @db.Uuid
-  userId     String   @map("user_id") @db.Uuid
-  tokenHash  String   @unique @map("token_hash")
-  csrfToken  String   @map("csrf_token")
-  mfaPassed  Boolean  @default(false) @map("mfa_passed")
+  id         String    @id @default(uuid(7)) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  tokenHash  String    @unique @map("token_hash")
+  csrfToken  String    @map("csrf_token")
+  mfaPassed  Boolean   @default(false) @map("mfa_passed")
   ip         String?
-  userAgent  String?  @map("user_agent")
-  createdAt  DateTime @default(now()) @map("created_at")
-  lastSeenAt DateTime @default(now()) @map("last_seen_at")
-  expiresAt  DateTime @map("expires_at") // absolute 12h
+  userAgent  String?   @map("user_agent")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastSeenAt DateTime  @default(now()) @map("last_seen_at")
+  expiresAt  DateTime  @map("expires_at") // absolute 12h
   revokedAt  DateTime? @map("revoked_at")
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@map("sessions")
@@ -115,35 +153,35 @@ model Session {
 
 // iOS rotating refresh token with reuse detection (family)
 model RefreshToken {
-  id         String    @id @default(uuid(7)) @db.Uuid
-  userId     String    @map("user_id") @db.Uuid
-  deviceId   String?   @map("device_id") @db.Uuid
-  familyId   String    @map("family_id") @db.Uuid
-  tokenHash  String    @unique @map("token_hash")
-  expiresAt  DateTime  @map("expires_at")
-  usedAt     DateTime? @map("used_at")
-  revokedAt  DateTime? @map("revoked_at")
-  ip         String?
-  createdAt  DateTime  @default(now()) @map("created_at")
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  device     Device?   @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+  id        String    @id @default(uuid(7)) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  deviceId  String?   @map("device_id") @db.Uuid
+  familyId  String    @map("family_id") @db.Uuid
+  tokenHash String    @unique @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  revokedAt DateTime? @map("revoked_at")
+  ip        String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  device    Device?   @relation(fields: [deviceId], references: [id], onDelete: SetNull)
 
   @@index([familyId])
   @@map("refresh_tokens")
 }
 
 model Device {
-  id                String    @id @default(uuid(7)) @db.Uuid
-  userId            String    @map("user_id") @db.Uuid
-  vendorId          String    @map("vendor_id")
+  id                String         @id @default(uuid(7)) @db.Uuid
+  userId            String         @map("user_id") @db.Uuid
+  vendorId          String         @map("vendor_id")
   model             String?
-  osVersion         String?   @map("os_version")
-  appVersion        String?   @map("app_version")
-  pushToken         String?   @map("push_token")
-  biometricsEnabled Boolean   @default(false) @map("biometrics_enabled")
-  lastSeenAt        DateTime  @default(now()) @map("last_seen_at")
-  revokedAt         DateTime? @map("revoked_at")
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  osVersion         String?        @map("os_version")
+  appVersion        String?        @map("app_version")
+  pushToken         String?        @map("push_token")
+  biometricsEnabled Boolean        @default(false) @map("biometrics_enabled")
+  lastSeenAt        DateTime       @default(now()) @map("last_seen_at")
+  revokedAt         DateTime?      @map("revoked_at")
+  user              User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   refreshTokens     RefreshToken[]
   loginEvents       LoginEvent[]
 
@@ -212,43 +250,43 @@ model SystemSetting {
 }
 
 model Issuer {
-  id         String     @id @default(uuid(7))
-  name       String
-  shortName  String     @map("short_name")
-  logoUrl    String?    @map("logo_url")
-  country    String     @default("MZ")
-  note       String?
-  active     Boolean    @default(true)
-  dataOrigin DataOrigin @default(REAL) @map("data_origin")
-  sourceUrl  String?    @map("source_url")
+  id           String        @id @default(uuid(7))
+  name         String
+  shortName    String        @map("short_name")
+  logoUrl      String?       @map("logo_url")
+  country      String        @default("MZ")
+  note         String?
+  active       Boolean       @default(true)
+  dataOrigin   DataOrigin    @default(REAL) @map("data_origin")
+  sourceUrl    String?       @map("source_url")
   cardProducts CardProduct[]
-  businesses Business[]
+  businesses   Business[]
 
   @@map("issuers")
 }
 
 model CardNetwork {
-  id       String @id @default(uuid(7))
-  name     String
-  logoUrl  String? @map("logo_url")
-  active   Boolean @default(true)
+  id           String        @id @default(uuid(7))
+  name         String
+  logoUrl      String?       @map("logo_url")
+  active       Boolean       @default(true)
   cardProducts CardProduct[]
 
   @@map("card_networks")
 }
 
 model CardProduct {
-  id         String     @id @default(uuid(7))
-  issuerId   String     @map("issuer_id")
-  networkId  String     @map("network_id")
-  cardType   CardType   @map("card_type")
+  id         String      @id @default(uuid(7))
+  issuerId   String      @map("issuer_id")
+  networkId  String      @map("network_id")
+  cardType   CardType    @map("card_type")
   segment    String
   name       String
-  imageUrl   String?    @map("image_url")
+  imageUrl   String?     @map("image_url")
   note       String?
-  active     Boolean    @default(true)
-  dataOrigin DataOrigin @default(REAL) @map("data_origin")
-  sourceUrl  String?    @map("source_url")
+  active     Boolean     @default(true)
+  dataOrigin DataOrigin  @default(REAL) @map("data_origin")
+  sourceUrl  String?     @map("source_url")
   issuer     Issuer      @relation(fields: [issuerId], references: [id])
   network    CardNetwork @relation(fields: [networkId], references: [id])
 
@@ -268,41 +306,44 @@ model WalletProvider {
 }
 
 model PremiseCategory {
-  id        String @id @default(uuid(7))
-  namePt    String @map("name_pt")
-  nameEn    String @map("name_en")
+  id        String    @id @default(uuid(7))
+  namePt    String    @map("name_pt")
+  nameEn    String    @map("name_en")
   icon      String
-  sortOrder Int    @map("sort_order")
-  active    Boolean @default(true)
+  sortOrder Int       @map("sort_order")
+  active    Boolean   @default(true)
+  premises  Premise[]
 
   @@map("premise_categories")
 }
 
 model Business {
-  id               String         @id @default(uuid(7))
+  id               String           @id @default(uuid(7))
   type             BusinessType
-  legalName        String?        @map("legal_name")
-  tradingName      String         @map("trading_name")
+  legalName        String?          @map("legal_name")
+  tradingName      String           @map("trading_name")
   nuit             String?
-  logoUrl          String?        @map("logo_url")
-  brandColor       String?        @map("brand_color")
+  logoUrl          String?          @map("logo_url")
+  brandColor       String?          @map("brand_color")
   description      String?
   website          String?
-  contactEmail     String?        @map("contact_email")
-  contactPhone     String?        @map("contact_phone")
+  contactEmail     String?          @map("contact_email")
+  contactPhone     String?          @map("contact_phone")
   address          String?
-  issuerId         String?        @map("issuer_id")
-  walletProviderId String?        @map("wallet_provider_id")
-  status           BusinessStatus @default(DRAFT)
-  rejectionReason  String?        @map("rejection_reason")
-  approvedBy       String?        @map("approved_by") @db.Uuid
-  approvedAt       DateTime?      @map("approved_at")
-  dataOrigin       DataOrigin     @default(REAL) @map("data_origin")
-  createdAt        DateTime       @default(now()) @map("created_at")
-  updatedAt        DateTime       @updatedAt @map("updated_at")
-  issuer           Issuer?        @relation(fields: [issuerId], references: [id])
-  walletProvider   WalletProvider? @relation(fields: [walletProviderId], references: [id])
+  issuerId         String?          @map("issuer_id")
+  walletProviderId String?          @map("wallet_provider_id")
+  status           BusinessStatus   @default(DRAFT)
+  rejectionReason  String?          @map("rejection_reason")
+  approvedBy       String?          @map("approved_by") @db.Uuid
+  approvedAt       DateTime?        @map("approved_at")
+  dataOrigin       DataOrigin       @default(REAL) @map("data_origin")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+  issuer           Issuer?          @relation(fields: [issuerId], references: [id])
+  walletProvider   WalletProvider?  @relation(fields: [walletProviderId], references: [id])
   members          BusinessMember[]
+  premises         Premise[]
+  discounts        Discount[]
 
   @@map("businesses")
 }
@@ -317,4 +358,99 @@ model BusinessMember {
 
   @@id([businessId, userId])
   @@map("business_members")
+}
+
+// BR-8. Coordinates are optional: a premise without them is listed but never alerts (SD-5 pr-farmac-tbc).
+model Premise {
+  id           String            @id @default(uuid(7))
+  businessId   String            @map("business_id")
+  categoryId   String            @map("category_id")
+  name         String
+  address      String?
+  city         String?
+  province     String?
+  lat          Float?
+  lng          Float?
+  approx       Boolean           @default(false)
+  alertRadiusM Int               @default(150) @map("alert_radius_m")
+  openingHours String?           @map("opening_hours")
+  phone        String?
+  status       PremiseStatus     @default(ACTIVE)
+  dataOrigin   DataOrigin        @default(REAL) @map("data_origin")
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
+  business     Business          @relation(fields: [businessId], references: [id])
+  category     PremiseCategory   @relation(fields: [categoryId], references: [id])
+  discounts    DiscountPremise[]
+
+  @@index([businessId])
+  @@map("premises")
+}
+
+// BR-7, BR-9. Dates are calendar dates in Africa/Maputo; valid_to is inclusive (BR-R2).
+model Discount {
+  id            String                @id @default(uuid(7))
+  businessId    String                @map("business_id")
+  titlePt       String                @map("title_pt")
+  titleEn       String                @map("title_en")
+  descriptionPt String?               @map("description_pt")
+  descriptionEn String?               @map("description_en")
+  termsPt       String?               @map("terms_pt")
+  termsEn       String?               @map("terms_en")
+  redemptionPt  String?               @map("redemption_pt")
+  redemptionEn  String?               @map("redemption_en")
+  promoCode     String?               @map("promo_code")
+  validFrom     DateTime?             @map("valid_from") @db.Date
+  validTo       DateTime?             @map("valid_to") @db.Date
+  scheduleDays  String[]              @map("schedule_days") // MON..SUN, empty = every day
+  scheduleFrom  String?               @map("schedule_from") // "HH:MM" Maputo
+  scheduleTo    String?               @map("schedule_to")
+  isOnline      Boolean               @default(false) @map("is_online")
+  status        DiscountStatus        @default(DRAFT)
+  dataOrigin    DataOrigin            @default(REAL) @map("data_origin")
+  sourceRef     String?               @map("source_ref")
+  publishedAt   DateTime?             @map("published_at")
+  createdAt     DateTime              @default(now()) @map("created_at")
+  updatedAt     DateTime              @updatedAt @map("updated_at")
+  business      Business              @relation(fields: [businessId], references: [id])
+  premises      DiscountPremise[]
+  eligibility   DiscountEligibility[]
+
+  @@index([businessId, status])
+  @@map("discounts")
+}
+
+model DiscountPremise {
+  discountId String   @map("discount_id")
+  premiseId  String   @map("premise_id")
+  discount   Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
+  premise    Premise  @relation(fields: [premiseId], references: [id])
+
+  @@id([discountId, premiseId])
+  @@map("discount_premises")
+}
+
+model DiscountEligibility {
+  id             String           @id @default(uuid(7))
+  discountId     String           @map("discount_id")
+  scope          EligibilityScope
+  cardProductId  String?          @map("card_product_id")
+  issuerId       String?          @map("issuer_id")
+  walletId       String?          @map("wallet_id")
+  cardType       CardType?        @map("card_type")
+  networkId      String?          @map("network_id")
+  benefit        BenefitType
+  value          Float? // percent (0.01-100) for PERCENT/CASHBACK, points for POINTS
+  valueMzn       Int?             @map("value_mzn")
+  valueTextPt    String?          @map("value_text_pt")
+  valueTextEn    String?          @map("value_text_en")
+  minSpendMzn    Int?             @map("min_spend_mzn")
+  maxDiscountMzn Int?             @map("max_discount_mzn")
+  commentPt      String?          @map("comment_pt")
+  commentEn      String?          @map("comment_en")
+  position       Int              @default(0)
+  discount       Discount         @relation(fields: [discountId], references: [id], onDelete: Cascade)
+
+  @@index([discountId])
+  @@map("discount_eligibility")
 }

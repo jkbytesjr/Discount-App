@@ -47,8 +47,16 @@ export async function expectAccessible(page: Page, label: string) {
 
 export async function cleanupE2E() {
   await db.user.deleteMany({ where: { email: { startsWith: "e2e-" } } });
+  await db.discount.deleteMany({ where: { business: { tradingName: { startsWith: "E2E " } } } });
+  await db.premise.deleteMany({ where: { business: { tradingName: { startsWith: "E2E " } } } });
   await db.business.deleteMany({ where: { tradingName: { startsWith: "E2E " } } });
   await db.issuer.deleteMany({ where: { name: { startsWith: "E2E " } } });
   await db.rateLimit.deleteMany({});
   fs.rmSync(OUTBOX, { recursive: true, force: true });
+}
+
+/** An approved merchant owner created directly in the database (the register/approve journey is covered in portal.spec.ts). */
+export async function makeApprovedOwner(email: string, tradingName: string) {
+  const u = await db.user.create({ data: { email, role: "BUSINESS_OWNER", firstName: "E2E", lastName: "Owner", passwordHash: await hashPassword(PW), status: "ACTIVE", emailVerifiedAt: new Date() } });
+  return db.business.create({ data: { type: "MERCHANT", tradingName, status: "APPROVED", dataOrigin: "REAL", contactEmail: "info@e2e.test", contactPhone: "+258841234567", address: "Av. Marginal", members: { create: { userId: u.id } } } });
 }

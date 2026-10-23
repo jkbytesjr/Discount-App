@@ -10,7 +10,8 @@ export function proxy(req: NextRequest) {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "font-src 'self'",
-    "connect-src 'self'",
+    "worker-src 'self' blob:", // Google Maps renders in web workers
+    "connect-src 'self' https://maps.googleapis.com https://places.googleapis.com",
     "frame-src https://challenges.cloudflare.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
