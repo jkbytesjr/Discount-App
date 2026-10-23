@@ -212,7 +212,7 @@ model SystemSetting {
 }
 
 model Issuer {
-  id         String     @id // stable seed ids, e.g. iss-absa
+  id         String     @id @default(uuid(7))
   name       String
   shortName  String     @map("short_name")
   logoUrl    String?    @map("logo_url")
@@ -228,16 +228,17 @@ model Issuer {
 }
 
 model CardNetwork {
-  id       String @id
+  id       String @id @default(uuid(7))
   name     String
   logoUrl  String? @map("logo_url")
+  active   Boolean @default(true)
   cardProducts CardProduct[]
 
   @@map("card_networks")
 }
 
 model CardProduct {
-  id         String     @id
+  id         String     @id @default(uuid(7))
   issuerId   String     @map("issuer_id")
   networkId  String     @map("network_id")
   cardType   CardType   @map("card_type")
@@ -255,7 +256,7 @@ model CardProduct {
 }
 
 model WalletProvider {
-  id         String     @id
+  id         String     @id @default(uuid(7))
   name       String
   operator   String
   logoUrl    String?    @map("logo_url")
@@ -267,17 +268,18 @@ model WalletProvider {
 }
 
 model PremiseCategory {
-  id        String @id
+  id        String @id @default(uuid(7))
   namePt    String @map("name_pt")
   nameEn    String @map("name_en")
   icon      String
   sortOrder Int    @map("sort_order")
+  active    Boolean @default(true)
 
   @@map("premise_categories")
 }
 
 model Business {
-  id               String         @id // seed ids like biz-absa; new rows get uuid in code
+  id               String         @id @default(uuid(7))
   type             BusinessType
   legalName        String?        @map("legal_name")
   tradingName      String         @map("trading_name")

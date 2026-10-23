@@ -7,6 +7,7 @@
   "scripts": {
     "generate": "prisma generate",
     "migrate": "prisma migrate deploy",
+    "migrate:test": "MIGRATE_TARGET=test prisma migrate deploy",
     "migrate:dev": "prisma migrate dev",
     "typecheck": "tsc -p .",
     "test": "echo 'db tests via integration suite'",

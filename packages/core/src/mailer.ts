@@ -33,3 +33,14 @@ export class ResendMailer implements Mailer {
     if (!res.ok) throw new Error(`Resend failed: ${res.status}`);
   }
 }
+
+// Local/test only: writes each mail as a JSON file so E2E tests can read verification links (no Mailpit/Docker needed).
+export class FileMailer implements Mailer {
+  constructor(private dir: string) {}
+  async send(mail: Mail) {
+    const { mkdirSync, writeFileSync } = await import("node:fs");
+    mkdirSync(this.dir, { recursive: true });
+    const name = `${String(process.hrtime.bigint()).padStart(20, "0")}.json`; // sortable by send order
+    writeFileSync(`${this.dir}/${name}`, JSON.stringify(mail));
+  }
+}

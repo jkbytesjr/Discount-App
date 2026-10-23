@@ -1,0 +1,4 @@
+import { reactivateUser } from "@moz/core";
+import { authed, handleWithId, json } from "@/lib/http";
+
+export const POST = handleWithId(async (c, id) => json(await reactivateUser(c.deps, await authed(c), id, c.meta)));

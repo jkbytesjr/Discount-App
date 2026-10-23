@@ -7,3 +7,10 @@ node_modules
 .vercel
 .neon
 packages/db/src/generated
+.e2e-outbox
+test-results
+playwright-report
+*.tsbuildinfo
+# iCloud/Finder conflict copies
+* 2
+* 2.*

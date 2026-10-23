@@ -23,7 +23,7 @@ export default tseslint.config(
   },
   // The Clock itself, seed scripts, tests and the Node/Next config may touch the wall clock.
   {
-    files: ["packages/core/src/clock.ts", "packages/seed/**", "**/test/**", "**/*.test.ts", "**/prisma.config.ts"],
+    files: ["packages/core/src/clock.ts", "packages/seed/**", "**/test/**", "**/e2e/**", "**/*.test.ts", "**/prisma.config.ts"],
     rules: { "no-restricted-syntax": ["error", ...noRawSql] },
   },
 );

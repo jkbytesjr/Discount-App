@@ -9,6 +9,6 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   datasource: {
     // Migrations use the direct (non-pooled) connection
-    url: process.env.DIRECT_URL ?? process.env.DATABASE_URL ?? "",
+    url: (process.env.MIGRATE_TARGET === "test" ? process.env.TEST_DIRECT_URL : process.env.DIRECT_URL) ?? process.env.DATABASE_URL ?? "",
   },
 });

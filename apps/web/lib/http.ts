@@ -76,3 +76,13 @@ export async function authed(c: Ctx, opts: { allowMfaPending?: boolean } = {}): 
   });
   return opts.allowMfaPending ? ctx : requireFullAuth(ctx);
 }
+
+export const query = (req: Request) => Object.fromEntries(new URL(req.url).searchParams);
+
+// For routes with a dynamic [id] segment (Next 16 passes params as a Promise).
+export function handleWithId(fn: (c: Ctx, id: string) => Promise<Response>) {
+  return async (req: Request, { params }: { params: Promise<{ id: string }> }) => {
+    const { id } = await params;
+    return handle((c) => fn(c, id))(req);
+  };
+}

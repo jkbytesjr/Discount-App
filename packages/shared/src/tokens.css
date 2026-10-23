@@ -1,16 +1,32 @@
-/* UX-2 design tokens. Gold is for large text/accents only (contrast on ivory). */
+/* UX-2 design tokens. Gold is for large text, rules and accents only (low contrast on ivory). */
 :root {
   --ink: #0e1525; --canvas: #f8f6f1; --surface: #ffffff;
   --gold: #b8955a; --emerald: #1f6f5c; --slate: #5b6475;
   --line: #e6e1d6; --danger: #b3413b;
-  --radius: 14px; --space: 8px;
+  /* derived */
+  --on-ink: #f8f6f1;            /* text on ink-coloured buttons */
+  --focus: #0e1525;             /* focus ring: >= 3:1 on canvas and surface */
+  --emerald-bg: #e3f1ec; --danger-bg: #f8e6e4; --gold-bg: #f4ecdd; --muted-bg: #efece4;
+  --radius: 14px; --radius-sm: 10px; --space: 8px;
+  --shadow: 0 1px 2px rgb(14 21 37 / 6%), 0 8px 24px rgb(14 21 37 / 6%);
   --font-display: "Playfair Display", Georgia, serif;
   --font-ui: Inter, system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --ink: #f5f2ec; --canvas: #0b111d; --surface: #141c2b;
     --gold: #d4b47a; --emerald: #3fa58a; --slate: #9aa3b2;
     --line: #253047; --danger: #e06a63;
+    --on-ink: #0b111d; --focus: #f5f2ec;
+    --emerald-bg: #12302a; --danger-bg: #3a1c1b; --gold-bg: #2d2619; --muted-bg: #1b2434;
+    --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px rgb(0 0 0 / 30%);
   }
+}
+:root[data-theme="dark"] {
+  --ink: #f5f2ec; --canvas: #0b111d; --surface: #141c2b;
+  --gold: #d4b47a; --emerald: #3fa58a; --slate: #9aa3b2;
+  --line: #253047; --danger: #e06a63;
+  --on-ink: #0b111d; --focus: #f5f2ec;
+  --emerald-bg: #12302a; --danger-bg: #3a1c1b; --gold-bg: #2d2619; --muted-bg: #1b2434;
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px rgb(0 0 0 / 30%);
 }

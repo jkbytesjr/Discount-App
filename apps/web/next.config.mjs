@@ -12,13 +12,15 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
   { key: "X-Frame-Options", value: "DENY" },
-  // API-only CSP for now; the nonce-based page CSP arrives with the portal in Phase 2.
-  { key: "Content-Security-Policy", value: "default-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" },
+  // Page CSP (nonce-based) is set per request in proxy.ts. API responses get a locked-down policy here.
 ];
 
 export default {
   transpilePackages: ["@moz/shared", "@moz/core", "@moz/db"],
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/api/:path*", headers: [{ key: "Content-Security-Policy", value: "default-src 'none'; frame-ancestors 'none'" }] },
+    ];
   },
 };

@@ -1,4 +1,4 @@
-import { ConsoleMailer, ResendMailer, pgRateLimiter, systemClock, type AuthDeps, type Clock, type Mailer } from "@moz/core";
+import { ConsoleMailer, FileMailer, ResendMailer, pgRateLimiter, systemClock, type AuthDeps, type Clock, type Mailer } from "@moz/core";
 import { getDb } from "@moz/db";
 
 type AppEnv = AuthDeps["config"]["appEnv"];
@@ -33,8 +33,9 @@ async function verifyTurnstile(token: string | undefined, ip?: string | null): P
 
 let mailer: Mailer | undefined;
 function getMailer(): Mailer {
-  mailer ??= process.env.RESEND_API_KEY
-    ? new ResendMailer(process.env.RESEND_API_KEY, process.env.EMAIL_FROM ?? "Moz Discounts <onboarding@resend.dev>")
+  const outbox = process.env.MAIL_OUTBOX_DIR;
+  mailer ??= outbox && (appEnv === "local" || appEnv === "test") ? new FileMailer(outbox)
+    : process.env.RESEND_API_KEY ? new ResendMailer(process.env.RESEND_API_KEY, process.env.EMAIL_FROM ?? "Moz Discounts <onboarding@resend.dev>")
     : new ConsoleMailer();
   return mailer;
 }

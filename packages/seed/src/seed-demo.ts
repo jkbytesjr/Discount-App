@@ -7,6 +7,12 @@ import { hashPassword, systemClock, writeAudit } from "@moz/core";
 
 config({ path: path.resolve(import.meta.dirname, "../../../.env") });
 
+// SEED_TARGET=test seeds the Neon TEST branch instead of dev.
+if (process.env.SEED_TARGET === "test") {
+  if (!process.env.TEST_DATABASE_URL) throw new Error("TEST_DATABASE_URL is not set");
+  process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
+}
+
 const appEnv = process.env.APP_ENV ?? "local";
 if (!["local", "test", "poc", "staging"].includes(appEnv)) throw new Error(`seed:demo refuses APP_ENV=${appEnv}`);
 const password = process.env.SEED_DEMO_PASSWORD;

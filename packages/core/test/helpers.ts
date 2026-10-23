@@ -34,3 +34,25 @@ export async function cleanup() {
   await db.user.deleteMany({ where: { email: { startsWith: PREFIX } } });
   await db.rateLimit.deleteMany({});
 }
+
+// ---- Phase 2 helpers: an authenticated caller of a given role ----
+import { authenticate, login, register, verifyEmail, type AuthContext } from "../src";
+
+export async function makeCaller(t: ReturnType<typeof makeDeps>, role: "ADMIN" | "BUSINESS_OWNER" | "USER") {
+  const email = uniqueEmail();
+  const meta = { ip: IP() };
+  await register(t.deps, { accountType: role === "BUSINESS_OWNER" ? "business" : "user", firstName: "T", lastName: role, email, password: STRONG, confirmPassword: STRONG, acceptTerms: true, locale: "en" }, meta);
+  await verifyEmail(t.deps, { token: tokenFromMail(t.mailer.sent.at(-1)!.html) }, meta);
+  if (role === "ADMIN") await db.user.update({ where: { email }, data: { role: "ADMIN" } });
+  const r = (await login(t.deps, { email, password: STRONG }, meta)) as { sessionToken: string };
+  const ctx: AuthContext = await authenticate(t.deps, { cookieToken: r.sessionToken, method: "GET" });
+  return { ctx, email, meta, sessionToken: r.sessionToken };
+}
+
+export async function cleanupBusinesses() {
+  await db.business.deleteMany({ where: { tradingName: { startsWith: "IT " } } });
+  await db.issuer.deleteMany({ where: { name: { startsWith: "IT " } } });
+  await db.cardNetwork.deleteMany({ where: { name: { startsWith: "IT " } } });
+  await db.walletProvider.deleteMany({ where: { name: { startsWith: "IT " } } });
+  await db.premiseCategory.deleteMany({ where: { nameEn: { startsWith: "IT " } } });
+}

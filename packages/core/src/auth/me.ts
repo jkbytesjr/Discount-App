@@ -84,19 +84,23 @@ export async function revokeDevice(d: AuthDeps, ctx: AuthContext, deviceId: stri
 }
 
 // Soft delete + anonymise. Audit rows keep the pseudonymous user id (BR-R10).
-export async function deleteAccount(d: AuthDeps, ctx: AuthContext, raw: unknown, meta: Meta) {
-  const input = deleteAccountSchema.parse(raw);
-  await requirePassword(ctx, input.password);
-  const now = d.clock.now();
-  await revokeAllCredentials(d, ctx.user.id);
+export async function anonymiseUser(d: AuthDeps, userId: string) {
+  await revokeAllCredentials(d, userId);
   await d.db.user.update({
-    where: { id: ctx.user.id },
+    where: { id: userId },
     data: {
-      status: "DELETED", deletedAt: now, email: `deleted+${ctx.user.id}@deleted.invalid`, firstName: "Deleted", lastName: "User",
+      status: "DELETED", deletedAt: d.clock.now(), email: `deleted+${userId}@deleted.invalid`, firstName: "Deleted", lastName: "User",
       phone: null, avatarUrl: null, mfaSecretEnc: null, mfaEnabled: false, passwordHash: await hashPassword(randomToken()),
     },
   });
-  await d.db.device.deleteMany({ where: { userId: ctx.user.id } });
+  await d.db.device.deleteMany({ where: { userId } });
+  await d.db.businessMember.deleteMany({ where: { userId } });
+}
+
+export async function deleteAccount(d: AuthDeps, ctx: AuthContext, raw: unknown, meta: Meta) {
+  const input = deleteAccountSchema.parse(raw);
+  await requirePassword(ctx, input.password);
+  await anonymiseUser(d, ctx.user.id);
   await writeAudit(d.db, d.clock, { action: "me.delete", summary: "Account deleted", actor: { userId: ctx.user.id, role: ctx.user.role }, entityType: "user", entityId: ctx.user.id, meta });
   return { ok: true };
 }
