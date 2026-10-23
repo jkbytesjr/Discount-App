@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 import type { MessageKey } from "@moz/shared";
 import { api } from "@/lib/client";
 import { useErrorText, useT } from "@/components/i18n";
-import { Badge, Dialog, EmptyState, ErrorSummary, Icon, SelectField, SkeletonRows, TextField, toast, type Problem } from "@/components/ui";
+import { Badge, Dialog, EmptyState, ErrorSummary, Icon, SelectField, SkeletonRows, TextField, toast, type Problem, Tabs } from "@/components/ui";
 
 type Row = Record<string, any> & { id: string; active: boolean };
 const KINDS = ["issuers", "card-networks", "card-products", "wallet-providers", "premise-categories"] as const;
@@ -52,9 +52,7 @@ export default function Page() {
   return (
     <>
       <div className="row between"><h1>{t("cat.title")}</h1><button type="button" className="btn" onClick={() => setEdit("new")}><Icon name="plus" size={18} />{t("cat.new")}</button></div>
-      <div className="tabs" role="tablist" aria-label={t("cat.title")}>
-        {KINDS.map((k) => <button key={k} role="tab" type="button" className="tab" aria-selected={kind === k} onClick={() => setKind(k)}>{t(`cat.${k}` as MessageKey)}</button>)}
-      </div>
+      <Tabs label={t("cat.title")} value={kind} onChange={setKind} items={KINDS.map((k) => ({ key: k, label: t(`cat.${k}` as MessageKey) }))} />
       <label className="check"><input type="checkbox" checked={inactive} onChange={(e) => setInactive(e.target.checked)} />{t("cat.showInactive")}</label>
       <p className="hint" style={{ margin: 0 }}>{t("cat.deactivateHint")}</p>
       {error ? <div className="notice bad" role="alert">{error}</div> : null}

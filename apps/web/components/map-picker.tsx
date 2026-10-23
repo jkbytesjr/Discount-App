@@ -11,12 +11,20 @@ let loader: Promise<any> | undefined;
 export const MAPS_KEY = KEY;
 export function loadMaps(): Promise<any> {
   const w = window as any;
-  if (w.google?.maps?.importLibrary) return Promise.resolve(w.google.maps);
   loader ??= new Promise((resolve, reject) => {
+    // Google reports a bad/blocked key through this global; surface it instead of an empty grey box.
+    w.gm_authFailure = () => { loader = undefined; reject(new Error("auth")); };
+    // `callback` fires once the loader is ready (with loading=async, `onload` is too early for importLibrary).
+    w.__mozMapsReady = async () => {
+      try {
+        const m = w.google.maps;
+        await Promise.all([m.importLibrary("maps"), m.importLibrary("places"), m.importLibrary("marker"), m.importLibrary("geocoding")]);
+        resolve(m); // google.maps now has Map, Marker, Geocoder, places.*, Size
+      } catch (e) { loader = undefined; reject(e); }
+    };
     const s = document.createElement("script");
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(KEY!)}&v=weekly&loading=async&libraries=places`;
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(KEY!)}&v=weekly&loading=async&callback=__mozMapsReady`;
     s.async = true;
-    s.onload = () => resolve(w.google.maps);
     s.onerror = () => { loader = undefined; reject(new Error("maps")); };
     document.head.appendChild(s);
   });

@@ -2,6 +2,7 @@
 import { useEffect, useId, useRef, useState, type ReactNode, type InputHTMLAttributes, type SelectHTMLAttributes, type TextareaHTMLAttributes } from "react";
 import { checkPassword, type MessageKey, type PasswordIssue } from "@moz/shared";
 import { useT } from "./i18n";
+import { useLiquid } from "./liquid";
 
 // ---- Icons: inline SVG (no emoji), decorative by default ----
 const PATHS: Record<string, string> = {
@@ -188,5 +189,15 @@ export function Confirm({ open, title, body, confirmLabel, danger, busy, onConfi
     </>}>
       <p>{body}</p>
     </Dialog>
+  );
+}
+
+/** Segmented tab bar with the liquid-glass indicator (design doc 6b). */
+export function Tabs<K extends string>({ label, value, items, onChange }: { label: string; value: K; items: { key: K; label: string }[]; onChange: (k: K) => void }) {
+  const ref = useLiquid<HTMLDivElement>(value, { seg: false });
+  return (
+    <div className="tabs" role="tablist" aria-label={label} ref={ref}>
+      {items.map((i) => <button key={i.key} role="tab" type="button" className="tab" aria-selected={value === i.key} onClick={() => onChange(i.key)}>{i.label}</button>)}
+    </div>
   );
 }

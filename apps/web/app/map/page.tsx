@@ -83,7 +83,7 @@ export default function Page() {
         ac.addListener("place_changed", () => { const loc = ac.getPlace()?.geometry; if (!loc) return; setNear(null); nearRef.current = null; if (loc.viewport) map.fitBounds(loc.viewport); else { map.setCenter(loc.location); map.setZoom(15); } });
       }
       setMapOk(true); void fetchPlaces();
-    }).catch(() => { setMapOk(false); void fetchPlaces(); });
+    }).catch((e) => { console.error("[map] could not load Google Maps:", e); setMapOk(false); void fetchPlaces(); });
     return () => { dead = true; };
   }, []);
 
@@ -93,7 +93,7 @@ export default function Page() {
   useEffect(() => {
     const m = g.current; if (!m) return;
     const css = getComputedStyle(document.documentElement);
-    const gold = css.getPropertyValue("--gold").trim() || "#b8955a"; const ink = css.getPropertyValue("--ink").trim() || "#0e1525";
+    const gold = css.getPropertyValue("--accent-solid").trim() || "#9b5cff"; const ink = "#ffffff";
     const icon = { url: `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34"><circle cx="17" cy="17" r="13" fill="${gold}" stroke="${ink}" stroke-width="3"/><circle cx="17" cy="17" r="4" fill="${ink}"/></svg>`)}`, scaledSize: new m.maps.Size(34, 34) };
     m.clusterer.clearMarkers(); m.markers.clear();
     const list: any[] = [];
@@ -132,14 +132,14 @@ export default function Page() {
 
   return (
     <main id="main" className="mapapp">
-      <header className="map-head">
+      <header className="map-head glass">
         <Link href="/" className="brand"><img src="/brand/logo.svg" alt="" width={32} height={32} /><span>{t("app.name")}</span></Link>
         <div className="grow"><h1 style={{ margin: 0, fontSize: "1.25rem" }}>{t("map.title")}</h1><p className="muted" style={{ margin: 0, fontSize: ".85rem" }}>{t("map.sub")}</p></div>
         <button type="button" className="btn ghost sm" onClick={() => { setLocaleCookie(other); router.refresh(); }} lang={other}><Icon name="globe" size={18} />{other === "en" ? "English" : "Português"}</button>
         <Link className="btn secondary sm" href="/login">{t("auth.login")}</Link>
       </header>
 
-      <section className="map-filters" aria-label={t("map.filters")}>
+      <section className="map-filters glass" aria-label={t("map.filters")}>
         <div className="row">
           <button type="button" className="chip" aria-pressed={!active} onClick={() => setSel(NONE)}>{t("map.showAll")}</button>
           {chips?.general ? <button type="button" className="chip" aria-pressed={sel.general} onClick={() => setSel((s) => ({ ...s, general: !s.general }))}>{t("map.general")}</button> : null}
@@ -158,7 +158,7 @@ export default function Page() {
 
       <div className="map-body">
         {mapOk !== false ? <div ref={box} className="map-canvas" role="application" aria-label={t("map.mapLabel")} /> : <p className="notice" role="note">{t("map.noKeyList")}</p>}
-        <aside className="map-side" aria-label={detail ? t("map.panel") : t("map.list")}>
+        <aside className="map-side glass glass-dark" aria-label={detail ? t("map.panel") : t("map.list")}>
           {detail ? <Panel d={detail} onClose={() => setDetail(null)} /> : (
             <>
               <h2 style={{ fontSize: "1.05rem" }}>{t("map.list")} <Badge>{t("map.results", { n: places.length })}</Badge></h2>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { MessageKey } from "@moz/shared";
 import { api, ApiError } from "@/lib/client";
 import { useErrorText, useT } from "./i18n";
+import { useLiquid } from "./liquid";
 import { Badge, Confirm, ErrorSummary, Icon, SelectField, TextArea, TextField, toast, type Problem } from "./ui";
 
 // Discount wizard (BR-7, BR-8, BR-9): 1 basics, 2 premises, 3 eligibility and benefit, 4 schedule, 5 preview, 6 publish.
@@ -71,6 +72,7 @@ export function DiscountForm({ initial }: { initial?: DiscountDto }) {
   const [dto, setDto] = useState<DiscountDto | undefined>(initial);
   const [s, setS] = useState<State>(initial ? fromDto(initial) : blank());
   const [step, setStep] = useState(0);
+  const stepsRef = useLiquid<HTMLOListElement>(step);
   const [problems, setProblems] = useState<Problem[]>([]); const [busy, setBusy] = useState(false);
   const [premises, setPremises] = useState<PremiseOpt[]>([]); const [cards, setCards] = useState<Opt[]>([]); const [issuers, setIssuers] = useState<Opt[]>([]);
   const [wallets, setWallets] = useState<Opt[]>([]); const [networks, setNetworks] = useState<Opt[]>([]);
@@ -142,7 +144,7 @@ export function DiscountForm({ initial }: { initial?: DiscountDto }) {
       {locked ? <div className="notice" role="status">{t(`dstatus.${dto!.effectiveStatus}` as MessageKey)}</div> : null}
 
       <nav aria-label={t("disc.title")}>
-        <ol className="steps">
+        <ol className="steps" ref={stepsRef}>
           {STEPS.map((_, i) => (
             <li key={i}><button type="button" className="tab" aria-current={i === step ? "step" : undefined} onClick={() => setStep(i)}>{i + 1}. {stepTitle(i)}</button></li>
           ))}

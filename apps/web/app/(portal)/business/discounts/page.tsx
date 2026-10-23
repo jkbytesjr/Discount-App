@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { MessageKey } from "@moz/shared";
 import { api, ApiError } from "@/lib/client";
 import { useErrorText, useT } from "@/components/i18n";
-import { Badge, Dialog, EmptyState, SkeletonRows, TextField, toast } from "@/components/ui";
+import { Badge, Dialog, EmptyState, SkeletonRows, Tabs, TextField, toast } from "@/components/ui";
 
 interface Row { id: string; titlePt: string; titleEn: string; effectiveStatus: string; validFrom: string | null; validTo: string | null; isOnline: boolean; premises: unknown[]; eligibility: unknown[] }
 const STATUSES = ["", "DRAFT", "PUBLISHED", "PAUSED", "EXPIRED", "ARCHIVED"] as const;
@@ -53,9 +53,7 @@ export default function Page() {
   return (
     <>
       <div className="row between"><h1>{t("disc.title")}</h1><Link className="btn" href="/business/discounts/new">{t("disc.new")}</Link></div>
-      <div className="tabs" role="tablist" aria-label={t("disc.status")}>
-        {STATUSES.map((s) => <button key={s || "all"} role="tab" type="button" className="tab" aria-selected={status === s} onClick={() => setStatus(s)}>{s ? t(`dstatus.${s}` as MessageKey) : t("common.all")}</button>)}
-      </div>
+      <Tabs label={t("disc.status")} value={status} onChange={setStatus} items={STATUSES.map((s) => ({ key: s, label: s ? t(`dstatus.${s}` as MessageKey) : t("common.all") }))} />
       <form className="row" role="search" onSubmit={(e) => { e.preventDefault(); setQuery(q.trim()); }}>
         <div style={{ flex: "1 1 240px" }}><TextField label={t("disc.search")} type="search" value={q} onChange={(e) => setQ(e.target.value)} /></div>
         <button type="submit" className="btn secondary" style={{ alignSelf: "end" }}>{t("common.search")}</button>

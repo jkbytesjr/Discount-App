@@ -4,7 +4,7 @@ import type { MessageKey } from "@moz/shared";
 import { api } from "@/lib/client";
 import { fmtDate } from "@/lib/format";
 import { useErrorText, useT } from "@/components/i18n";
-import { Badge, Confirm, Dialog, EmptyState, ErrorSummary, SkeletonRows, TextArea, toast, type Problem } from "@/components/ui";
+import { Badge, Confirm, Dialog, EmptyState, ErrorSummary, SkeletonRows, Tabs, TextArea, toast, type Problem } from "@/components/ui";
 
 interface B { id: string; type: string; tradingName: string; legalName: string | null; status: string; createdAt: string; contactEmail: string | null; contactPhone: string | null; address: string | null; nuit: string | null; description: string | null; website: string | null; rejectionReason: string | null; dataOrigin: string; owner?: { email: string; name: string } | null }
 const STATUSES = ["PENDING_APPROVAL", "APPROVED", "REJECTED", "SUSPENDED", "DRAFT"] as const;
@@ -46,9 +46,7 @@ export default function Page() {
   return (
     <>
       <h1>{t("biz.title")}</h1>
-      <div className="tabs" role="tablist" aria-label={t("biz.queue")}>
-        {STATUSES.map((s) => <button key={s} role="tab" type="button" className="tab" aria-selected={status === s} onClick={() => setStatus(s)}>{t(`bstatus.${s}` as MessageKey)}</button>)}
-      </div>
+      <Tabs label={t("biz.queue")} value={status} onChange={setStatus} items={STATUSES.map((s) => ({ key: s, label: t(`bstatus.${s}` as MessageKey) }))} />
       {error ? <div className="notice bad" role="alert">{error}</div> : null}
       <div className="table-wrap">
         <table>

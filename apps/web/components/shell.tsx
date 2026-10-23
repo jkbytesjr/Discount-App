@@ -7,6 +7,7 @@ import { api, setCsrf } from "@/lib/client";
 import { setLocaleCookie, useT } from "./i18n";
 import { useMe } from "./session";
 import { Icon } from "./ui";
+import { useLiquid } from "./liquid";
 
 interface Item { href: string; label: MessageKey; icon: string }
 const NAV: Record<string, Item[]> = {
@@ -39,16 +40,15 @@ export function Shell({ children }: { children: ReactNode }) {
   const path = usePathname();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
-  const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<"user" | "bell" | null>(null);
   const [q, setQ] = useState("");
   const popRef = useRef<HTMLDivElement>(null);
   const items = me.mfaPending ? NAV.USER!.filter((i) => i.href === "/account") : NAV[me.role] ?? [];
   // The most specific nav entry for this path is the current one (so /business is not current on /business/premises).
   const current = items.filter((i) => path === i.href || path.startsWith(`${i.href}/`)).sort((a, b) => b.href.length - a.href.length)[0]?.href;
+  const navRef = useLiquid<HTMLDivElement>(`${current}|${collapsed}`);
 
   useEffect(() => { try { setCollapsed(localStorage.getItem("moz_nav") === "1"); } catch { /* storage blocked: stay expanded */ } }, []);
-  useEffect(() => setOpen(false), [path]);
   useOutside(popRef, () => setMenu(null), menu !== null);
 
   const toggle = () => { const v = !collapsed; setCollapsed(v); try { localStorage.setItem("moz_nav", v ? "1" : "0"); } catch { /* ignore */ } };
@@ -58,22 +58,24 @@ export function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className={`shell ${collapsed ? "collapsed" : ""}`}>
-      <nav className={`sidebar ${open ? "open" : ""}`} aria-label="Main">
+      <nav className="sidebar glass" aria-label="Main">
+        <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: "absolute" }}><defs><linearGradient id="iconGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ff2d9b" /><stop offset="0.55" stopColor="#9b5cff" /><stop offset="1" stopColor="#19d3ff" /></linearGradient></defs></svg>
         <Link href="/dashboard" className="brand"><img src="/brand/logo.svg" alt="" /><span>{t("app.name")}</span></Link>
-        {items.map((i) => (
-          <Link key={i.href} href={i.href} className="nav-link" aria-current={i.href === current ? "page" : undefined} title={collapsed ? t(i.label) : undefined}>
-            <Icon name={i.icon} /><span className="nav-label">{t(i.label)}</span>
-          </Link>
-        ))}
-        <div style={{ marginTop: "auto" }}>
-          <button type="button" className="nav-link" style={{ width: "100%", background: "none", border: 0, borderLeft: "3px solid transparent", font: "inherit", cursor: "pointer" }} onClick={toggle} aria-pressed={collapsed}>
+        <div className="nav-group" ref={navRef}>
+          {items.map((i) => (
+            <Link key={i.href} href={i.href} className="nav-link" aria-current={i.href === current ? "page" : undefined} title={collapsed ? t(i.label) : undefined}>
+              <Icon name={i.icon} /><span className="nav-label">{t(i.label)}</span>
+            </Link>
+          ))}
+        </div>
+        <div className="collapse-btn" style={{ marginTop: "auto" }}>
+          <button type="button" className="nav-link" style={{ width: "100%", background: "none", border: 0, font: "inherit", cursor: "pointer" }} onClick={toggle} aria-pressed={collapsed}>
             <span style={{ transform: collapsed ? "none" : "rotate(180deg)", display: "inline-flex" }}><Icon name="chevron" /></span><span className="nav-label">{t("nav.collapse")}</span>
           </button>
         </div>
       </nav>
       <div className="main">
-        <header className="topbar">
-          <button type="button" className="btn ghost icon-btn menu-btn" onClick={() => setOpen(!open)} aria-label={t("nav.openMenu")} aria-expanded={open}><Icon name="menu" /></button>
+        <header className="topbar glass">
           {me.role === "ADMIN" && !me.mfaPending ? (
             <form className="search" role="search" onSubmit={search}>
               <Icon name="search" size={18} />

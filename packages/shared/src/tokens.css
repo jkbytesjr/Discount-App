@@ -1,32 +1,56 @@
-/* UX-2 design tokens. Gold is for large text, rules and accents only (low contrast on ivory). */
+/* Design tokens: docs/DESIGN-GLASSMORPHISM.md section 2 (dark glass, card backdrop). Single source of truth. */
 :root {
-  --ink: #0e1525; --canvas: #f8f6f1; --surface: #ffffff;
-  --gold: #b8955a; --emerald: #1f6f5c; --slate: #5b6475;
-  --line: #e6e1d6; --danger: #b3413b;
-  /* derived */
-  --on-ink: #f8f6f1;            /* text on ink-coloured buttons */
-  --focus: #0e1525;             /* focus ring: >= 3:1 on canvas and surface */
-  --emerald-bg: #e3f1ec; --danger-bg: #f8e6e4; --gold-bg: #f4ecdd; --muted-bg: #efece4;
-  --radius: 14px; --radius-sm: 10px; --space: 8px;
-  --shadow: 0 1px 2px rgb(14 21 37 / 6%), 0 8px 24px rgb(14 21 37 / 6%);
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-ui: Inter, system-ui, sans-serif;
+  /* Base */
+  --bg-base: #07060f;
+
+  /* Vibrant glows (backdrop blobs and card gradients) */
+  --glow-magenta: #ff2d9b;
+  --glow-violet: #7b3cff;
+  --glow-cyan: #19d3ff;
+  --glow-orange: #ff8a3d;
+
+  /* Glass surfaces: a light-catching gradient over a faint dark tint */
+  --glass-tint: rgba(10, 8, 24, 0.28);
+  --glass-sheen: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04) 60%);
+  --glass-sheen-hover: linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.08) 60%);
+  --glass-bg-dark: rgba(10, 8, 24, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-top: rgba(255, 255, 255, 0.35);
+  --glass-blur: 20px;
+  --glass-saturate: 180%;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.76);
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --line: rgba(255, 255, 255, 0.09);
+
+  /* Accent */
+  --accent-gradient: linear-gradient(135deg, #ff2d9b 0%, #7b3cff 55%, #19d3ff 100%);
+  --accent-solid: #9b5cff;
+
+  /* Status */
+  --success: #3dffb0;
+  --warning: #ffc83d;
+  --danger: #ff4d6d;
+  --info: #19d3ff;
+
+  /* Shape and motion */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 240ms;
+
+  /* Type */
+  --font-display: "Montserrat", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-numeric: "Montserrat", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ink: #f5f2ec; --canvas: #0b111d; --surface: #141c2b;
-    --gold: #d4b47a; --emerald: #3fa58a; --slate: #9aa3b2;
-    --line: #253047; --danger: #e06a63;
-    --on-ink: #0b111d; --focus: #f5f2ec;
-    --emerald-bg: #12302a; --danger-bg: #3a1c1b; --gold-bg: #2d2619; --muted-bg: #1b2434;
-    --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px rgb(0 0 0 / 30%);
-  }
-}
-:root[data-theme="dark"] {
-  --ink: #f5f2ec; --canvas: #0b111d; --surface: #141c2b;
-  --gold: #d4b47a; --emerald: #3fa58a; --slate: #9aa3b2;
-  --line: #253047; --danger: #e06a63;
-  --on-ink: #0b111d; --focus: #f5f2ec;
-  --emerald-bg: #12302a; --danger-bg: #3a1c1b; --gold-bg: #2d2619; --muted-bg: #1b2434;
-  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px rgb(0 0 0 / 30%);
+@media (max-width: 860px) {
+  :root { --glass-blur: 15px; }
 }

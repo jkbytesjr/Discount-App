@@ -7,9 +7,9 @@ export function proxy(req: NextRequest) {
   const csp = [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${dev ? " 'unsafe-eval'" : ""}`,
-    "style-src 'self' 'unsafe-inline'",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: https:",
-    "font-src 'self'",
+    "font-src 'self' https://fonts.gstatic.com",
     "worker-src 'self' blob:", // Google Maps renders in web workers
     "connect-src 'self' https://maps.googleapis.com https://places.googleapis.com",
     "frame-src https://challenges.cloudflare.com",

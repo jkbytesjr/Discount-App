@@ -26,18 +26,18 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <h1>{t("dash.welcome", { name: me.firstName })}</h1>
+        <h1>{t("dash.hi")} <span className="accent-word">{me.firstName}</span></h1>
         <p className="muted">{me.role === "ADMIN" ? t("dash.adminSub") : t("dash.businessSub")}</p>
       </div>
       {me.role === "ADMIN" ? (
         <div className="grid2">
           <section className="card" aria-labelledby="d1">
-            <h2 id="d1" className="muted" style={{ fontFamily: "var(--font-ui)", fontSize: ".9rem" }}>{t("dash.pendingBusinesses")}</h2>
+            <h2 id="d1" className="muted" style={{ fontFamily: "var(--font-body)", fontSize: ".9rem" }}>{t("dash.pendingBusinesses")}</h2>
             <p className="stat">{pending ?? "–"}</p>
             <Link className="btn secondary sm" href="/admin/businesses">{t("dash.openQueue")}</Link>
           </section>
           <section className="card" aria-labelledby="d2">
-            <h2 id="d2" className="muted" style={{ fontFamily: "var(--font-ui)", fontSize: ".9rem" }}>{t("dash.totalUsers")}</h2>
+            <h2 id="d2" className="muted" style={{ fontFamily: "var(--font-body)", fontSize: ".9rem" }}>{t("dash.totalUsers")}</h2>
             <p className="stat">{users === undefined ? "–" : users >= 100 ? "100+" : users}</p>
             <Link className="btn secondary sm" href="/admin/users">{t("nav.users")}</Link>
           </section>

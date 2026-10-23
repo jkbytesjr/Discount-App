@@ -78,6 +78,21 @@ enum BenefitType {
   POINTS
 }
 
+enum AlertEventType {
+  TRIGGERED
+  DELIVERED
+  OPENED
+  DISMISSED
+  DETAIL_VIEWED
+  SUPPRESSED
+}
+
+enum AlertMode {
+  PERSONALISED
+  PERSONALISED_PLUS_GENERAL
+  ALL
+}
+
 enum DataOrigin {
   REAL
   SEED_VERIFIED
@@ -113,6 +128,10 @@ model User {
   devices       Device[]
   loginEvents   LoginEvent[]
   memberships   BusinessMember[]
+  cards         UserCard[]
+  wallets       UserWallet[]
+  favorites     Favorite[]
+  alertPref     AlertPreference?
 
   @@map("users")
 }
@@ -249,6 +268,83 @@ model SystemSetting {
   @@map("system_settings")
 }
 
+// IOS-5: which cards and wallets a person holds. Product only: never a card number, expiry, CVV or last 4 (assumption 3).
+model UserCard {
+  id            String      @id @default(uuid(7))
+  userId        String      @map("user_id") @db.Uuid
+  cardProductId String      @map("card_product_id")
+  nickname      String?
+  createdAt     DateTime    @default(now()) @map("created_at")
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cardProduct   CardProduct @relation(fields: [cardProductId], references: [id])
+
+  @@unique([userId, cardProductId])
+  @@map("user_cards")
+}
+
+model UserWallet {
+  userId           String         @map("user_id") @db.Uuid
+  walletProviderId String         @map("wallet_provider_id")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  walletProvider   WalletProvider @relation(fields: [walletProviderId], references: [id])
+
+  @@id([userId, walletProviderId])
+  @@map("user_wallets")
+}
+
+// IOS-5/IOS-8 preferences. Quiet hours are Maputo local "HH:MM".
+model AlertPreference {
+  userId         String    @id @map("user_id") @db.Uuid
+  alertsEnabled  Boolean   @default(true) @map("alerts_enabled")
+  mode           AlertMode @default(PERSONALISED)
+  quietFrom      String?   @map("quiet_from")
+  quietTo        String?   @map("quiet_to")
+  generalIssuers String[]  @map("general_issuers")
+  generalWallets String[]  @map("general_wallets")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("alert_preferences")
+}
+
+// IOS-7: the heart on a discount.
+model Favorite {
+  userId     String   @map("user_id") @db.Uuid
+  discountId String   @map("discount_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  discount   Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
+
+  @@id([userId, discountId])
+  @@index([discountId])
+  @@map("favorites")
+}
+
+// BR-10: one row per alert lifecycle event reported by a device. Coarse location only (~100 m).
+model AlertEvent {
+  id            String         @id @default(uuid(7))
+  clientEventId String?        @unique @map("client_event_id") // idempotency for the offline queue
+  userId        String?        @map("user_id") @db.Uuid
+  deviceId      String?        @map("device_id")
+  premiseId     String         @map("premise_id")
+  discountIds   String[]       @map("discount_ids")
+  type          AlertEventType
+  reason        String?
+  occurredAt    DateTime       @map("occurred_at")
+  receivedAt    DateTime       @default(now()) @map("received_at")
+  distanceM     Int?           @map("distance_m")
+  coarseLat     Float?         @map("coarse_lat")
+  coarseLng     Float?         @map("coarse_lng")
+  appVersion    String?        @map("app_version")
+  osVersion     String?        @map("os_version")
+
+  @@index([premiseId, occurredAt])
+  @@index([type, occurredAt])
+  @@index([userId, occurredAt])
+  @@map("alert_events")
+}
+
 model Issuer {
   id           String        @id @default(uuid(7))
   name         String
@@ -289,18 +385,20 @@ model CardProduct {
   sourceUrl  String?     @map("source_url")
   issuer     Issuer      @relation(fields: [issuerId], references: [id])
   network    CardNetwork @relation(fields: [networkId], references: [id])
+  holders    UserCard[]
 
   @@map("card_products")
 }
 
 model WalletProvider {
-  id         String     @id @default(uuid(7))
+  id         String       @id @default(uuid(7))
   name       String
   operator   String
-  logoUrl    String?    @map("logo_url")
-  active     Boolean    @default(true)
-  dataOrigin DataOrigin @default(REAL) @map("data_origin")
+  logoUrl    String?      @map("logo_url")
+  active     Boolean      @default(true)
+  dataOrigin DataOrigin   @default(REAL) @map("data_origin")
   businesses Business[]
+  holders    UserWallet[]
 
   @@map("wallet_providers")
 }
@@ -416,6 +514,7 @@ model Discount {
   business      Business              @relation(fields: [businessId], references: [id])
   premises      DiscountPremise[]
   eligibility   DiscountEligibility[]
+  favorites     Favorite[]
 
   @@index([businessId, status])
   @@map("discounts")
