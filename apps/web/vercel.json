@@ -1,1 +1,5 @@
-{ "crons": [{ "path": "/api/v1/cron/purge", "schedule": "0 3 * * *" }] }
+{
+  "installCommand": "cd ../.. && corepack pnpm install --frozen-lockfile",
+  "buildCommand": "cd ../.. && corepack pnpm --filter @moz/db generate && corepack pnpm --filter @moz/web build",
+  "crons": [{ "path": "/api/v1/cron/purge", "schedule": "0 3 * * *" }]
+}
