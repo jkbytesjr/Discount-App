@@ -12,6 +12,17 @@ This repository is a **proof of concept (POC)** with three parts:
 
 All sample data is fictional and marked "Dados de demonstração / Demo data".
 
+**Live demo:** https://discount-app-rho.vercel.app (Vercel, with its own Neon database; sign-in needs an account the owner has shared with you).
+
+## Screenshots
+
+| Home | Sign in |
+|---|---|
+| ![Home](docs/screenshots/01-home.png) | ![Sign in](docs/screenshots/03-login.png) |
+| ![Business dashboard](docs/screenshots/04-business-dashboard.png) | ![Discounts](docs/screenshots/05-business-discounts.png) |
+
+![Premises](docs/screenshots/06-business-premises.png)
+
 ## Tech stack
 
 - **Web and API:** Next.js 16 (App Router, route handlers), React 19, TypeScript
@@ -113,7 +124,7 @@ Working and tested: the web portal, the API, the public map and the iOS app on t
 Not yet done or not verified:
 
 - Real-device checks (background alerts while walking, Face ID, the permission prompts) and Apple push delivery
-- Deployment to Vercel and a production Neon branch (steps are in the runbook)
+- Registration email and captcha on the live site (need Resend and Turnstile keys); the deployment is manual (`vercel deploy --prod`), not yet connected to Git
 - Real email delivery (needs a Resend key and a verified domain)
 - Profile photo and logo uploads, the email-verification universal link, load and penetration testing
 
