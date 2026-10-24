@@ -22,7 +22,10 @@ const load = <T>(f: string) => JSON.parse(readFileSync(path.resolve(import.meta.
 const db = getDb();
 type Origin = "SEED_VERIFIED" | "SEED_ILLUSTRATIVE";
 
+// Extra banks (Vista, Standard, FNB, ...) are demo content only: the test branch keeps the fixed fixture set the integration tests assert on.
+const extra = process.env.SEED_TARGET === "test" ? { issuers: [], cardProducts: [], businesses: [], accounts: [], discounts: [] } : load<any>("extra.json");
 const cat = load<any>("catalogue.json");
+cat.issuers.push(...extra.issuers); cat.cardProducts.push(...extra.cardProducts);
 const verifiedIssuers = true; // bank names come from the Banco de Moçambique register (SD-1, SRC-6)
 
 for (const i of cat.issuers) {
@@ -46,7 +49,7 @@ for (const [idx, [id, pt, en, icon]] of cat.categories.entries()) {
   await db.premiseCategory.upsert({ where: { id }, create: { id, ...data }, update: data });
 }
 
-for (const b of load<any[]>("businesses.json")) {
+for (const b of [...load<any[]>("businesses.json"), ...extra.businesses]) {
   const data = {
     type: b.type, tradingName: b.tradingName, issuerId: b.issuerId ?? null, walletProviderId: b.walletProviderId ?? null,
     status: b.status, dataOrigin: "SEED_ILLUSTRATIVE" as Origin,
@@ -65,7 +68,7 @@ for (const p of load<any[]>("premises.json")) {
 
 const productIssuer = new Map<string, string>(cat.cardProducts.map((c: any) => [c.id, c.issuer]));
 const day = (s: string | null) => (s ? new Date(`${s}T00:00:00.000Z`) : null);
-for (const d of load<any[]>("discounts.json")) {
+for (const d of [...load<any[]>("discounts.json"), ...extra.discounts]) {
   const data = {
     businessId: d.business, titlePt: d.title.pt, titleEn: d.title.en, status: d.status,
     dataOrigin: (d.dataOrigin ?? "SEED_ILLUSTRATIVE") as Origin, sourceRef: d.source ?? null, isOnline: d.isOnline,
@@ -88,7 +91,7 @@ for (const d of load<any[]>("discounts.json")) {
   });
 }
 
-for (const a of load<any[]>("accounts.json")) {
+for (const a of [...load<any[]>("accounts.json"), ...extra.accounts]) {
   const now = new Date();
   const data = {
     firstName: a.first, lastName: a.last, role: a.role, dataOrigin: "SEED_ILLUSTRATIVE" as Origin,

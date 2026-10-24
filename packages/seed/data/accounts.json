@@ -155,12 +155,5 @@
     "last": "Chissano",
     "role": "USER",
     "unverified": true
-  },
-  {
-    "email": "vista.owner@mozdiscounts.test",
-    "first": "Vista",
-    "last": "Owner",
-    "role": "BUSINESS_OWNER",
-    "business": "biz-vista"
   }
 ]

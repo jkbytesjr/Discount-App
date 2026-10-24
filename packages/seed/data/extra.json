@@ -1,0 +1,588 @@
+{
+  "issuers": [
+    {
+      "id": "iss-fnb",
+      "name": "FNB Moçambique",
+      "shortName": "FNB"
+    },
+    {
+      "id": "iss-vista",
+      "name": "Vista Bank Moçambique",
+      "shortName": "Vista Bank",
+      "note": "Formerly Banco Société Générale Moçambique; confirm current trading name"
+    },
+    {
+      "id": "iss-uba",
+      "name": "United Bank for Africa Moçambique",
+      "shortName": "UBA"
+    },
+    {
+      "id": "iss-vista",
+      "name": "Vista Bank Moçambique",
+      "shortName": "Vista Bank"
+    },
+    {
+      "id": "iss-standard",
+      "name": "Standard Bank Moçambique",
+      "shortName": "Standard Bank"
+    },
+    {
+      "id": "iss-fnb",
+      "name": "FNB Moçambique (First National Bank)",
+      "shortName": "FNB"
+    },
+    {
+      "id": "iss-nedbank",
+      "name": "Nedbank Moçambique",
+      "shortName": "Nedbank"
+    },
+    {
+      "id": "iss-ecobank",
+      "name": "Ecobank Moçambique",
+      "shortName": "Ecobank"
+    },
+    {
+      "id": "iss-uba",
+      "name": "United Bank for Africa (UBA)",
+      "shortName": "UBA"
+    },
+    {
+      "id": "iss-firstcapital",
+      "name": "First Capital Bank",
+      "shortName": "First Capital"
+    },
+    {
+      "id": "iss-bancomais",
+      "name": "Banco Mais",
+      "shortName": "Banco Mais"
+    }
+  ],
+  "cardProducts": [
+    {
+      "id": "cp-fnb-premier",
+      "issuer": "iss-fnb",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Premier",
+      "name": "FNB Premier Visa Crédito"
+    },
+    {
+      "id": "cp-vista-debit",
+      "issuer": "iss-vista",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Vista Bank Visa Débito",
+      "note": "Illustrative product; confirm with Vista Bank"
+    },
+    {
+      "id": "cp-vista-gold",
+      "issuer": "iss-vista",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Vista Bank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with Vista Bank"
+    },
+    {
+      "id": "cp-vista-platinum",
+      "issuer": "iss-vista",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Platinum",
+      "name": "Vista Bank Visa Platinum Crédito",
+      "note": "Illustrative product; confirm with Vista Bank"
+    },
+    {
+      "id": "cp-standard-debit",
+      "issuer": "iss-standard",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Standard Bank Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-standard-gold",
+      "issuer": "iss-standard",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Standard Bank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-fnb-debit",
+      "issuer": "iss-fnb",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "FNB Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-fnb-gold",
+      "issuer": "iss-fnb",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "FNB Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-nedbank-debit",
+      "issuer": "iss-nedbank",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Nedbank Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-nedbank-gold",
+      "issuer": "iss-nedbank",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Nedbank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-ecobank-debit",
+      "issuer": "iss-ecobank",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Ecobank Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-ecobank-gold",
+      "issuer": "iss-ecobank",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Ecobank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-uba-debit",
+      "issuer": "iss-uba",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "UBA Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-uba-gold",
+      "issuer": "iss-uba",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "UBA Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-firstcapital-debit",
+      "issuer": "iss-firstcapital",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "First Capital Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-firstcapital-gold",
+      "issuer": "iss-firstcapital",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "First Capital Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-bancomais-debit",
+      "issuer": "iss-bancomais",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Banco Mais Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-bancomais-gold",
+      "issuer": "iss-bancomais",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Banco Mais Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    }
+  ],
+  "businesses": [
+    {
+      "id": "biz-vista",
+      "type": "BANK",
+      "tradingName": "Vista Bank Moçambique",
+      "issuerId": "iss-vista",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-standard",
+      "type": "BANK",
+      "tradingName": "Standard Bank Moçambique",
+      "issuerId": "iss-standard",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-fnb",
+      "type": "BANK",
+      "tradingName": "FNB Moçambique (First National Bank)",
+      "issuerId": "iss-fnb",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-nedbank",
+      "type": "BANK",
+      "tradingName": "Nedbank Moçambique",
+      "issuerId": "iss-nedbank",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-ecobank",
+      "type": "BANK",
+      "tradingName": "Ecobank Moçambique",
+      "issuerId": "iss-ecobank",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-uba",
+      "type": "BANK",
+      "tradingName": "United Bank for Africa (UBA)",
+      "issuerId": "iss-uba",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-firstcapital",
+      "type": "BANK",
+      "tradingName": "First Capital Bank",
+      "issuerId": "iss-firstcapital",
+      "status": "APPROVED"
+    },
+    {
+      "id": "biz-bancomais",
+      "type": "BANK",
+      "tradingName": "Banco Mais",
+      "issuerId": "iss-bancomais",
+      "status": "APPROVED"
+    }
+  ],
+  "accounts": [
+    {
+      "email": "vista.owner@mozdiscounts.test",
+      "first": "Vista",
+      "last": "Owner",
+      "role": "BUSINESS_OWNER",
+      "business": "biz-vista"
+    }
+  ],
+  "discounts": [
+    {
+      "id": "d-23",
+      "title": {
+        "pt": "10% de desconto em combustível",
+        "en": "10% off fuel"
+      },
+      "premises": [
+        "pr-posto-avenida"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-vista",
+          "value": 10,
+          "maxDiscountMzn": 500
+        }
+      ],
+      "business": "biz-vista",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-24",
+      "title": {
+        "pt": "12% no Supermercado Sol Nascente",
+        "en": "12% at Sol Nascente Supermarket"
+      },
+      "premises": [
+        "pr-sol-sommerschield"
+      ],
+      "eligibility": [
+        {
+          "scope": "CARD_PRODUCT",
+          "benefit": "PERCENT",
+          "cardProduct": "cp-vista-gold",
+          "value": 12
+        },
+        {
+          "scope": "CARD_PRODUCT",
+          "benefit": "PERCENT",
+          "cardProduct": "cp-vista-platinum",
+          "value": 15
+        }
+      ],
+      "business": "biz-vista",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-25",
+      "title": {
+        "pt": "20% em jantares a dois",
+        "en": "20% off dinner for two"
+      },
+      "premises": [
+        "pr-bela-vista"
+      ],
+      "eligibility": [
+        {
+          "scope": "CARD_PRODUCT",
+          "benefit": "PERCENT",
+          "cardProduct": "cp-vista-platinum",
+          "value": 20,
+          "minSpendMzn": 1500
+        }
+      ],
+      "business": "biz-vista",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-26",
+      "title": {
+        "pt": "8% em consultas na Clínica Sorriso",
+        "en": "8% off Clínica Sorriso visits"
+      },
+      "premises": [
+        "pr-sorriso"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-vista",
+          "value": 8
+        }
+      ],
+      "business": "biz-vista",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-27",
+      "title": {
+        "pt": "7% em informática",
+        "en": "7% off electronics"
+      },
+      "premises": [
+        "pr-tecnomoz"
+      ],
+      "eligibility": [
+        {
+          "scope": "CARD_PRODUCT",
+          "benefit": "PERCENT",
+          "cardProduct": "cp-vista-debit",
+          "value": 7
+        }
+      ],
+      "business": "biz-vista",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-28",
+      "title": {
+        "pt": "10% em combustível",
+        "en": "10% off fuel"
+      },
+      "business": "biz-standard",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-posto-avenida"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-standard",
+          "value": 10
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-29",
+      "title": {
+        "pt": "15% no Café Jardim",
+        "en": "15% at Café Jardim"
+      },
+      "business": "biz-fnb",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-cafejardim"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-fnb",
+          "value": 15
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-30",
+      "title": {
+        "pt": "20% em ginásio",
+        "en": "20% off gym membership"
+      },
+      "business": "biz-nedbank",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-forca"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-nedbank",
+          "value": 20
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-31",
+      "title": {
+        "pt": "25% em bilhetes de cinema",
+        "en": "25% off cinema tickets"
+      },
+      "business": "biz-ecobank",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-cinema"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-ecobank",
+          "value": 25
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-32",
+      "title": {
+        "pt": "5% em restaurante",
+        "en": "5% off dining"
+      },
+      "business": "biz-uba",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-bela-vista"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-uba",
+          "value": 5
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-33",
+      "title": {
+        "pt": "12% em aluguer de viaturas",
+        "en": "12% off car rental"
+      },
+      "business": "biz-firstcapital",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-savana"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-firstcapital",
+          "value": 12
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    },
+    {
+      "id": "d-34",
+      "title": {
+        "pt": "10% em salão de beleza",
+        "en": "10% off at the salon"
+      },
+      "business": "biz-bancomais",
+      "dataOrigin": "SEED_ILLUSTRATIVE",
+      "premises": [
+        "pr-beleza"
+      ],
+      "eligibility": [
+        {
+          "scope": "ISSUER_ANY",
+          "benefit": "PERCENT",
+          "issuer": "iss-bancomais",
+          "value": 10
+        }
+      ],
+      "validFrom": "2026-10-01",
+      "validTo": "2026-12-31",
+      "status": "PUBLISHED",
+      "isOnline": false
+    }
+  ]
+}

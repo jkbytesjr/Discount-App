@@ -18,6 +18,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @moz/db generate
       - run: pnpm --filter @moz/db migrate
+      # The integration tests assert on the demo fixtures, so seed the (disposable) test branch first.
+      - run: pnpm --filter @moz/seed seed:demo:test
+        env:
+          TEST_DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
+          SEED_DEMO_PASSWORD: ci-only-Demo-Passw0rd!
       - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm test
