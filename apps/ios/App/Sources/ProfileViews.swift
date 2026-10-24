@@ -16,30 +16,30 @@ struct ProfileView: View {
                 Text(app.t("profile.title")).font(.display(36)).foregroundStyle(.white).padding(.top, 8)
                 if let u = app.user {
                     HStack(spacing: 14) {
-                        Text(String(u.firstName.prefix(1) + u.lastName.prefix(1))).font(.system(size: 18, weight: .bold)).foregroundStyle(.white).frame(width: 52, height: 52).background(Theme.accent, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        VStack(alignment: .leading) { Text("\(u.firstName) \(u.lastName)").font(.system(size: 18, weight: .semibold)).foregroundStyle(.white); Text(u.email).font(.system(size: 13)).foregroundStyle(Theme.secondary) }
+                        Text(String(u.firstName.prefix(1) + u.lastName.prefix(1))).font(.manrope(size: 18, weight: .bold)).foregroundStyle(.white).frame(width: 52, height: 52).background(Theme.accent, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        VStack(alignment: .leading) { Text("\(u.firstName) \(u.lastName)").font(.manrope(size: 18, weight: .semibold)).foregroundStyle(.white); Text(u.email).font(.manrope(size: 13)).foregroundStyle(Theme.secondary) }
                     }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(24)
                 }
                 row("person.crop.circle", app.t("profile.edit")) { showEdit = true }
                 row("creditcard", app.t("profile.cards")) { showCards = true }
                 row("bell.badge", app.t("profile.prefs")) { showPrefs = true }
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(app.t("profile.language").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                    Text(app.t("profile.language").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
                     Picker("", selection: $app.lang) { Text("Português").tag(Lang.pt); Text("English").tag(Lang.en) }.pickerStyle(.segmented)
                 }.padding(16).glass(22)
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(app.t("profile.security").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                    Text(app.t("profile.security").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
                     Toggle(app.t("profile.faceId"), isOn: $app.lockEnabled).tint(Theme.violet).disabled(!Biometrics.available).foregroundStyle(.white)
                 }.padding(16).glass(22)
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(app.t("profile.privacy").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
-                    Text(app.t("profile.privacyNote")).font(.system(size: 13)).foregroundStyle(Theme.secondary)
-                    Text("\(app.t("profile.about")): Moz Discounts \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0") · \(app.t("demo.ribbon"))").font(.system(size: 12)).foregroundStyle(Theme.muted)
+                    Text(app.t("profile.privacy").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                    Text(app.t("profile.privacyNote")).font(.manrope(size: 13)).foregroundStyle(Theme.secondary)
+                    Text("\(app.t("profile.about")): Moz Discounts \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0") · \(app.t("demo.ribbon"))").font(.manrope(size: 12)).foregroundStyle(Theme.muted)
                 }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(22)
                 row("key", app.t("profile.changePassword")) { showPassword = true }
                 row("square.and.arrow.down", app.t("profile.exportData")) { Task { await exportData() } }
                 Button(app.t("auth.logout")) { Task { await app.logout() } }.buttonStyle(GlassButtonStyle())
-                Button(app.t("profile.delete")) { showDelete = true }.font(.system(size: 14, weight: .semibold)).foregroundStyle(Theme.danger).padding(.top, 4)
+                Button(app.t("profile.delete")) { showDelete = true }.font(.manrope(size: 14, weight: .semibold)).foregroundStyle(Theme.danger).padding(.top, 4)
             }.padding(.horizontal, 18).padding(.bottom, 110)
         }
         .sheet(isPresented: $showCards) { ZStack { Backdrop(); VStack { HStack { Spacer(); Button(app.t("common.done")) { showCards = false }.foregroundStyle(Theme.cyan) }.padding(); MyCardsView(embedded: false) } }.preferredColorScheme(.dark) }
@@ -61,7 +61,7 @@ struct ProfileView: View {
         } catch { app.flash(error) }
     }
     private func row(_ icon: String, _ title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) { HStack { Image(systemName: icon).foregroundStyle(Theme.accent).frame(width: 28); Text(title).foregroundStyle(.white).font(.system(size: 16, weight: .semibold)); Spacer(); Image(systemName: "chevron.right").foregroundStyle(Theme.muted) }.padding(16).glass(22) }.buttonStyle(.plain)
+        Button(action: action) { HStack { Image(systemName: icon).foregroundStyle(Theme.accent).frame(width: 28); Text(title).foregroundStyle(.white).font(.manrope(size: 16, weight: .semibold)); Spacer(); Image(systemName: "chevron.right").foregroundStyle(Theme.muted) }.padding(16).glass(22) }.buttonStyle(.plain)
     }
 }
 
@@ -74,22 +74,22 @@ struct MyCardsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
                 if !embedded { Text(app.t("cards.title")).font(.display(32)).foregroundStyle(.white) }
-                Text(app.t("cards.never")).font(.system(size: 12)).foregroundStyle(Theme.muted)
+                Text(app.t("cards.never")).font(.manrope(size: 12)).foregroundStyle(Theme.muted)
                 if app.cards.isEmpty { Text(app.t("cards.empty")).foregroundStyle(Theme.secondary) }
                 ForEach(app.cards) { c in
-                    HStack { VStack(alignment: .leading, spacing: 2) { Text(c.nickname ?? c.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(.white); Text("\(c.issuerName) · \(app.t("type.\(c.cardType)")) · \(c.segment)").font(.system(size: 12)).foregroundStyle(Theme.secondary) }
-                        Spacer(); Button(app.t("common.remove")) { Task { await app.removeCard(c.id) } }.font(.system(size: 13, weight: .semibold)).foregroundStyle(Theme.danger) }
+                    HStack { VStack(alignment: .leading, spacing: 2) { Text(c.nickname ?? c.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Text("\(c.issuerName) · \(app.t("type.\(c.cardType)")) · \(c.segment)").font(.manrope(size: 12)).foregroundStyle(Theme.secondary) }
+                        Spacer(); Button(app.t("common.remove")) { Task { await app.removeCard(c.id) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger) }
                     .padding(14).glass(20)
                 }
                 Button(app.t("cards.add")) { adding = true }.buttonStyle(AccentButtonStyle())
-                Text(app.t("profile.cards").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).padding(.top, 6)
+                Text(app.t("profile.cards").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).padding(.top, 6)
                 if app.wallets.isEmpty { Text(app.t("cards.noWallets")).foregroundStyle(Theme.secondary) }
                 ForEach(app.wallets) { w in
-                    HStack { Text(w.name).font(.system(size: 16, weight: .semibold)).foregroundStyle(.white); Spacer(); Button(app.t("common.remove")) { Task { await app.removeWallet(w.walletProviderId) } }.font(.system(size: 13, weight: .semibold)).foregroundStyle(Theme.danger) }.padding(14).glass(20)
+                    HStack { Text(w.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Spacer(); Button(app.t("common.remove")) { Task { await app.removeWallet(w.walletProviderId) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger) }.padding(14).glass(20)
                 }
                 Menu {
                     ForEach(app.catalogue.wallets.filter { w in !app.wallets.contains { $0.walletProviderId == w.id } }) { w in Button(w.name) { Task { await app.addWallet(w.id) } } }
-                } label: { Text(app.t("cards.addWallet")).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white).frame(maxWidth: .infinity, minHeight: 48).glass(14) }
+                } label: { Text(app.t("cards.addWallet")).font(.manrope(size: 15, weight: .semibold)).foregroundStyle(.white).frame(maxWidth: .infinity, minHeight: 48).glass(14) }
             }.padding(.horizontal, 18).padding(.bottom, embedded ? 8 : 110)
         }
         .sheet(isPresented: $adding) { AddCardFlow().preferredColorScheme(.dark) }
@@ -117,7 +117,7 @@ struct AddCardFlow: View {
                             let held = app.cards.contains { $0.cardProductId == p.id }
                             Button { Task { await app.addCard(p.id, nickname: nickname.isEmpty ? nil : nickname); dismiss() } } label: {
                                 VStack(alignment: .leading, spacing: 8) { RoundedRectangle(cornerRadius: 10).fill(Theme.accent).frame(height: 70).overlay(alignment: .bottomTrailing) { Image(systemName: "creditcard").foregroundStyle(.white.opacity(0.8)).padding(8) }
-                                    Text(p.name).font(.system(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2).multilineTextAlignment(.leading); if held { Text("✓").foregroundStyle(Theme.success) } }
+                                    Text(p.name).font(.manrope(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2).multilineTextAlignment(.leading); if held { Text("✓").foregroundStyle(Theme.success) } }
                                 .padding(10).glass(16)
                             }.buttonStyle(.plain).disabled(held)
                         }
@@ -129,7 +129,7 @@ struct AddCardFlow: View {
     }
     private var banks: [Issuer] { let ids = Set(app.catalogue.products.map(\.issuerId)); return app.catalogue.issuers.filter { ids.contains($0.id) } }
     private func types(_ i: Issuer) -> [String] { Array(Set(app.catalogue.products.filter { $0.issuerId == i.id }.map(\.cardType))).sorted() }
-    private func step(_ s: String) -> some View { Text(s.uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted) }
+    private func step(_ s: String) -> some View { Text(s.uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted) }
 }
 
 struct PrefsView: View {
@@ -144,10 +144,10 @@ struct PrefsView: View {
                 HStack { Text(app.t("profile.prefs")).font(.display(30)).foregroundStyle(.white); Spacer(); Button(app.t("common.cancel")) { dismiss() }.foregroundStyle(Theme.cyan) }
                 VStack(alignment: .leading, spacing: 12) {
                     Toggle(app.t("prefs.alertsOn"), isOn: $p.alertsEnabled).tint(Theme.violet).foregroundStyle(.white)
-                    Text(app.t("prefs.mode").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                    Text(app.t("prefs.mode").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
                     ForEach(AlertMode.allCases, id: \.self) { m in Chip(title: app.t("prefs.mode.\(m.rawValue)"), selected: p.mode == m) { p.mode = m } }
                     if p.mode == .PERSONALISED_PLUS_GENERAL {
-                        Text(app.t("prefs.extraBanks").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                        Text(app.t("prefs.extraBanks").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
                         ScrollView(.horizontal, showsIndicators: false) { HStack { ForEach(app.catalogue.issuers) { i in Chip(title: i.shortName, selected: p.generalIssuers.contains(i.id)) { if let n = p.generalIssuers.firstIndex(of: i.id) { p.generalIssuers.remove(at: n) } else { p.generalIssuers.append(i.id) } } } } }
                     }
                 }.padding(16).glass(22)
@@ -189,7 +189,7 @@ struct EditProfileView: View {
                     GlassField(title: app.t("auth.firstName"), text: $first, autocap: .words)
                     GlassField(title: app.t("auth.lastName"), text: $last, autocap: .words)
                     GlassField(title: app.t("profile.phone"), text: $phone, keyboard: .phonePad)
-                    if !error.isEmpty { Text(error).font(.system(size: 13)).foregroundStyle(Theme.danger) }
+                    if !error.isEmpty { Text(error).font(.manrope(size: 13)).foregroundStyle(Theme.danger) }
                 }.padding(18).glass(24)
                 Button(app.t("common.save")) { Task { do { try await app.updateProfile(firstName: first, lastName: last, phone: phone.isEmpty ? nil : phone); dismiss() } catch let e { error = app.message(for: e) } } }.buttonStyle(AccentButtonStyle())
             }.padding(20)
@@ -212,9 +212,9 @@ struct ChangePasswordView: View {
                 VStack(spacing: 14) {
                     GlassField(title: app.t("profile.currentPassword"), text: $current, secure: true)
                     GlassField(title: app.t("profile.newPassword"), text: $new, secure: true)
-                    Text(app.t("auth.pwRules")).font(.system(size: 12)).foregroundStyle(Theme.muted)
-                    if !error.isEmpty { Text(error).font(.system(size: 13)).foregroundStyle(Theme.danger) }
-                    if done { Text(app.t("profile.saved")).font(.system(size: 13)).foregroundStyle(Theme.success) }
+                    Text(app.t("auth.pwRules")).font(.manrope(size: 12)).foregroundStyle(Theme.muted)
+                    if !error.isEmpty { Text(error).font(.manrope(size: 13)).foregroundStyle(Theme.danger) }
+                    if done { Text(app.t("profile.saved")).font(.manrope(size: 13)).foregroundStyle(Theme.success) }
                 }.padding(18).glass(24)
                 Button(app.t("common.save")) { Task { do { try await app.api.changePassword(current: current, new: new); done = true; error = ""; current = ""; new = "" } catch let e { error = app.message(for: e) } } }.buttonStyle(AccentButtonStyle(enabled: !current.isEmpty && !new.isEmpty)).disabled(current.isEmpty || new.isEmpty)
             }.padding(20)

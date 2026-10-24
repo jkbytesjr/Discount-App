@@ -1,21 +1,21 @@
-# Overnight report (2026-10-24): phases 4 to 10
+# UAT checklist (POC)
 
-## What now exists
-- **Web portal** in the glass design (DEC-042): admin (users, businesses, catalogue, audit trail + Excel, alert log + Excel, settings with demo mode, dashboard stats), business (profile, premises + CSV import + Google picker, discounts wizard, reports + Excel), normal user (cards and wallets, alert preferences, favourites), public map at `/map`.
-- **API**: ~100 route files under `/api/v1`, problem+json errors, public discovery with ETag/304 geofence sync and a rate limit.
-- **iOS app** (`apps/ios`): MapKit home with filter chips, new-offers carousel and nearby list, offer and premise detail with favourites, alerts inbox, my cards and wallets (bank -> type -> card), alert preferences, profile edit, change password, download my data, language, Face ID lock/login, local proximity alerts from region monitoring, offline event queue, push-token registration. Logic in the `MozCore` Swift package (21 tests, TD-6 vectors).
-- **Docs**: `docs/uat-checklist.md`, `docs/runbook.md`, `docs/privacy-notice.md`, decisions DEC-027..053, traceability.
+Run `pnpm dev`, `pnpm --filter @moz/seed seed:demo`, set `SKIP_EMAIL_VERIFICATION=1`. Demo logins: see `docs/runbook.md`. "Now" for simulated scenarios is Wed 2026-11-04 13:00 Maputo (`X-Test-Now` header on the API, or admin demo mode).
 
-## Verified by running it
-- Unit and integration tests, Playwright with axe (contrast, 375 px), `swift test`, and the iOS app in the iPhone 17 simulator against the local API: sign-in, map, entering the Polana spa region produced the S01 alert and TRIGGERED/DELIVERED events reached the server with a rounded location.
+| ID | Check | How it is verified today |
+|---|---|---|
+| S01-S05 | Proximity alert copy and ranking | `swift test` AlertEngineTests; core vectors |
+| S06 | Non-matching user: no alert, `SUPPRESSED / NO_MATCH` | AlertEngineTests |
+| S07 | Cooldown | AlertEngineTests |
+| S08 | Quiet hours across midnight | AlertEngineTests |
+| S09 | Favourite edit pushes within 60 s | core `phase5.integration` (immediate push); APNs needs a real device |
+| S10, S11, S12 | Expired / future / online offers | core `discovery.integration` |
+| S13 | "While Using" only: no background alert, banner explains | Manual on device (banner is in the app) |
+| S14 | Offline OPENED event queued and sent later | `swift test` EventQueue; manual airplane-mode check |
+| S15, S16 | Lockout, unverified login | core `auth.integration` |
+| S17, S18 | Pending business cannot publish; cross-tenant is 404 + audit | core/web `discounts` tests |
+| S19, S21 | Map chips | core `discovery.integration`, Playwright `map.spec` |
+| S20 | Daily cap, favourites skip it | AlertEngineTests |
+| S22 | Region rotation along a route | `swift test` RegionPlanner; manual walk with a GPX file in the simulator |
 
-## Not verified (needs you, a device or an account)
-- Real iPhone: background region monitoring while walking (S13, S22), Face ID, APNs push, "Always" permission flow. The simulator cannot tap system dialogs from my tooling, so permission prompts were not clicked.
-- APNs delivery to Apple (`ApnsPushSender` is written, never run), Resend email, Cloudflare Turnstile, Vercel deployment, Google Maps billing limits.
-- Montserrat/Manrope are not bundled in the iOS app (system font).
-- XCUITest journeys J3-J5 are not automated.
-- Phase 10: no deployment was made (needs your Vercel/Neon production setup). The runbook lists the steps.
-- Phase 9: k6/ZAP/MobSF skipped by POC scope; no external pen test; performance at 50 000 premises not measured.
-
-## Known gaps against the spec
-- IOS-4 profile photo upload (needs BlobStore), IOS-3 universal link for email verification (needs a domain and Apple association file), BR-6 logo upload, premise photos, premise merge, reported-offer queue and broadcasts (POC scope), discount moderation (off in the POC).
+Journeys: J1 merchant register -> approve -> publish (Playwright portal + discounts specs); J2 owner premises/discounts (Playwright); J6 admin audit/export (Playwright phase5). J3 (first run, sign-in, map filter), J4 (wrong password) and J5 (add a card, favourites) are automated by `apps/ios/UITests` (4 tests, passing on the iPhone 17 simulator). Real-device checks (S13, S22, Face ID, push) remain manual.

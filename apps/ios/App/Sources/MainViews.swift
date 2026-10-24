@@ -78,7 +78,7 @@ struct HomeView: View {
                     if let c = p.coordinate {
                         Annotation(p.name, coordinate: CLLocationCoordinate2D(latitude: c.lat, longitude: c.lng)) {
                             Button { selected = p.id } label: {
-                                ZStack { Circle().fill(Theme.accent).frame(width: 34, height: 34).overlay(Circle().stroke(.white, lineWidth: 2)); Image(systemName: icon(p.categoryId)).font(.system(size: 14, weight: .bold)).foregroundStyle(.white) }
+                                ZStack { Circle().fill(Theme.accent).frame(width: 34, height: 34).overlay(Circle().stroke(.white, lineWidth: 2)); Image(systemName: icon(p.categoryId)).font(.manrope(size: 14, weight: .bold)).foregroundStyle(.white) }
                             }.accessibilityLabel(p.name)
                         }
                     }
@@ -101,8 +101,8 @@ struct HomeView: View {
                 if !app.location.hasAlways && app.location.authorization != .notDetermined {
                     HStack(spacing: 10) {
                         Image(systemName: "bell.slash").foregroundStyle(Theme.warning)
-                        Text(app.t("home.backgroundOff")).font(.system(size: 12)).foregroundStyle(.white)
-                        Button(app.t("home.openSettings")) { if let u = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(u) } }.font(.system(size: 12, weight: .bold)).foregroundStyle(Theme.cyan)
+                        Text(app.t("home.backgroundOff")).font(.manrope(size: 12)).foregroundStyle(.white)
+                        Button(app.t("home.openSettings")) { if let u = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(u) } }.font(.manrope(size: 12, weight: .bold)).foregroundStyle(Theme.cyan)
                     }.padding(12).glass(16, dark: true).padding(.horizontal, 16)
                 }
                 Spacer()
@@ -120,23 +120,23 @@ struct HomeView: View {
     private var bottomPanel: some View {
         VStack(spacing: 8) {
             Button { withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { panelOpen.toggle() } } label: {
-                HStack { Text(app.t("home.places", ["n": String(places.count)])).font(.system(size: 13, weight: .bold)).foregroundStyle(.white); Spacer(); Image(systemName: panelOpen ? "chevron.down" : "chevron.up").foregroundStyle(Theme.secondary) }
+                HStack { Text(app.t("home.places", ["n": String(places.count)])).font(.manrope(size: 13, weight: .bold)).foregroundStyle(.white); Spacer(); Image(systemName: panelOpen ? "chevron.down" : "chevron.up").foregroundStyle(Theme.secondary) }
             }.buttonStyle(.plain)
             if panelOpen {
                 if !recent.isEmpty {
-                    Text(app.t("home.recent").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
+                    Text(app.t("home.recent").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) { ForEach(recent) { o in Button { app.openOfferId = o.id } label: { OfferMiniCard(offer: o) }.buttonStyle(.plain) } }
                     }
                 }
-                Text(app.t("home.nearby").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
-                if nearby.isEmpty { Text(error ? app.t("common.offline") : app.t("home.noPlaces")).font(.system(size: 13)).foregroundStyle(Theme.secondary).frame(maxWidth: .infinity, alignment: .leading) }
+                Text(app.t("home.nearby").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
+                if nearby.isEmpty { Text(error ? app.t("common.offline") : app.t("home.noPlaces")).font(.manrope(size: 13)).foregroundStyle(Theme.secondary).frame(maxWidth: .infinity, alignment: .leading) }
                 ScrollView {
                     LazyVStack(spacing: 8) {
                         ForEach(nearby) { item in
                             Button { selected = item.premise.id } label: {
-                                HStack { VStack(alignment: .leading, spacing: 2) { Text(item.premise.name).font(.system(size: 14, weight: .semibold)).foregroundStyle(.white); Text(item.discount.rows.first(where: \.matched)?.label ?? item.discount.title).font(.system(size: 13)).foregroundStyle(Theme.secondary) }
-                                    Spacer(); Text("\(item.distanceM) m").font(.system(size: 12, weight: .semibold)).foregroundStyle(Theme.cyan) }
+                                HStack { VStack(alignment: .leading, spacing: 2) { Text(item.premise.name).font(.manrope(size: 14, weight: .semibold)).foregroundStyle(.white); Text(item.discount.rows.first(where: \.matched)?.label ?? item.discount.title).font(.manrope(size: 13)).foregroundStyle(Theme.secondary) }
+                                    Spacer(); Text("\(item.distanceM) m").font(.manrope(size: 12, weight: .semibold)).foregroundStyle(Theme.cyan) }
                                 .padding(10).background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                             }.buttonStyle(.plain)
                         }
@@ -170,9 +170,9 @@ struct OfferMiniCard: View {
     var offer: Offer
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(offer.businessName).font(.system(size: 11)).foregroundStyle(Theme.muted).lineLimit(1)
+            Text(offer.businessName).font(.manrope(size: 11)).foregroundStyle(Theme.muted).lineLimit(1)
             Text(offer.rows.first?.label ?? "").font(.display(20, weight: .regular)).foregroundStyle(Theme.accent)
-            Text(offer.title).font(.system(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2)
+            Text(offer.title).font(.manrope(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2)
         }.frame(width: 160, alignment: .leading).padding(12).glass(18)
     }
 }
@@ -185,25 +185,25 @@ struct OffersList: View {
         ForEach(offers) { o in
             VStack(alignment: .leading, spacing: 8) {
                 HStack(alignment: .top) {
-                    VStack(alignment: .leading, spacing: 2) { Text(o.businessName).font(.system(size: 12)).foregroundStyle(Theme.muted); Text(o.title).font(.system(size: 17, weight: .semibold)).foregroundStyle(.white) }
+                    VStack(alignment: .leading, spacing: 2) { Text(o.businessName).font(.manrope(size: 12)).foregroundStyle(Theme.muted); Text(o.title).font(.manrope(size: 17, weight: .semibold)).foregroundStyle(.white) }
                     Spacer()
-                    Button { Task { await app.toggleFavourite(o.id) } } label: { Image(systemName: app.favouriteIds.contains(o.id) ? "heart.fill" : "heart").font(.system(size: 22)).foregroundStyle(app.favouriteIds.contains(o.id) ? Theme.magenta : .white).frame(width: 44, height: 44) }
+                    Button { Task { await app.toggleFavourite(o.id) } } label: { Image(systemName: app.favouriteIds.contains(o.id) ? "heart.fill" : "heart").font(.manrope(size: 22)).foregroundStyle(app.favouriteIds.contains(o.id) ? Theme.magenta : .white).frame(width: 44, height: 44) }
                         .accessibilityLabel(app.t("detail.fav")).accessibilityAddTraits(app.favouriteIds.contains(o.id) ? .isSelected : [])
                 }
                 ForEach(o.rows) { r in
                     HStack(alignment: .firstTextBaseline, spacing: 8) {
                         Text(r.label).font(.display(20, weight: .regular)).foregroundStyle(Theme.accent)
-                        Text(who(r)).font(.system(size: 13)).foregroundStyle(Theme.secondary)
+                        Text(who(r)).font(.manrope(size: 13)).foregroundStyle(Theme.secondary)
                     }
-                    if let m = r.minSpendMzn { Text(app.t("detail.minSpend", ["n": String(m)])).font(.system(size: 12)).foregroundStyle(Theme.muted) }
-                    if let m = r.maxDiscountMzn { Text(app.t("detail.maxCap", ["n": String(m)])).font(.system(size: 12)).foregroundStyle(Theme.muted) }
-                    if let c = r.comment { Text(c).font(.system(size: 12)).foregroundStyle(Theme.muted) }
+                    if let m = r.minSpendMzn { Text(app.t("detail.minSpend", ["n": String(m)])).font(.manrope(size: 12)).foregroundStyle(Theme.muted) }
+                    if let m = r.maxDiscountMzn { Text(app.t("detail.maxCap", ["n": String(m)])).font(.manrope(size: 12)).foregroundStyle(Theme.muted) }
+                    if let c = r.comment { Text(c).font(.manrope(size: 12)).foregroundStyle(Theme.muted) }
                 }
-                if !o.days.isEmpty { Text(o.days.joined(separator: ", ") + ((o.from != nil && o.to != nil) ? " · \(o.from!)–\(o.to!)" : "")).font(.system(size: 12)).foregroundStyle(Theme.muted) }
-                if let v = o.validTo { Text(app.t("detail.validUntil", ["date": v])).font(.system(size: 12)).foregroundStyle(Theme.muted) }
-                if !o.activeNow { Text(app.t("detail.notActive")).font(.system(size: 12, weight: .bold)).foregroundStyle(Theme.warning) }
-                if let r = o.redemption { Text("\(app.t("detail.redeem")): \(r)").font(.system(size: 13)).foregroundStyle(.white) }
-                if let t = o.terms { Text("\(app.t("detail.terms")): \(t)").font(.system(size: 12)).foregroundStyle(Theme.muted) }
+                if !o.days.isEmpty { Text(o.days.joined(separator: ", ") + ((o.from != nil && o.to != nil) ? " · \(o.from!)–\(o.to!)" : "")).font(.manrope(size: 12)).foregroundStyle(Theme.muted) }
+                if let v = o.validTo { Text(app.t("detail.validUntil", ["date": v])).font(.manrope(size: 12)).foregroundStyle(Theme.muted) }
+                if !o.activeNow { Text(app.t("detail.notActive")).font(.manrope(size: 12, weight: .bold)).foregroundStyle(Theme.warning) }
+                if let r = o.redemption { Text("\(app.t("detail.redeem")): \(r)").font(.manrope(size: 13)).foregroundStyle(.white) }
+                if let t = o.terms { Text("\(app.t("detail.terms")): \(t)").font(.manrope(size: 12)).foregroundStyle(Theme.muted) }
             }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(22)
         }
     }
@@ -227,16 +227,16 @@ struct PremiseDetailView: View {
     var body: some View {
         ZStack { Backdrop(); ScrollView {
             VStack(alignment: .leading, spacing: 14) {
-                HStack { Spacer(); Button { dismiss() } label: { Image(systemName: "xmark.circle.fill").font(.system(size: 26)).foregroundStyle(Theme.secondary) }.accessibilityLabel(app.t("common.close")) }
+                HStack { Spacer(); Button { dismiss() } label: { Image(systemName: "xmark.circle.fill").font(.manrope(size: 26)).foregroundStyle(Theme.secondary) }.accessibilityLabel(app.t("common.close")) }
                 if let d = detail {
                     Text(d.name).font(.display(32)).foregroundStyle(.white)
-                    Text([d.address, d.city].compactMap { $0 }.joined(separator: ", ")).font(.system(size: 14)).foregroundStyle(Theme.secondary)
-                    if let h = d.openingHours { Text("\(app.t("detail.hours")): \(h)").font(.system(size: 13)).foregroundStyle(Theme.muted) }
+                    Text([d.address, d.city].compactMap { $0 }.joined(separator: ", ")).font(.manrope(size: 14)).foregroundStyle(Theme.secondary)
+                    if let h = d.openingHours { Text("\(app.t("detail.hours")): \(h)").font(.manrope(size: 13)).foregroundStyle(Theme.muted) }
                     HStack {
                         if let lat = d.lat, let lng = d.lng { Button(app.t("detail.directions")) { if let u = URL(string: "http://maps.apple.com/?daddr=\(lat),\(lng)&q=\(d.name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")") { UIApplication.shared.open(u) } }.buttonStyle(GlassButtonStyle()) }
                         if let p = d.phone, let u = URL(string: "tel:\(p)") { Button(app.t("detail.call")) { UIApplication.shared.open(u) }.buttonStyle(GlassButtonStyle()) }
                     }
-                    Text(app.t("detail.offers").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                    Text(app.t("detail.offers").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
                     if d.offers.isEmpty { Text(app.t("detail.noOffers")).foregroundStyle(Theme.secondary) }
                     OffersList(offers: d.offers, premiseId: d.id)
                 } else if failed { Text(app.t("common.error")).foregroundStyle(Theme.secondary); Button(app.t("common.retry")) { Task { await load() } }.buttonStyle(GlassButtonStyle()) } else { ProgressView().tint(.white) }
@@ -257,12 +257,12 @@ struct OfferDetailView: View {
     var body: some View {
         ZStack { Backdrop(); ScrollView {
             VStack(alignment: .leading, spacing: 14) {
-                HStack { Spacer(); Button { dismiss() } label: { Image(systemName: "xmark.circle.fill").font(.system(size: 26)).foregroundStyle(Theme.secondary) }.accessibilityLabel(app.t("common.close")) }
+                HStack { Spacer(); Button { dismiss() } label: { Image(systemName: "xmark.circle.fill").font(.manrope(size: 26)).foregroundStyle(Theme.secondary) }.accessibilityLabel(app.t("common.close")) }
                 if let o = offer {
                     OffersList(offers: [o], premiseId: o.premises?.first?.id)
                     if let ps = o.premises, !ps.isEmpty {
-                        Text(app.t("detail.premises").uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
-                        ForEach(ps) { p in Text(p.name).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white).padding(12).frame(maxWidth: .infinity, alignment: .leading).glass(16) }
+                        Text(app.t("detail.premises").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                        ForEach(ps) { p in Text(p.name).font(.manrope(size: 15, weight: .semibold)).foregroundStyle(.white).padding(12).frame(maxWidth: .infinity, alignment: .leading).glass(16) }
                     }
                 } else if failed { Text(app.t("common.error")).foregroundStyle(Theme.secondary) } else { ProgressView().tint(.white) }
             }.padding(20)
@@ -282,12 +282,12 @@ struct FavouritesView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 Text(app.t("fav.title")).font(.display(36)).foregroundStyle(.white).padding(.top, 8)
-                if loaded && items.isEmpty { VStack(spacing: 8) { Image(systemName: "heart").font(.system(size: 40)).foregroundStyle(Theme.accent); Text(app.t("fav.empty")).font(.system(size: 17, weight: .semibold)).foregroundStyle(.white); Text(app.t("fav.hint")).foregroundStyle(Theme.secondary).multilineTextAlignment(.center) }.frame(maxWidth: .infinity).padding(28).glass(24, dark: true) }
+                if loaded && items.isEmpty { VStack(spacing: 8) { Image(systemName: "heart").font(.manrope(size: 40)).foregroundStyle(Theme.accent); Text(app.t("fav.empty")).font(.manrope(size: 17, weight: .semibold)).foregroundStyle(.white); Text(app.t("fav.hint")).foregroundStyle(Theme.secondary).multilineTextAlignment(.center) }.frame(maxWidth: .infinity).padding(28).glass(24, dark: true) }
                 ForEach(items) { f in
                     Button { app.openOfferId = f.id } label: {
-                        HStack { VStack(alignment: .leading, spacing: 3) { Text(app.lang == .pt ? f.titlePt : f.titleEn).font(.system(size: 16, weight: .semibold)).foregroundStyle(.white); Text(f.businessName).font(.system(size: 13)).foregroundStyle(Theme.secondary)
-                                if let v = f.validTo { Text(app.t("detail.validUntil", ["date": String(v.prefix(10))])).font(.system(size: 12)).foregroundStyle(Theme.muted) } }
-                            Spacer(); Text(f.status).font(.system(size: 11, weight: .bold)).padding(.horizontal, 8).padding(.vertical, 3).background(Capsule().fill(f.status == "PUBLISHED" ? Theme.success.opacity(0.2) : Theme.warning.opacity(0.2))).foregroundStyle(f.status == "PUBLISHED" ? Theme.success : Theme.warning) }
+                        HStack { VStack(alignment: .leading, spacing: 3) { Text(app.lang == .pt ? f.titlePt : f.titleEn).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Text(f.businessName).font(.manrope(size: 13)).foregroundStyle(Theme.secondary)
+                                if let v = f.validTo { Text(app.t("detail.validUntil", ["date": String(v.prefix(10))])).font(.manrope(size: 12)).foregroundStyle(Theme.muted) } }
+                            Spacer(); Text(f.status).font(.manrope(size: 11, weight: .bold)).padding(.horizontal, 8).padding(.vertical, 3).background(Capsule().fill(f.status == "PUBLISHED" ? Theme.success.opacity(0.2) : Theme.warning.opacity(0.2))).foregroundStyle(f.status == "PUBLISHED" ? Theme.success : Theme.warning) }
                         .padding(14).glass(20)
                     }.buttonStyle(.plain)
                 }
@@ -303,13 +303,13 @@ struct AlertsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 Text(app.t("alerts.title")).font(.display(36)).foregroundStyle(.white).padding(.top, 8)
-                if app.alertLog.isEmpty { VStack(spacing: 8) { Image(systemName: "bell").font(.system(size: 40)).foregroundStyle(Theme.accent); Text(app.t("alerts.empty")).font(.system(size: 17, weight: .semibold)).foregroundStyle(.white); Text(app.t("alerts.hint")).foregroundStyle(Theme.secondary).multilineTextAlignment(.center) }.frame(maxWidth: .infinity).padding(28).glass(24, dark: true) }
+                if app.alertLog.isEmpty { VStack(spacing: 8) { Image(systemName: "bell").font(.manrope(size: 40)).foregroundStyle(Theme.accent); Text(app.t("alerts.empty")).font(.manrope(size: 17, weight: .semibold)).foregroundStyle(.white); Text(app.t("alerts.hint")).foregroundStyle(Theme.secondary).multilineTextAlignment(.center) }.frame(maxWidth: .infinity).padding(28).glass(24, dark: true) }
                 ForEach(app.alertLog) { e in
                     Button { if let id = e.discountIds.first { app.openOfferId = id } } label: {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(e.title).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
-                            Text(e.suppressedReason.map { "\(app.t("alerts.suppressed")): \($0)" } ?? e.body).font(.system(size: 13)).foregroundStyle(e.suppressedReason == nil ? Theme.secondary : Theme.warning)
-                            Text(e.date.formatted(date: .abbreviated, time: .shortened)).font(.system(size: 11)).foregroundStyle(Theme.muted)
+                            Text(e.title).font(.manrope(size: 15, weight: .semibold)).foregroundStyle(.white)
+                            Text(e.suppressedReason.map { "\(app.t("alerts.suppressed")): \($0)" } ?? e.body).font(.manrope(size: 13)).foregroundStyle(e.suppressedReason == nil ? Theme.secondary : Theme.warning)
+                            Text(e.date.formatted(date: .abbreviated, time: .shortened)).font(.manrope(size: 11)).foregroundStyle(Theme.muted)
                         }.frame(maxWidth: .infinity, alignment: .leading).padding(14).glass(20)
                     }.buttonStyle(.plain)
                 }

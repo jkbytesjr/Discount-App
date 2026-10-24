@@ -38,7 +38,7 @@ struct RootView: View {
             }
             if app.locked && app.phase == .signedIn { LockView() }
             if let b = app.banner {
-                VStack { Spacer(); Text(b).font(.system(size: 14, weight: .semibold)).foregroundStyle(.white).padding(14).glass(16, dark: true).padding(.bottom, 90).padding(.horizontal, 16) }
+                VStack { Spacer(); Text(b).font(.manrope(size: 14, weight: .semibold)).foregroundStyle(.white).padding(14).glass(16, dark: true).padding(.bottom, 90).padding(.horizontal, 16) }
                     .transition(.move(edge: .bottom).combined(with: .opacity)).accessibilityAddTraits(.updatesFrequently)
             }
         }
@@ -51,7 +51,7 @@ struct SplashView: View {
     @EnvironmentObject var app: AppModel
     var body: some View {
         VStack(spacing: 14) {
-            Image(systemName: "creditcard.fill").font(.system(size: 54)).foregroundStyle(Theme.accent)
+            Image(systemName: "creditcard.fill").font(.manrope(size: 54)).foregroundStyle(Theme.accent)
             Text(app.t("app.name")).font(.display(34)).foregroundStyle(.white)
             ProgressView().tint(.white)
         }
@@ -64,7 +64,7 @@ struct LockView: View {
         ZStack {
             Color.black.opacity(0.85).ignoresSafeArea()
             VStack(spacing: 18) {
-                Image(systemName: "faceid").font(.system(size: 56)).foregroundStyle(Theme.accent)
+                Image(systemName: "faceid").font(.manrope(size: 56)).foregroundStyle(Theme.accent)
                 Text(app.t("lock.title")).font(.display(30)).foregroundStyle(.white)
                 Button(app.t("lock.button")) { Task { await unlock() } }.buttonStyle(AccentButtonStyle()).frame(maxWidth: 260)
             }

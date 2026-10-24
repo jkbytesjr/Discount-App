@@ -17,6 +17,7 @@
 	<key>NSFaceIDUsageDescription</key><string>Desbloqueie a Moz Discounts com Face ID. / Unlock Moz Discounts with Face ID.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key><string>Para o avisar quando passa perto de um local com desconto, mesmo com a app fechada. A localização exacta nunca sai do telemóvel. / To tell you when you pass a place with a discount, even when the app is closed. Your exact location never leaves the phone.</string>
 	<key>NSLocationWhenInUseUsageDescription</key><string>Para mostrar descontos perto de si no mapa. / To show discounts near you on the map.</string>
+	<key>UIAppFonts</key><array><string>Manrope.ttf</string><string>Montserrat.ttf</string><string>Montserrat-Italic.ttf</string></array>
 	<key>UIApplicationSceneManifest</key><dict><key>UIApplicationSupportsMultipleScenes</key><false/></dict>
 	<key>UIBackgroundModes</key><array><string>location</string><string>remote-notification</string></array>
 	<key>UILaunchScreen</key><dict><key>UIColorName</key><string>LaunchBackground</string></dict>

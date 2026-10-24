@@ -12,9 +12,9 @@ struct OnboardingView: View {
                 ForEach(1...3, id: \.self) { i in
                     VStack(spacing: 18) {
                         Spacer()
-                        Image(systemName: ["", "tag.fill", "location.fill", "creditcard.fill"][i]).font(.system(size: 64)).foregroundStyle(Theme.accent)
+                        Image(systemName: ["", "tag.fill", "location.fill", "creditcard.fill"][i]).font(.manrope(size: 64)).foregroundStyle(Theme.accent)
                         Text(app.t("onb.\(i).title")).font(.display(36)).multilineTextAlignment(.center).foregroundStyle(.white)
-                        Text(app.t("onb.\(i).body")).font(.system(size: 16)).multilineTextAlignment(.center).foregroundStyle(Theme.secondary).padding(.horizontal, 28)
+                        Text(app.t("onb.\(i).body")).font(.manrope(size: 16)).multilineTextAlignment(.center).foregroundStyle(Theme.secondary).padding(.horizontal, 28)
                         Spacer()
                     }.tag(i - 1).padding(24).glass(32, dark: true).padding(.horizontal, 20)
                 }
@@ -37,15 +37,15 @@ struct PermissionPriming: View {
         ScrollView {
             VStack(spacing: 16) {
                 VStack(spacing: 12) {
-                    Image(systemName: "location.circle.fill").font(.system(size: 52)).foregroundStyle(Theme.accent)
+                    Image(systemName: "location.circle.fill").font(.manrope(size: 52)).foregroundStyle(Theme.accent)
                     Text(app.t("perm.location.title")).font(.display(28)).foregroundStyle(.white)
-                    Text(app.t("perm.location.body")).font(.system(size: 15)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
+                    Text(app.t("perm.location.body")).font(.manrope(size: 15)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
                     Button(app.t("perm.location.allow")) { app.location.requestPermission() }.buttonStyle(AccentButtonStyle())
                 }.padding(22).glass(28, dark: true)
                 VStack(spacing: 12) {
-                    Image(systemName: "bell.badge.fill").font(.system(size: 44)).foregroundStyle(Theme.accent)
+                    Image(systemName: "bell.badge.fill").font(.manrope(size: 44)).foregroundStyle(Theme.accent)
                     Text(app.t("perm.notif.title")).font(.display(24)).foregroundStyle(.white)
-                    Text(app.t("perm.notif.body")).font(.system(size: 15)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
+                    Text(app.t("perm.notif.body")).font(.manrope(size: 15)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
                     Button(app.t("perm.notif.allow")) { Task { _ = await app.notifications.requestPermission(); notifAsked = true } }.buttonStyle(GlassButtonStyle())
                 }.padding(22).glass(28, dark: true)
                 Button(app.t("common.done")) { app.finishOnboarding() }.buttonStyle(AccentButtonStyle())
@@ -75,10 +75,10 @@ struct AuthCard<Content: View>: View {
         ScrollView {
             VStack(spacing: 18) {
                 HStack { Spacer(); Picker("", selection: $app.lang) { Text("PT").tag(Lang.pt); Text("EN").tag(Lang.en) }.pickerStyle(.segmented).frame(width: 110) }
-                Image(systemName: "creditcard.fill").font(.system(size: 40)).foregroundStyle(Theme.accent).padding(.top, 20)
+                Image(systemName: "creditcard.fill").font(.manrope(size: 40)).foregroundStyle(Theme.accent).padding(.top, 20)
                 Text(title).font(.display(34)).foregroundStyle(.white).multilineTextAlignment(.center)
                 VStack(spacing: 14) { content }.padding(22).glass(28)
-                Text(app.t("demo.ribbon")).font(.system(size: 12, weight: .semibold)).foregroundStyle(Theme.warning)
+                Text(app.t("demo.ribbon")).font(.manrope(size: 12, weight: .semibold)).foregroundStyle(Theme.warning)
             }.padding(20)
         }
     }
@@ -95,10 +95,10 @@ struct LoginView: View {
         AuthCard(title: app.t("auth.login")) {
             GlassField(title: app.t("auth.email"), text: $email, keyboard: .emailAddress)
             GlassField(title: app.t("auth.password"), text: $password, secure: true)
-            if !error.isEmpty { Text(error).font(.system(size: 13)).foregroundStyle(Theme.danger).frame(maxWidth: .infinity, alignment: .leading).accessibilityAddTraits(.isStaticText) }
+            if !error.isEmpty { Text(error).font(.manrope(size: 13)).foregroundStyle(Theme.danger).frame(maxWidth: .infinity, alignment: .leading).accessibilityAddTraits(.isStaticText) }
             Button(busy ? app.t("common.loading") : app.t("auth.login")) { Task { await submit() } }.buttonStyle(AccentButtonStyle(enabled: !email.isEmpty && !password.isEmpty)).disabled(busy || email.isEmpty || password.isEmpty)
-            Button(app.t("auth.forgot")) { go(.forgot) }.font(.system(size: 14)).foregroundStyle(Theme.cyan)
-            HStack(spacing: 6) { Text(app.t("auth.noAccount")).foregroundStyle(Theme.secondary); Button(app.t("auth.register")) { go(.register) }.foregroundStyle(Theme.cyan) }.font(.system(size: 14))
+            Button(app.t("auth.forgot")) { go(.forgot) }.font(.manrope(size: 14)).foregroundStyle(Theme.cyan)
+            HStack(spacing: 6) { Text(app.t("auth.noAccount")).foregroundStyle(Theme.secondary); Button(app.t("auth.register")) { go(.register) }.foregroundStyle(Theme.cyan) }.font(.manrope(size: 14))
         }
     }
     private func submit() async {
@@ -124,11 +124,11 @@ struct RegisterView: View {
             GlassField(title: app.t("auth.lastName"), text: $last, autocap: .words)
             GlassField(title: app.t("auth.email"), text: $email, keyboard: .emailAddress)
             GlassField(title: app.t("auth.password"), text: $password, secure: true)
-            Text(app.t("auth.pwRules")).font(.system(size: 12)).foregroundStyle(pwOK ? Theme.success : Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
-            if !error.isEmpty { Text(error).font(.system(size: 13)).foregroundStyle(Theme.danger).frame(maxWidth: .infinity, alignment: .leading) }
+            Text(app.t("auth.pwRules")).font(.manrope(size: 12)).foregroundStyle(pwOK ? Theme.success : Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
+            if !error.isEmpty { Text(error).font(.manrope(size: 13)).foregroundStyle(Theme.danger).frame(maxWidth: .infinity, alignment: .leading) }
             Button(app.t("auth.register")) { Task { await submit() } }.buttonStyle(AccentButtonStyle(enabled: pwOK && !first.isEmpty && !last.isEmpty && !email.isEmpty)).disabled(busy || !pwOK || first.isEmpty || last.isEmpty || email.isEmpty)
-            Text(app.t("auth.terms")).font(.system(size: 11)).foregroundStyle(Theme.muted).multilineTextAlignment(.center)
-            HStack(spacing: 6) { Text(app.t("auth.haveAccount")).foregroundStyle(Theme.secondary); Button(app.t("auth.login")) { go(.login) }.foregroundStyle(Theme.cyan) }.font(.system(size: 14))
+            Text(app.t("auth.terms")).font(.manrope(size: 11)).foregroundStyle(Theme.muted).multilineTextAlignment(.center)
+            HStack(spacing: 6) { Text(app.t("auth.haveAccount")).foregroundStyle(Theme.secondary); Button(app.t("auth.login")) { go(.login) }.foregroundStyle(Theme.cyan) }.font(.manrope(size: 14))
         }
     }
     private func submit() async {
@@ -145,9 +145,9 @@ struct CheckEmailView: View {
     @State private var note = ""
     var body: some View {
         AuthCard(title: app.t("auth.checkEmail")) {
-            Image(systemName: "envelope.badge").font(.system(size: 40)).foregroundStyle(Theme.accent)
+            Image(systemName: "envelope.badge").font(.manrope(size: 40)).foregroundStyle(Theme.accent)
             Text(app.t("auth.checkEmailBody", ["email": email])).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
-            if !note.isEmpty { Text(note).font(.system(size: 13)).foregroundStyle(Theme.success) }
+            if !note.isEmpty { Text(note).font(.manrope(size: 13)).foregroundStyle(Theme.success) }
             Button(app.t("auth.resend")) { Task { try? await app.api.resendVerification(email: email); note = app.t("auth.resent") } }.buttonStyle(GlassButtonStyle())
             Button(app.t("auth.login")) { go(.login) }.buttonStyle(AccentButtonStyle())
         }
@@ -162,7 +162,7 @@ struct ForgotView: View {
     var body: some View {
         AuthCard(title: app.t("auth.forgotTitle")) {
             GlassField(title: app.t("auth.email"), text: $email, keyboard: .emailAddress)
-            if !note.isEmpty { Text(note).font(.system(size: 13)).foregroundStyle(Theme.success) }
+            if !note.isEmpty { Text(note).font(.manrope(size: 13)).foregroundStyle(Theme.success) }
             Button(app.t("auth.send")) { Task { try? await app.api.forgotPassword(email: email.lowercased()); note = app.t("auth.forgotSent") } }.buttonStyle(AccentButtonStyle(enabled: !email.isEmpty)).disabled(email.isEmpty)
             Button(app.t("auth.login")) { go(.login) }.foregroundStyle(Theme.cyan)
         }
@@ -176,7 +176,7 @@ struct CardOnboardingView: View {
         VStack(spacing: 14) {
             VStack(spacing: 8) {
                 Text(app.t("onb.cards.title")).font(.display(32)).foregroundStyle(.white)
-                Text(app.t("onb.cards.body")).font(.system(size: 15)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
+                Text(app.t("onb.cards.body")).font(.manrope(size: 15)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
             }.padding(.top, 30).padding(.horizontal, 24)
             MyCardsView(embedded: true)
             HStack {

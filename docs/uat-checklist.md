@@ -18,4 +18,4 @@ Run `pnpm dev`, `pnpm --filter @moz/seed seed:demo`, set `SKIP_EMAIL_VERIFICATIO
 | S20 | Daily cap, favourites skip it | AlertEngineTests |
 | S22 | Region rotation along a route | `swift test` RegionPlanner; manual walk with a GPX file in the simulator |
 
-Journeys: J1 merchant register -> approve -> publish (Playwright portal + discounts specs); J2 owner premises/discounts (Playwright); J6 admin audit/export (Playwright phase5). J3-J5 (app flows) are manual until XCUITest is added.
+Journeys: J1 merchant register -> approve -> publish (Playwright portal + discounts specs); J2 owner premises/discounts (Playwright); J6 admin audit/export (Playwright phase5). J3 (first run, sign-in, map filter), J4 (wrong password) and J5 (add a card, favourites) are automated by `apps/ios/UITests` (4 tests, passing on the iPhone 17 simulator). Real-device checks (S13, S22, Face ID, push) remain manual.

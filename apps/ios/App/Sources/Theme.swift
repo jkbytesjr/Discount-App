@@ -67,7 +67,7 @@ extension View { func glass(_ radius: CGFloat = 24, dark: Bool = false) -> some 
 struct AccentButtonStyle: ButtonStyle {
     var enabled = true
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label.font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+        configuration.label.font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white)
             .frame(maxWidth: .infinity, minHeight: 48).background(Theme.accent, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             .shadow(color: Theme.violet.opacity(0.45), radius: 12, y: 6).opacity(enabled ? 1 : 0.5)
             .scaleEffect(configuration.isPressed ? 0.96 : 1).animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
@@ -75,21 +75,22 @@ struct AccentButtonStyle: ButtonStyle {
 }
 struct GlassButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label.font(.system(size: 15, weight: .semibold)).foregroundStyle(.white).frame(minHeight: 44).padding(.horizontal, 16)
+        configuration.label.font(.manrope(size: 15, weight: .semibold)).foregroundStyle(.white).frame(minHeight: 44).padding(.horizontal, 16)
             .glass(14).scaleEffect(configuration.isPressed ? 0.95 : 1).animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
     }
 }
 
 extension Font {
-    /// Light, wide display type for titles; body text uses the system face (Montserrat/Manrope are not bundled yet).
-    static func display(_ size: CGFloat, weight: Font.Weight = .light) -> Font { .system(size: size, weight: weight, design: .default) }
+    /// Light, wide Montserrat for titles; Manrope for everything functional (bundled variable fonts, OFL).
+    static func display(_ size: CGFloat, weight: Font.Weight = .light) -> Font { .custom("Montserrat", size: size).weight(weight) }
+    static func manrope(size: CGFloat, weight: Font.Weight = .regular) -> Font { .custom("Manrope", size: size).weight(weight) }
 }
 
 struct GlassField: View {
     var title: String; @Binding var text: String; var secure = false; var keyboard: UIKeyboardType = .default; var autocap: TextInputAutocapitalization = .never
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title.uppercased()).font(.system(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+            Text(title.uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
             Group { if secure { SecureField("", text: $text).textContentType(.password) } else { TextField("", text: $text).keyboardType(keyboard).textInputAutocapitalization(autocap).autocorrectionDisabled() } }
                 .padding(.horizontal, 14).frame(minHeight: 48).background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Color.white.opacity(0.18)))
@@ -102,7 +103,7 @@ struct Chip: View {
     var title: String; var selected: Bool; var action: () -> Void
     var body: some View {
         Button(action: action) {
-            Text(title).font(.system(size: 14, weight: .semibold)).foregroundStyle(.white).padding(.horizontal, 14).frame(minHeight: 40)
+            Text(title).font(.manrope(size: 14, weight: .semibold)).foregroundStyle(.white).padding(.horizontal, 14).frame(minHeight: 40)
                 .background(Capsule().fill(selected ? AnyShapeStyle(LinearGradient(colors: [Theme.magenta.opacity(0.5), Theme.violet.opacity(0.55)], startPoint: .leading, endPoint: .trailing)) : AnyShapeStyle(Color.white.opacity(0.08))))
                 .overlay(Capsule().stroke(Color.white.opacity(selected ? 0.5 : 0.18)))
         }
@@ -118,7 +119,7 @@ struct LiquidTabBar<Tab: Hashable>: View {
         HStack(spacing: 4) {
             ForEach(tabs, id: \.0) { tab in
                 Button { withAnimation(.spring(response: 0.55, dampingFraction: 0.68)) { selection = tab.0 } } label: {
-                    VStack(spacing: 2) { Image(systemName: tab.2).font(.system(size: 18, weight: .medium)); Text(tab.1).font(.system(size: 11, weight: .semibold)) }
+                    VStack(spacing: 2) { Image(systemName: tab.2).font(.manrope(size: 18, weight: .medium)); Text(tab.1).font(.manrope(size: 11, weight: .semibold)) }
                         .foregroundStyle(selection == tab.0 ? .white : Theme.secondary).frame(maxWidth: .infinity, minHeight: 54)
                         .background { if selection == tab.0 { Capsule().fill(LinearGradient(colors: [.white.opacity(0.3), .white.opacity(0.09), Theme.magenta.opacity(0.12)], startPoint: .top, endPoint: .bottom))
                             .overlay(Capsule().stroke(Color.white.opacity(0.42))).shadow(color: Theme.violet.opacity(0.4), radius: 10, y: 4).matchedGeometryEffect(id: "pill", in: ns) } }
