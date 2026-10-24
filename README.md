@@ -54,18 +54,9 @@ Minimum `.env` values: `DATABASE_URL`, `DIRECT_URL`, `JWT_SECRET`, `MFA_ENC_KEY`
 
 Never commit `.env`. It is git-ignored.
 
-### Demo accounts
+### Accounts
 
-All use the password in your `SEED_DEMO_PASSWORD`.
-
-| Role | Email |
-|---|---|
-| Admin (sets up two-factor on first login) | `admin@mozdiscounts.test` |
-| Business owner, approved | `marisco.owner@mozdiscounts.test`, `absa.owner@mozdiscounts.test` |
-| Business owner, awaiting approval | `pending.owner@mozdiscounts.test` |
-| Customers | `ana@`, `bruno@`, `carla@`, `dercio@`, `elisa@`, `fabio@`, `gina@`, `hugo@` `mozdiscounts.test` |
-
-The iOS app is for customers only; business and admin accounts use the web portal.
+Create your own: register on `/register` (business accounts need admin approval), or seed demo data with `seed:demo` if you want sample accounts. The iOS app is for customers only; business and admin accounts use the web portal.
 
 ## iOS app
 
