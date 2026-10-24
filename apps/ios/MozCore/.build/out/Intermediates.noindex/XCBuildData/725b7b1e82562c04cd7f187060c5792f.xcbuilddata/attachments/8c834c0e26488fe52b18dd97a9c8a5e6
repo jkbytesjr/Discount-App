@@ -1,4 +1,0 @@
-module MozCore {
-header "MozCore-Swift.h"
-export *
-}

@@ -14,3 +14,10 @@ playwright-report
 # iCloud/Finder conflict copies
 * 2
 * 2.*
+
+# Xcode / Swift
+xcuserdata/
+*.xcuserstate
+.build/
+DerivedData/
+*.xcresult
