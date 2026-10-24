@@ -180,7 +180,7 @@ export default function Page() {
           {chips?.general ? <button type="button" className="chip" aria-pressed={sel.general} onClick={() => setSel((s) => ({ ...s, general: !s.general }))}>{t("map.general")}</button> : null}
           <button type="button" className="chip" aria-pressed={!!near} onClick={() => (near ? setNear(null) : locate())}><Icon name="pin" size={16} />{t("map.nearMe")}</button>
           {near ? <label className="radius">{t("map.radius", { km: radiusKm })}<input type="range" min={0.5} max={10} step={0.5} value={radiusKm} onChange={(e) => setRadiusKm(Number(e.target.value))} aria-label={t("map.radiusLabel")} /></label> : null}
-          {MAPS_KEY ? <div className="search"><Icon name="search" size={18} /><input ref={search} className="input" type="search" aria-label={t("map.search")} placeholder={t("map.search")} /></div> : null}
+          {MAPS_KEY && mapOk !== false ? <div className="search"><Icon name="search" size={18} /><input ref={search} className="input" type="search" aria-label={t("map.search")} placeholder={t("map.search")} /></div> : null}
         </div>
         {groups.map(([label, grp, items]) => (
           <fieldset key={grp} className="chip-group"><legend>{t(label)}</legend>
