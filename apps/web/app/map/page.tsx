@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import "leaflet/dist/leaflet.css";
 import { SUPPORTED_LOCALES, type Locale, type MessageKey } from "@moz/shared";
 import { api } from "@/lib/client";
 import { setLocaleCookie, useT } from "@/components/i18n";
@@ -41,6 +42,7 @@ export default function Page() {
   const [status, setStatus] = useState(""); const [mapOk, setMapOk] = useState<boolean | null>(MAPS_KEY ? null : false);
   const box = useRef<HTMLDivElement>(null); const search = useRef<HTMLInputElement>(null);
   const g = useRef<{ map: any; maps: any; markers: Map<string, any>; clusterer: any } | null>(null);
+  const lbox = useRef<HTMLDivElement>(null); const lm = useRef<{ map: any; L: any; layer: any } | null>(null); // OpenStreetMap fallback when Google Maps is unavailable
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const seq = useRef(0); // only the newest request may update the list: an older response arriving late must not overwrite a filtered result
   const selRef = useRef(sel); selRef.current = sel;
@@ -61,6 +63,8 @@ export default function Page() {
         if (mine === seq.current) setPlaces([...by.values()]);
       } else {
         let bbox = WHOLE_COUNTRY;
+        const lb = lm.current?.map.getBounds();
+        if (lb) bbox = [lb.getWest(), lb.getSouth(), lb.getEast(), lb.getNorth()].map((n: number) => n.toFixed(5)).join(",");
         const b = g.current?.map.getBounds();
         if (b) { const ne = b.getNorthEast(), sw = b.getSouthWest(); bbox = [sw.lng(), sw.lat(), ne.lng(), ne.lat()].map((n: number) => n.toFixed(5)).join(","); }
         const r = await api<{ items: Summary[] }>(`/map/premises?${qs(selRef.current, { bbox, lang, limit: "500" })}`);
@@ -91,6 +95,34 @@ export default function Page() {
 
   useEffect(() => { void fetchPlaces(); }, [sel, near, radiusKm, lang]);
 
+  // Google rejected the key (for example the site is not an allowed referrer): fall back to OpenStreetMap.
+  useEffect(() => {
+    const onFail = () => { g.current = null; setMapOk(false); };
+    window.addEventListener("moz-maps-auth-failed", onFail);
+    return () => window.removeEventListener("moz-maps-auth-failed", onFail);
+  }, []);
+  useEffect(() => {
+    if (mapOk !== false || !lbox.current || lm.current) return;
+    let dead = false;
+    import("leaflet").then((L) => {
+      if (dead || !lbox.current) return;
+      const map = L.map(lbox.current).setView([MAPUTO.lat, MAPUTO.lng], 12);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+      lm.current = { map, L, layer: L.layerGroup().addTo(map) };
+      map.on("moveend", () => { if (!nearRef.current) refetchSoon(); });
+      void fetchPlaces();
+    });
+    return () => { dead = true; };
+  }, [mapOk]);
+  useEffect(() => {
+    const m = lm.current; if (!m) return;
+    m.layer.clearLayers();
+    for (const p of places) {
+      if (p.lat === null || p.lng === null) continue;
+      m.L.circleMarker([p.lat, p.lng], { radius: 11, color: "#ffffff", weight: 3, fillColor: "#9b5cff", fillOpacity: 1 }).bindTooltip(p.name).on("click", () => void open(p.id)).addTo(m.layer);
+    }
+  }, [places, mapOk]);
+
   // Draw markers for the current places.
   useEffect(() => {
     const m = g.current; if (!m) return;
@@ -112,13 +144,14 @@ export default function Page() {
     try { setDetail(await api<Detail>(`/map/premises/${id}?lang=${lang}`)); } catch { setError(t("map.loadError")); }
     const p = places.find((x) => x.id === id);
     if (p?.lat != null && g.current) { g.current.map.panTo({ lat: p.lat, lng: p.lng }); }
+    if (p?.lat != null && lm.current) lm.current.map.panTo([p.lat, p.lng]);
   }
   function locate() {
     setStatus(t("map.locating"));
     navigator.geolocation?.getCurrentPosition((pos) => {
       const here = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       setNear(here); setStatus("");
-      g.current?.map.setCenter(here); g.current?.map.setZoom(14);
+      g.current?.map.setCenter(here); g.current?.map.setZoom(14); lm.current?.map.setView([here.lat, here.lng], 14);
     }, () => setStatus(t("map.locationDenied")), { enableHighAccuracy: false, timeout: 10_000 });
   }
   const toggle = (grp: Group, id: string) => setSel((s) => ({ ...s, [grp]: s[grp].includes(id) ? s[grp].filter((x) => x !== id) : [...s[grp], id] }));
@@ -159,7 +192,7 @@ export default function Page() {
       </section>
 
       <div className="map-body">
-        {mapOk !== false ? <div ref={box} className="map-canvas" role="application" aria-label={t("map.mapLabel")} /> : <p className="notice" role="note">{t("map.noKeyList")}</p>}
+        {mapOk !== false ? <div ref={box} className="map-canvas" role="application" aria-label={t("map.mapLabel")} /> : <div ref={lbox} className="map-canvas" role="application" aria-label={t("map.mapLabel")} />}
         <aside className="map-side glass glass-dark" aria-label={detail ? t("map.panel") : t("map.list")}>
           {detail ? <Panel d={detail} onClose={() => setDetail(null)} /> : (
             <>

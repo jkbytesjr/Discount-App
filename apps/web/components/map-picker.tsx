@@ -13,7 +13,7 @@ export function loadMaps(): Promise<any> {
   const w = window as any;
   loader ??= new Promise((resolve, reject) => {
     // Google reports a bad/blocked key through this global; surface it instead of an empty grey box.
-    w.gm_authFailure = () => { loader = undefined; reject(new Error("auth")); };
+    w.gm_authFailure = () => { loader = undefined; reject(new Error("auth")); window.dispatchEvent(new Event("moz-maps-auth-failed")); };
     // `callback` fires once the loader is ready (with loading=async, `onload` is too early for importLibrary).
     w.__mozMapsReady = async () => {
       try {
