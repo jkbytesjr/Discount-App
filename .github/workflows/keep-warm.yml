@@ -1,0 +1,10 @@
+name: keep-warm
+# Pings the live site every 5 minutes so the Neon database does not suspend (cold starts take ~4s).
+on:
+  schedule: [{ cron: "*/5 * * * *" }]
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS --retry 3 --max-time 30 https://discount-app-rho.vercel.app/api/v1/map/filters > /dev/null
