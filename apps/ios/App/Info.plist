@@ -2,27 +2,71 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key><string>pt</string>
-	<key>CFBundleDisplayName</key><string>Moz Discounts</string>
-	<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
-	<key>CFBundleName</key><string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key><string>APPL</string>
-	<key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
-	<key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key><true/>
-	<key>MozAPIBaseURL</key><string>$(MOZ_API_BASE_URL)</string>
-	<key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
-	<key>NSFaceIDUsageDescription</key><string>Desbloqueie a Moz Discounts com Face ID. / Unlock Moz Discounts with Face ID.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key><string>Para o avisar quando passa perto de um local com desconto, mesmo com a app fechada. A localização exacta nunca sai do telemóvel. / To tell you when you pass a place with a discount, even when the app is closed. Your exact location never leaves the phone.</string>
-	<key>NSLocationWhenInUseUsageDescription</key><string>Para mostrar descontos perto de si no mapa. / To show discounts near you on the map.</string>
-	<key>UIAppFonts</key><array><string>Manrope.ttf</string><string>Montserrat.ttf</string><string>Montserrat-Italic.ttf</string></array>
-	<key>UIApplicationSceneManifest</key><dict><key>UIApplicationSupportsMultipleScenes</key><false/></dict>
-	<key>UIBackgroundModes</key><array><string>location</string><string>remote-notification</string></array>
-	<key>UILaunchScreen</key><dict><key>UIColorName</key><string>LaunchBackground</string></dict>
-	<key>UIRequiredDeviceCapabilities</key><array><string>arm64</string></array>
-	<key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
-	<key>UIUserInterfaceStyle</key><string>Dark</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>pt</string>
+	<key>CFBundleDisplayName</key>
+	<string>Moz Discounts</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>MozAPIBaseURL</key>
+	<string>$(MOZ_API_BASE_URL)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Desbloqueie a Moz Discounts com Face ID. / Unlock Moz Discounts with Face ID.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Para ligar ao servidor de demonstração na sua rede. / To reach the demo server on your network.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Para o avisar quando passa perto de um local com desconto, mesmo com a app fechada. A localização exacta nunca sai do telemóvel. / To tell you when you pass a place with a discount, even when the app is closed. Your exact location never leaves the phone.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Para mostrar descontos perto de si no mapa. / To show discounts near you on the map.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Manrope.ttf</string>
+		<string>Montserrat.ttf</string>
+		<string>Montserrat-Italic.ttf</string>
+	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+	</dict>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Dark</string>
 </dict>
 </plist>

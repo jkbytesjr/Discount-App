@@ -5,11 +5,11 @@
       "name" : "MozCore",
       "path" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore",
       "projects" : [
-        "360b50adec84fde61b833ced5ee7bb5c6b1d7550cf226e5b38af3f2cde768132",
+        "3dfe812a92c41acda4b90e8e728063ae952b2535676c2c232b2240da663993e7",
         "141acb6f7621dbd06c8d41ea8e95de21dbc1a63c312fd1a5407f78a0bbe84e88"
       ]
     },
-    "signature" : "e7dd1edb6130f5e24d5d1183b1dfd71cf076c9a6f07e42fee027c6d542e50109",
+    "signature" : "783a9059f0c839f4479966a65c2c43b60d33260dfcef8c377898f13fd9d08913",
     "type" : "workspace"
   },
   {
@@ -285,6 +285,14 @@
                 "path" : "Models.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:mozcore::MAINGROUP::REF_3::REF_6",
+                "name" : "Phone.swift",
+                "path" : "Phone.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
               }
             ],
             "guid" : "PACKAGE:mozcore::MAINGROUP::REF_3",
@@ -342,6 +350,14 @@
                 "path" : "Models.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:mozcore::MAINGROUP::REF_4::REF_6",
+                "name" : "Phone.swift",
+                "path" : "Phone.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
               }
             ],
             "guid" : "PACKAGE:mozcore::MAINGROUP::REF_4",
@@ -366,12 +382,12 @@
         "99c53fedf49796074ddc00e0cbbe28f6201378210c124f2eacd4aa1949e3cb73",
         "696044aafded7409b61da7fd4328eaff1c266210f2f5915dfed05cce8ebce666",
         "12bca8cd3801415bda797bba25cddf8d4433675d99f78bd7e3f1847cbc746a16",
-        "326c3844f9dfc9f7e7d55a3df916a60d1800e7e3168a3123e99004bf8c8cbb26",
-        "5ffa3fb2095604fb40b250ad84fc4a68d421262eac3f6806cb894d6b458580ff",
+        "40310ef2dacd5752ad2c3628c30432b3c703f6d2638d1377713e152efba2e78c",
+        "88631e71e77665ca39f4524e2ae648e15387f180fe9395e19490b800315e60b7",
         "8bd816037354d52ea61d2b0aba5f6441f4dbccc1e32b253f334b983d30d4266d"
       ]
     },
-    "signature" : "360b50adec84fde61b833ced5ee7bb5c6b1d7550cf226e5b38af3f2cde768132",
+    "signature" : "3dfe812a92c41acda4b90e8e728063ae952b2535676c2c232b2240da663993e7",
     "type" : "project"
   },
   {
@@ -994,6 +1010,15 @@
 
               ],
               "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:mozcore::MAINGROUP::REF_3::REF_6",
+              "guid" : "PACKAGE-TARGET:MozCore::BUILDPHASE_0::6",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
             }
           ],
           "guid" : "PACKAGE-TARGET:MozCore::BUILDPHASE_0",
@@ -1020,7 +1045,7 @@
       "productTypeIdentifier" : "org.swift.product-type.library.static",
       "type" : "standard"
     },
-    "signature" : "326c3844f9dfc9f7e7d55a3df916a60d1800e7e3168a3123e99004bf8c8cbb26",
+    "signature" : "40310ef2dacd5752ad2c3628c30432b3c703f6d2638d1377713e152efba2e78c",
     "type" : "target"
   },
   {
@@ -1245,6 +1270,15 @@
 
               ],
               "removeHeadersOnCopy" : "false"
+            },
+            {
+              "codeSignOnCopy" : "false",
+              "fileReference" : "PACKAGE:mozcore::MAINGROUP::REF_4::REF_6",
+              "guid" : "PACKAGE-TARGET:MozCore-364D54E74B9F10C6-dynamic::BUILDPHASE_0::6",
+              "platformFilters" : [
+
+              ],
+              "removeHeadersOnCopy" : "false"
             }
           ],
           "guid" : "PACKAGE-TARGET:MozCore-364D54E74B9F10C6-dynamic::BUILDPHASE_0",
@@ -1270,7 +1304,7 @@
       "productTypeIdentifier" : "com.apple.product-type.library.dynamic",
       "type" : "standard"
     },
-    "signature" : "5ffa3fb2095604fb40b250ad84fc4a68d421262eac3f6806cb894d6b458580ff",
+    "signature" : "88631e71e77665ca39f4524e2ae648e15387f180fe9395e19490b800315e60b7",
     "type" : "target"
   },
   {

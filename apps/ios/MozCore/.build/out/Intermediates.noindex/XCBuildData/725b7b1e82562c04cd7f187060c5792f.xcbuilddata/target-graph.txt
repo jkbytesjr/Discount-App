@@ -1,0 +1,11 @@
+Target dependency graph (4 targets)
+Target 'AllIncludingTests' in project 'Aggregate'
+➜ Explicit dependency on target 'MozCoreTests-product' in project 'MozCore'
+➜ Dependency on target 'MozCoreTests-product' in project 'MozCore' via transitive dependency through 'MozCoreTests-test-runner'
+➜ Explicit dependency on target 'MozCore-product' in project 'MozCore'
+➜ Explicit dependency on target 'MozCore' in project 'MozCore'
+Target 'MozCore-product' in project 'MozCore'
+➜ Explicit dependency on target 'MozCore' in project 'MozCore'
+Target 'MozCoreTests-product' in project 'MozCore'
+➜ Explicit dependency on target 'MozCore' in project 'MozCore'
+Target 'MozCore' in project 'MozCore' (no dependencies)

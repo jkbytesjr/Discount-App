@@ -1,0 +1,79 @@
+{
+  "" : {
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/MozCore-primary.dia",
+    "emit-module-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/MozCore-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/MozCore-primary-emit-module.dia",
+    "pch" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/MozCore-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/MozCore-primary.swiftdeps"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/API.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/API~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/AlertEngine.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/AlertEngine~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/EventQueue.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/EventQueue~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/Geo.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Geo~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/Matching.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Matching~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/Models.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/Phone.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone~partial.swiftmodule"
+  }
+}

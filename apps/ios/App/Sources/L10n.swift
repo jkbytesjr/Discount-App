@@ -59,6 +59,14 @@ enum L10n {
         "lock.offerTitle": ("Entrar com Face ID?", "Sign in with Face ID?"), "lock.offerBody": ("Da próxima vez entra sem escrever a palavra-passe.", "Next time you will sign in without typing your password."), "lock.enable": ("Activar", "Enable"), "lock.notNow": ("Agora não", "Not now"),
         "profile.edit": ("Editar perfil", "Edit profile"), "profile.phone": ("Telefone (+258…)", "Phone (+258…)"), "profile.changePassword": ("Alterar palavra-passe", "Change password"), "profile.currentPassword": ("Palavra-passe actual", "Current password"),
         "profile.newPassword": ("Nova palavra-passe", "New password"), "profile.saved": ("Guardado.", "Saved."), "profile.exportData": ("Descarregar os meus dados", "Download my data"),
+        "err.FORBIDDEN": ("Esta conta não pode fazer isto. Entre com uma conta de utilizador (não de negócio ou administrador).", "This account cannot do this. Sign in with a user account (not a business or admin account)."),
+        "err.UNAUTHENTICATED": ("A sessão expirou. Inicie sessão novamente.", "Your session expired. Please sign in again."), "err.NOT_FOUND": ("Não encontrado.", "Not found."),
+        "err.UNKNOWN_CARD_PRODUCT": ("Cartão desconhecido. Actualize a lista e tente novamente.", "Unknown card. Refresh the list and try again."), "err.UNKNOWN_WALLET": ("Carteira desconhecida.", "Unknown wallet."),
+        "err.TOO_MANY": ("Atingiu o limite de cartões.", "You reached the card limit."), "err.INTERNAL": ("Erro no servidor. Tente novamente.", "Server error. Please try again."),
+        "err.WRONG_ROLE": ("Esta app é para clientes. As contas de negócio e de administração usam o portal web.", "This app is for customers. Business and admin accounts use the web portal."),
+        "common.added": ("Adicionado.", "Added."), "profile.phoneInvalid": ("Use +258 seguido de 9 dígitos.", "Use +258 followed by 9 digits."),
+        "cards.catalogueFailed": ("Não foi possível carregar os bancos e carteiras. Verifique a ligação à rede.", "Could not load the banks and wallets. Check your network connection."),
+        "cards.addWalletHint": ("Toque numa carteira para a adicionar.", "Tap a wallet to add it."), "cards.allWalletsAdded": ("Já adicionou todas as carteiras.", "You added every wallet."),
         "lock.title": ("Desbloquear", "Unlock"), "lock.reason": ("Desbloqueie a Moz Discounts", "Unlock Moz Discounts"), "lock.button": ("Usar Face ID", "Use Face ID"),
     ]
 }

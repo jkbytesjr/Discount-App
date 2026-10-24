@@ -6,7 +6,7 @@ export function LineChart({ labels, series, title }: { labels: string[]; series:
   const max = Math.max(1, ...series.flatMap((s) => s.values));
   const x = (i: number) => P.l + (labels.length <= 1 ? 0 : (i * (W - P.l - P.r)) / (labels.length - 1));
   const y = (v: number) => P.t + (1 - v / max) * (H - P.t - P.b);
-  const ticks = [0, 0.5, 1].map((f) => Math.round(max * f));
+  const ticks = [...new Set([0, 0.5, 1].map((f) => Math.round(max * f)))]; // a small max would repeat a tick (and its React key)
   return (
     <figure style={{ margin: 0 }}>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label={title} style={{ display: "block" }}>
@@ -22,7 +22,7 @@ export function LineChart({ labels, series, title }: { labels: string[]; series:
             </g>
           );
         })}
-        {[0, Math.floor((labels.length - 1) / 2), labels.length - 1].map((i) => labels[i] ? <text key={i} x={x(i)} y={H - 6} textAnchor={i === 0 ? "start" : i === labels.length - 1 ? "end" : "middle"} fontSize="10" fill="rgba(255,255,255,.7)">{labels[i]!.slice(5)}</text> : null)}
+        {[...new Set([0, Math.floor((labels.length - 1) / 2), labels.length - 1])].map((i) => labels[i] ? <text key={i} x={x(i)} y={H - 6} textAnchor={i === 0 ? "start" : i === labels.length - 1 ? "end" : "middle"} fontSize="10" fill="rgba(255,255,255,.7)">{labels[i]!.slice(5)}</text> : null)}
       </svg>
       <figcaption className="row" style={{ gap: 16, fontSize: 12 }}>{series.map((s) => <span key={s.label} className="row" style={{ gap: 6 }}><span aria-hidden="true" style={{ width: 10, height: 10, borderRadius: 3, background: s.color }} />{s.label}</span>)}</figcaption>
     </figure>

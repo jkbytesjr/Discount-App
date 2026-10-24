@@ -15,7 +15,13 @@ const securityHeaders = [
   // Page CSP (nonce-based) is set per request in proxy.ts. API responses get a locked-down policy here.
 ];
 
+// Testing the dev server from a phone on the same Wi-Fi (http://<Mac LAN IP>:3000): Next 16 answers 403 to the script and
+// websocket requests of any host that is not listed here, so the page renders but never hydrates (buttons, language switch and
+// forms do nothing). Private LAN ranges are allowed by default; add hotspot or custom hosts with DEV_ALLOWED_ORIGINS="a.b.c.*,host.local".
+const devOrigins = ["192.168.*.*", "10.*.*.*", "172.*.*.*", "*.local", ...(process.env.DEV_ALLOWED_ORIGINS ?? "").split(",").map((s) => s.trim()).filter(Boolean)];
+
 export default {
+  allowedDevOrigins: devOrigins,
   transpilePackages: ["@moz/shared", "@moz/core", "@moz/db"],
   async headers() {
     return [

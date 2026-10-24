@@ -42,11 +42,11 @@ struct ProfileView: View {
                 Button(app.t("profile.delete")) { showDelete = true }.font(.manrope(size: 14, weight: .semibold)).foregroundStyle(Theme.danger).padding(.top, 4)
             }.padding(.horizontal, 18).padding(.bottom, 110)
         }
-        .sheet(isPresented: $showCards) { ZStack { Backdrop(); VStack { HStack { Spacer(); Button(app.t("common.done")) { showCards = false }.foregroundStyle(Theme.cyan) }.padding(); MyCardsView(embedded: false) } }.preferredColorScheme(.dark) }
+        .sheet(isPresented: $showCards) { ZStack { Backdrop(); VStack { HStack { Spacer(); Button(app.t("common.done")) { showCards = false }.foregroundStyle(Theme.cyan) }.padding(); MyCardsView(embedded: false) } }.bannerOverlay().preferredColorScheme(.dark) }
         .sheet(isPresented: $showEdit) { EditProfileView().preferredColorScheme(.dark) }
-        .sheet(isPresented: $showPassword) { ChangePasswordView().preferredColorScheme(.dark) }
+        .sheet(isPresented: $showPassword) { ChangePasswordView().bannerOverlay().preferredColorScheme(.dark) }
         .sheet(item: Binding(get: { exportURL.map(URLBox.init) }, set: { exportURL = $0?.url })) { box in ShareSheet(url: box.url) }
-        .sheet(isPresented: $showPrefs) { PrefsView().preferredColorScheme(.dark) }
+        .sheet(isPresented: $showPrefs) { PrefsView().bannerOverlay().preferredColorScheme(.dark) }
         .alert(app.t("profile.delete"), isPresented: $showDelete) {
             SecureField(app.t("profile.deleteConfirm"), text: $deletePw)
             Button(app.t("profile.delete"), role: .destructive) { Task { do { try await app.deleteAccount(password: deletePw) } catch { app.flash(error) } } }
@@ -78,21 +78,26 @@ struct MyCardsView: View {
                 if app.cards.isEmpty { Text(app.t("cards.empty")).foregroundStyle(Theme.secondary) }
                 ForEach(app.cards) { c in
                     HStack { VStack(alignment: .leading, spacing: 2) { Text(c.nickname ?? c.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Text("\(c.issuerName) · \(app.t("type.\(c.cardType)")) · \(c.segment)").font(.manrope(size: 12)).foregroundStyle(Theme.secondary) }
-                        Spacer(); Button(app.t("common.remove")) { Task { await app.removeCard(c.id) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger) }
+                        Spacer(); Button(app.t("common.remove")) { Task { await app.removeCard(c.id) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger).accessibilityLabel("\(app.t("common.remove")): \(c.nickname ?? c.name)") }
                     .padding(14).glass(20)
                 }
                 Button(app.t("cards.add")) { adding = true }.buttonStyle(AccentButtonStyle())
                 Text(app.t("profile.cards").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).padding(.top, 6)
                 if app.wallets.isEmpty { Text(app.t("cards.noWallets")).foregroundStyle(Theme.secondary) }
                 ForEach(app.wallets) { w in
-                    HStack { Text(w.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Spacer(); Button(app.t("common.remove")) { Task { await app.removeWallet(w.walletProviderId) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger) }.padding(14).glass(20)
+                    HStack { Text(w.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Spacer(); Button(app.t("common.remove")) { Task { await app.removeWallet(w.walletProviderId) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger).accessibilityLabel("\(app.t("common.remove")): \(w.name)") }.padding(14).glass(20)
                 }
-                Menu {
-                    ForEach(app.catalogue.wallets.filter { w in !app.wallets.contains { $0.walletProviderId == w.id } }) { w in Button(w.name) { Task { await app.addWallet(w.id) } } }
-                } label: { Text(app.t("cards.addWallet")).font(.manrope(size: 15, weight: .semibold)).foregroundStyle(.white).frame(maxWidth: .infinity, minHeight: 48).glass(14) }
+                if app.catalogue.wallets.isEmpty {
+                    CatalogueRetry()
+                } else {
+                    let available = app.catalogue.wallets.filter { w in !app.wallets.contains { $0.walletProviderId == w.id } }
+                    Text(available.isEmpty ? app.t("cards.allWalletsAdded") : app.t("cards.addWalletHint")).font(.manrope(size: 12)).foregroundStyle(Theme.muted)
+                    ScrollView(.horizontal, showsIndicators: false) { HStack(spacing: 8) { ForEach(available) { w in Chip(title: "+ " + w.name, selected: false) { Task { await app.addWallet(w.id) } } } } }
+                }
             }.padding(.horizontal, 18).padding(.bottom, embedded ? 8 : 110)
         }
-        .sheet(isPresented: $adding) { AddCardFlow().preferredColorScheme(.dark) }
+        .task { await app.ensureCatalogue() }
+        .sheet(isPresented: $adding) { AddCardFlow().bannerOverlay().preferredColorScheme(.dark) }
     }
 }
 
@@ -105,6 +110,7 @@ struct AddCardFlow: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack { Text(app.t("cards.add")).font(.display(30)).foregroundStyle(.white); Spacer(); Button(app.t("common.cancel")) { dismiss() }.foregroundStyle(Theme.cyan) }
                 step(app.t("cards.bank"))
+                if banks.isEmpty { CatalogueRetry() }
                 ScrollView(.horizontal, showsIndicators: false) { HStack { ForEach(banks) { b in Chip(title: b.shortName, selected: issuer == b) { issuer = b; type = nil } } } }
                 if let i = issuer {
                     step(app.t("cards.type"))
@@ -115,7 +121,7 @@ struct AddCardFlow: View {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
                         ForEach(app.catalogue.products.filter { $0.issuerId == i.id && $0.cardType == t }) { p in
                             let held = app.cards.contains { $0.cardProductId == p.id }
-                            Button { Task { await app.addCard(p.id, nickname: nickname.isEmpty ? nil : nickname); dismiss() } } label: {
+                            Button { Task { if await app.addCard(p.id, nickname: nickname.isEmpty ? nil : nickname) { dismiss() } } } label: {
                                 VStack(alignment: .leading, spacing: 8) { RoundedRectangle(cornerRadius: 10).fill(Theme.accent).frame(height: 70).overlay(alignment: .bottomTrailing) { Image(systemName: "creditcard").foregroundStyle(.white.opacity(0.8)).padding(8) }
                                     Text(p.name).font(.manrope(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2).multilineTextAlignment(.leading); if held { Text("✓").foregroundStyle(Theme.success) } }
                                 .padding(10).glass(16)
@@ -176,11 +182,11 @@ struct ShareSheet: UIViewControllerRepresentable {
 
 struct EditProfileView: View {
     @EnvironmentObject var app: AppModel
-    @Environment(\.dismiss) private var dismiss
-    @State private var first = ""
-    @State private var last = ""
-    @State private var phone = ""
-    @State private var error = ""
+    @Environment(\.dismiss) var dismiss
+    @State var first = ""
+    @State var last = ""
+    @State var phone = ""
+    @State var error = ""
     var body: some View {
         ZStack { Backdrop(); ScrollView {
             VStack(alignment: .leading, spacing: 14) {
@@ -191,10 +197,24 @@ struct EditProfileView: View {
                     GlassField(title: app.t("profile.phone"), text: $phone, keyboard: .phonePad)
                     if !error.isEmpty { Text(error).font(.manrope(size: 13)).foregroundStyle(Theme.danger) }
                 }.padding(18).glass(24)
-                Button(app.t("common.save")) { Task { do { try await app.updateProfile(firstName: first, lastName: last, phone: phone.isEmpty ? nil : phone); dismiss() } catch let e { error = app.message(for: e) } } }.buttonStyle(AccentButtonStyle())
+                Button(app.t("common.save")) { Task { await save() } }.buttonStyle(AccentButtonStyle(enabled: !first.trimmingCharacters(in: .whitespaces).isEmpty && !last.trimmingCharacters(in: .whitespaces).isEmpty)).disabled(first.trimmingCharacters(in: .whitespaces).isEmpty || last.trimmingCharacters(in: .whitespaces).isEmpty)
             }.padding(20)
         } }
-        .onAppear { first = app.user?.firstName ?? ""; last = app.user?.lastName ?? "" }
+        .onAppear { first = app.user?.firstName ?? ""; last = app.user?.lastName ?? ""; phone = app.user?.phone ?? "" }
+        .bannerOverlay()
+    }
+}
+
+extension EditProfileView {
+    func save() async {
+        error = ""
+        var normalised: String? = nil
+        if !phone.trimmingCharacters(in: .whitespaces).isEmpty {
+            guard let n = Phone.normalise(phone) else { error = app.t("profile.phoneInvalid"); return }
+            normalised = n
+        }
+        do { try await app.updateProfile(firstName: first.trimmingCharacters(in: .whitespaces), lastName: last.trimmingCharacters(in: .whitespaces), phone: normalised); dismiss() }
+        catch let e { error = app.message(for: e) }
     }
 }
 
@@ -219,5 +239,16 @@ struct ChangePasswordView: View {
                 Button(app.t("common.save")) { Task { do { try await app.api.changePassword(current: current, new: new); done = true; error = ""; current = ""; new = "" } catch let e { error = app.message(for: e) } } }.buttonStyle(AccentButtonStyle(enabled: !current.isEmpty && !new.isEmpty)).disabled(current.isEmpty || new.isEmpty)
             }.padding(20)
         } }
+    }
+}
+
+struct CatalogueRetry: View {
+    @EnvironmentObject var app: AppModel
+    @State private var busy = false
+    var body: some View {
+        VStack(spacing: 10) {
+            Text(app.t("cards.catalogueFailed")).font(.manrope(size: 13)).foregroundStyle(Theme.secondary).multilineTextAlignment(.center)
+            Button(busy ? app.t("common.loading") : app.t("common.retry")) { Task { busy = true; await app.ensureCatalogue(); busy = false } }.buttonStyle(GlassButtonStyle())
+        }.frame(maxWidth: .infinity).padding(14).glass(18, dark: true).task { await app.ensureCatalogue() }
     }
 }

@@ -32,7 +32,7 @@ struct MainTabs: View {
             Button(app.t("lock.enable")) { UserDefaults.standard.set(true, forKey: "faceIdAsked"); app.lockEnabled = true }
             Button(app.t("lock.notNow"), role: .cancel) { UserDefaults.standard.set(true, forKey: "faceIdAsked") }
         } message: { Text(app.t("lock.offerBody")) }
-        .sheet(item: Binding(get: { app.openOfferId.map(IDBox.init) }, set: { app.openOfferId = $0?.id })) { box in OfferDetailView(discountId: box.id) }
+        .sheet(item: Binding(get: { app.openOfferId.map(IDBox.init) }, set: { app.openOfferId = $0?.id })) { box in OfferDetailView(discountId: box.id).bannerOverlay() }
     }
 }
 struct IDBox: Identifiable { var id: String }
@@ -114,7 +114,7 @@ struct HomeView: View {
         .onChange(of: filter) { _, _ in Task { if let b = lastBBox { await fetch(b) }; await loadNearby() } }
         .onChange(of: app.lang) { _, _ in Task { await loadRecent(); await loadNearby() } }
         .onChange(of: app.location.location) { old, new in if old == nil, let l = new { camera = .region(MKCoordinateRegion(center: l.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))); Task { await loadNearby() } } }
-        .sheet(item: Binding(get: { selected.map(IDBox.init) }, set: { selected = $0?.id })) { box in PremiseDetailView(premiseId: box.id) }
+        .sheet(item: Binding(get: { selected.map(IDBox.init) }, set: { selected = $0?.id })) { box in PremiseDetailView(premiseId: box.id).bannerOverlay() }
     }
 
     private var bottomPanel: some View {

@@ -15,7 +15,8 @@ final class AppModel: ObservableObject {
 
     @Published var phase: Phase = .launching
     @Published var user: SessionUser?
-    @Published var lang: Lang { didSet { UserDefaults.standard.set(lang.rawValue, forKey: "lang") } }
+    @Published var lang: Lang { didSet { UserDefaults.standard.set(lang.rawValue, forKey: "lang"); syncLocale() } }
+    @Published var catalogueFailed = false
     @Published var catalogue = Catalogue()
     @Published var cards: [MyCard] = []
     @Published var wallets: [MyWallet] = []
@@ -71,10 +72,12 @@ final class AppModel: ObservableObject {
     }
 
     func message(for error: Error) -> String {
-        guard let e = error as? APIError else { return t("common.error") }
+        guard let e = error as? APIError else { return "\(t("common.error")) (\(type(of: error)))" }
         let key = "err.\(e.code)"
-        return L10n.table[key] != nil ? t(key) : t("common.error")
+        // Unknown codes are shown too, so a failure on a phone can be reported precisely.
+        return L10n.table[key] != nil ? t(key) : "\(t("common.error")) (\(e.code))"
     }
+    func notice(_ text: String) { banner = text; Task { try? await Task.sleep(nanoseconds: 2_500_000_000); if banner == text { banner = nil } } }
     func flash(_ error: Error) { banner = message(for: error); Task { try? await Task.sleep(nanoseconds: 4_000_000_000); banner = nil } }
 
     // MARK: Lifecycle
@@ -86,8 +89,19 @@ final class AppModel: ObservableObject {
         location.onSignificantMove = { [weak self] loc in Task { @MainActor in await self?.refreshRegions(near: loc); await self?.checkInside(loc) } }
     }
 
+    /// The catalogue is public data the card and wallet pickers need. The first request of a fresh install can fail
+    /// (iOS asks for Local Network access when the API is a LAN address), so it is retried and can be reloaded by hand.
+    @discardableResult
+    func ensureCatalogue() async -> Bool {
+        if !catalogue.products.isEmpty && !catalogue.wallets.isEmpty { return true }
+        do { catalogue = try await api.catalogue(); catalogueFailed = false; return !catalogue.products.isEmpty }
+        catch { catalogueFailed = true; logger.error("catalogue failed: \(String(describing: error), privacy: .public)"); return false }
+    }
+    private func retryCatalogue() { Task { for _ in 0..<6 where !(await ensureCatalogue()) { try? await Task.sleep(nanoseconds: 3_000_000_000) } } }
+    private func syncLocale() { if phase == .signedIn { let l = lang; Task { try? await api.setLocale(l) } } }
+
     func bootstrap() async {
-        if let c = try? await api.catalogue() { catalogue = c }
+        if !(await ensureCatalogue()) { retryCatalogue() }
         #if DEBUG
         // Simulator scripts: MOZ_AUTOLOGIN="email:password" signs in without typing; never compiled into Release builds.
         if tokens.load() == nil, let cred = ProcessInfo.processInfo.environment["MOZ_AUTOLOGIN"], let i = cred.firstIndex(of: ":") {
@@ -101,7 +115,7 @@ final class AppModel: ObservableObject {
             let ctx = LAContext()
             if (try? await ctx.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: t("lock.reason"))) == true { _ = tokens.unlock(with: ctx) }
         }
-        if tokens.load() != nil, let u = try? await api.me() {
+        if tokens.load() != nil, let u = try? await api.me(), u.role == "USER" {
             user = u; phase = .signedIn
             await loadBundle(); await afterSignIn()
         } else if UserDefaults.standard.bool(forKey: "onboardingSeen") { phase = .signedOut } else { phase = .onboarding }
@@ -122,7 +136,10 @@ final class AppModel: ObservableObject {
     func setPushToken(_ t: String) { pushToken = t; if user != nil { Task { try? await api.registerPushToken(vendorId: deviceInfo.vendorId, token: t, device: deviceInfo) } } }
 
     func login(email: String, password: String) async throws {
-        user = try await api.login(email: email, password: password, device: deviceInfo, location: location.location.map { Coordinate(lat: $0.coordinate.latitude, lng: $0.coordinate.longitude) })
+        let u = try await api.login(email: email, password: password, device: deviceInfo, location: location.location.map { Coordinate(lat: $0.coordinate.latitude, lng: $0.coordinate.longitude) })
+        // The app is for customers: cards, wallets and favourites are refused for business and admin accounts (they use the web portal).
+        guard u.role == "USER" else { await api.logout(); throw APIError.problem(status: 403, code: "WRONG_ROLE") }
+        user = u
         phase = .signedIn; await loadBundle(); await afterSignIn()
         if Biometrics.available, !lockEnabled, !UserDefaults.standard.bool(forKey: "faceIdAsked") { offerFaceID = true }
     }
@@ -132,13 +149,19 @@ final class AppModel: ObservableObject {
         for r in CLLocationManager().monitoredRegions { CLLocationManager().stopMonitoring(for: r) }
     }
     private func sessionExpired() { if phase == .signedIn { user = nil; phase = .signedOut } }
-    func updateProfile(firstName: String, lastName: String, phone: String?) async throws { user = try await api.updateProfile(firstName: firstName, lastName: lastName, phone: phone) }
+    func updateProfile(firstName: String, lastName: String, phone: String?) async throws {
+        _ = try await api.updateProfile(firstName: firstName, lastName: lastName, phone: phone)
+        user = try await api.me() // re-read: what the screen shows is what the server stored
+        notice(t("profile.saved"))
+    }
     func deleteAccount(password: String) async throws { try await api.deleteAccount(password: password); await logout() }
 
     // MARK: Cards, wallets, preferences, favourites
-    func addCard(_ productId: String, nickname: String?) async { do { try await api.addCard(productId, nickname: nickname); await loadBundle(); await resync() } catch { flash(error) } }
+    @discardableResult
+    func addCard(_ productId: String, nickname: String?) async -> Bool { do { try await api.addCard(productId, nickname: nickname); await loadBundle(); await resync(); notice(t("common.added")); return true } catch { flash(error); return false } }
     func removeCard(_ id: String) async { do { try await api.removeCard(id); await loadBundle(); await resync() } catch { flash(error) } }
-    func addWallet(_ id: String) async { do { try await api.addWallet(id); await loadBundle(); await resync() } catch { flash(error) } }
+    @discardableResult
+    func addWallet(_ id: String) async -> Bool { do { try await api.addWallet(id); await loadBundle(); await resync(); notice(t("common.added")); return true } catch { flash(error); return false } }
     func removeWallet(_ id: String) async { do { try await api.removeWallet(id); await loadBundle(); await resync() } catch { flash(error) } }
     func save(prefs p: Prefs) async { do { try await api.savePrefs(p); prefs = p } catch { flash(error) } }
     func toggleFavourite(_ id: String) async {

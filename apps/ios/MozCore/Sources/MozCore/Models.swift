@@ -4,6 +4,8 @@ import Foundation
 
 public struct SessionUser: Codable, Sendable, Equatable {
     public var id: String, email: String, role: String, firstName: String, lastName: String, locale: String
+    public var phone: String?
+    public init(id: String, email: String, role: String, firstName: String, lastName: String, locale: String, phone: String? = nil) { self.id = id; self.email = email; self.role = role; self.firstName = firstName; self.lastName = lastName; self.locale = locale; self.phone = phone }
 }
 public struct LoginResponse: Codable, Sendable {
     public var user: SessionUser

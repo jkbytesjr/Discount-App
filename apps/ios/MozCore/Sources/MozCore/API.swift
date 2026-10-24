@@ -122,7 +122,7 @@ public actor APIClient {
         _ = try? await perform("POST", "/auth/logout", body: Req(refreshToken: rt))
         tokens.save(nil)
     }
-    public func me() async throws -> SessionUser { struct R: Decodable { var id: String, email: String, role: String, firstName: String, lastName: String, locale: String }; let r: R = try await get("/me"); return SessionUser(id: r.id, email: r.email, role: r.role, firstName: r.firstName, lastName: r.lastName, locale: r.locale) }
+    public func me() async throws -> SessionUser { try await get("/me") }
 
     // MARK: Catalogue and discovery (public)
     public func catalogue() async throws -> Catalogue {
@@ -166,9 +166,12 @@ public actor APIClient {
         struct Req: Encodable { var firstName: String, lastName: String, phone: String?
             func encode(to e: Encoder) throws { var c = e.container(keyedBy: K.self); try c.encode(firstName, forKey: .firstName); try c.encode(lastName, forKey: .lastName); try c.encode(phone, forKey: .phone) }
             enum K: String, CodingKey { case firstName, lastName, phone } }
-        struct R: Decodable { var id: String, email: String, role: String, firstName: String, lastName: String, locale: String }
-        let r: R = try decode(R.self, try await perform("PATCH", "/me", body: Req(firstName: firstName, lastName: lastName, phone: phone)).0)
-        return SessionUser(id: r.id, email: r.email, role: r.role, firstName: r.firstName, lastName: r.lastName, locale: r.locale)
+        return try decode(SessionUser.self, try await perform("PATCH", "/me", body: Req(firstName: firstName, lastName: lastName, phone: phone)).0)
+    }
+    /// Keeps the server-side language (emails, pushes) in step with the app language.
+    public func setLocale(_ lang: Lang) async throws {
+        struct Req: Encodable { var locale: String }
+        _ = try await perform("PATCH", "/me", body: Req(locale: lang == .pt ? "pt-MZ" : "en"))
     }
     public func changePassword(current: String, new: String) async throws { struct Req: Encodable { var currentPassword: String, newPassword: String }; let _: Ack = try await post("/me/change-password", body: Req(currentPassword: current, newPassword: new)) }
     public func exportMyData() async throws -> Data { try await perform("GET", "/me/export").0 }

@@ -130,3 +130,17 @@ struct LiquidTabBar<Tab: Hashable>: View {
         .padding(6).glass(34)
     }
 }
+
+/// Errors and confirmations must be visible inside sheets too (a sheet covers the banner of the root view).
+struct BannerOverlay: ViewModifier {
+    @EnvironmentObject var app: AppModel
+    func body(content: Content) -> some View {
+        content.overlay(alignment: .bottom) {
+            if let b = app.banner {
+                Text(b).font(.manrope(size: 14, weight: .semibold)).foregroundStyle(.white).padding(14).glass(16, dark: true).padding(.horizontal, 16).padding(.bottom, 24)
+                    .transition(.move(edge: .bottom).combined(with: .opacity)).accessibilityAddTraits(.updatesFrequently)
+            }
+        }.animation(.easeOut(duration: 0.25), value: app.banner)
+    }
+}
+extension View { func bannerOverlay() -> some View { modifier(BannerOverlay()) } }

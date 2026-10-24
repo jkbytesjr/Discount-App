@@ -65,5 +65,15 @@
     "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.o",
     "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models.swiftdeps",
     "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Models~partial.swiftmodule"
+  },
+  "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/Sources/MozCore/Phone.swift" : {
+    "const-values" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.swiftconstvalues",
+    "dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.d",
+    "diagnostics" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.dia",
+    "index-unit-output-path" : "/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.o",
+    "llvm-bc" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.bc",
+    "object" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.o",
+    "swift-dependencies" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone.swiftdeps",
+    "swiftmodule" : "/Users/jkbytes/Developer/moz-discounts/apps/ios/MozCore/.build/out/Intermediates.noindex/MozCore.build/Debug/MozCore-t.build/Objects-normal/arm64/Phone~partial.swiftmodule"
   }
 }

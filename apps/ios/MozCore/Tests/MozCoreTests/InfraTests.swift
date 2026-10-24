@@ -19,6 +19,14 @@ final class InfraTests: XCTestCase {
     func tmp() -> URL { FileManager.default.temporaryDirectory.appendingPathComponent("q-\(UUID().uuidString).json") }
     func ev(_ n: Int = 0) -> AlertEvent { AlertEvent(type: .OPENED, premiseId: "pr-\(n)", discountIds: ["d-01"], occurredAt: Date(), location: Coordinate(lat: -25.94781, lng: 32.61333)) }
 
+    func testPhoneNormalisation() {
+        XCTAssertEqual(Phone.normalise("841234567"), "+258841234567")
+        XCTAssertEqual(Phone.normalise("84 123 4567"), "+258841234567")
+        XCTAssertEqual(Phone.normalise("+258 84-123-4567"), "+258841234567")
+        XCTAssertEqual(Phone.normalise("258841234567"), "+258841234567")
+        XCTAssertEqual(Phone.normalise("00258841234567"), "+258841234567")
+        XCTAssertNil(Phone.normalise("12345")); XCTAssertNil(Phone.normalise("+27821234567")); XCTAssertNil(Phone.normalise("abc"))
+    }
     func testCoarseLocationIsRoundedTo100m() { XCTAssertEqual(ev().lat, -25.948); XCTAssertEqual(ev().lng, 32.613) }
 
     func testQueuePersistsAndFlushesInBatchesStoppingOnFailure() async throws {
