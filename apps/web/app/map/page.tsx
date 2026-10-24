@@ -135,7 +135,7 @@ export default function Page() {
   return (
     <main id="main" className="mapapp">
       <header className="map-head glass">
-        <Link href="/" className="brand"><img src="/brand/logo.svg" alt="" width={32} height={32} /><span>{t("app.name")}</span></Link>
+        <Link href="/" className="brand"><img src="/brand/app-icon.png" alt="" width={32} height={32} /><span>{t("app.name")}</span></Link>
         <div className="grow"><h1 style={{ margin: 0, fontSize: "1.25rem" }}>{t("map.title")}</h1><p className="muted" style={{ margin: 0, fontSize: ".85rem" }}>{t("map.sub")}</p></div>
         <button type="button" className="btn ghost sm" onClick={() => { setLocaleCookie(other); router.refresh(); }} lang={other}><Icon name="globe" size={18} />{other === "en" ? "English" : "Português"}</button>
         <Link className="btn secondary sm" href="/login">{t("auth.login")}</Link>

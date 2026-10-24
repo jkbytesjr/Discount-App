@@ -51,7 +51,7 @@ struct SplashView: View {
     @EnvironmentObject var app: AppModel
     var body: some View {
         VStack(spacing: 14) {
-            Image(systemName: "creditcard.fill").font(.manrope(size: 54)).foregroundStyle(Theme.accent)
+            Image("Logo").resizable().scaledToFit().frame(width: 112, height: 112).clipShape(RoundedRectangle(cornerRadius: 26)).accessibilityHidden(true)
             Text(app.t("app.name")).font(.display(34)).foregroundStyle(.white)
             ProgressView().tint(.white)
         }

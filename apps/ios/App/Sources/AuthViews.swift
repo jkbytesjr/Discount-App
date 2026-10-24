@@ -75,7 +75,7 @@ struct AuthCard<Content: View>: View {
         ScrollView {
             VStack(spacing: 18) {
                 HStack { Spacer(); Picker("", selection: $app.lang) { Text("PT").tag(Lang.pt); Text("EN").tag(Lang.en) }.pickerStyle(.segmented).frame(width: 110) }
-                Image(systemName: "creditcard.fill").font(.manrope(size: 40)).foregroundStyle(Theme.accent).padding(.top, 20)
+                Image("Logo").resizable().scaledToFit().frame(width: 84, height: 84).clipShape(RoundedRectangle(cornerRadius: 20)).accessibilityHidden(true).padding(.top, 20)
                 Text(title).font(.display(34)).foregroundStyle(.white).multilineTextAlignment(.center)
                 VStack(spacing: 14) { content }.padding(22).glass(28)
                 Text(app.t("demo.ribbon")).font(.manrope(size: 12, weight: .semibold)).foregroundStyle(Theme.warning)

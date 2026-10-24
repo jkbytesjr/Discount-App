@@ -12,7 +12,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
   return (
     <main id="main" className="auth">
       <div className="card">
-        <Link href="/" className="brand"><img src="/brand/logo.svg" alt="" /><span>{t("app.name")}</span></Link>
+        <Link href="/" className="brand"><img src="/brand/app-icon.png" alt="" /><span>{t("app.name")}</span></Link>
         <h1 style={{ textAlign: "center" }}>{title}</h1>
         {subtitle ? <p className="muted" style={{ textAlign: "center" }}>{subtitle}</p> : null}
         <div className="stack" style={{ marginTop: 16 }}>{children}</div>

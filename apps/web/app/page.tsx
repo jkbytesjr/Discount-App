@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <main id="main" className="auth">
       <div className="card" style={{ textAlign: "center" }}>
-        <img src="/brand/logo.svg" alt="" width={72} height={72} style={{ borderRadius: 18 }} />
+        <img src="/brand/app-icon.png" alt="" width={72} height={72} style={{ borderRadius: 18 }} />
         <h1 style={{ marginTop: 16 }}>{t("app.name")}</h1>
         <p className="muted">{t("app.tagline")}</p>
         <hr className="rule" />

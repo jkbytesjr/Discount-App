@@ -61,7 +61,7 @@ export function Shell({ children }: { children: ReactNode }) {
     <div className={`shell ${collapsed ? "collapsed" : ""}`}>
       <nav className="sidebar glass" aria-label="Main">
         <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: "absolute" }}><defs><linearGradient id="iconGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ff2d9b" /><stop offset="0.55" stopColor="#9b5cff" /><stop offset="1" stopColor="#19d3ff" /></linearGradient></defs></svg>
-        <Link href="/dashboard" className="brand"><img src="/brand/logo.svg" alt="" /><span>{t("app.name")}</span></Link>
+        <Link href="/dashboard" className="brand"><img src="/brand/app-icon.png" alt="" /><span>{t("app.name")}</span></Link>
         <div className="nav-group" ref={navRef}>
           {items.map((i) => (
             <Link key={i.href} href={i.href} className="nav-link" aria-current={i.href === current ? "page" : undefined} title={collapsed ? t(i.label) : undefined}>
