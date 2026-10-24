@@ -18,7 +18,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
         <div className="stack" style={{ marginTop: 16 }}>{children}</div>
         <hr className="rule" />
         <div className="row between">
-          <small className="muted">{t("app.tagline")}</small>
+          <small className="muted">{t("app.tagline")} · <Link href="/privacy">{t("app.privacy")}</Link></small>
           <button type="button" className="btn ghost sm" onClick={() => { setLocaleCookie(other); router.refresh(); }} lang={other}>{other === "en" ? "English" : "Português"}</button>
         </div>
       </div>

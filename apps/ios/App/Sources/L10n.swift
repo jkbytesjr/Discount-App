@@ -46,6 +46,8 @@ enum L10n {
         "profile.security": ("Segurança", "Security"), "profile.faceId": ("Bloquear com Face ID", "Lock with Face ID"), "profile.language": ("Idioma", "Language"), "profile.privacy": ("Privacidade", "Privacy"),
         "profile.delete": ("Eliminar conta", "Delete account"), "profile.deleteBody": ("Os seus dados pessoais serão anonimizados. Isto não pode ser desfeito.", "Your personal data will be anonymised. This cannot be undone."),
         "profile.deleteConfirm": ("Confirme com a palavra-passe", "Confirm with your password"), "profile.about": ("Sobre", "About"), "profile.privacyNote": ("Demonstração: só guardamos a localização arredondada (~100 m) nos eventos de alerta.", "Demo: we only store a rounded location (~100 m) in alert events."),
+        "home.discounts": ("Todos os descontos", "All discounts"), "home.allCategories": ("Todas", "All"),
+        "profile.privacyPolicy": ("Política de Privacidade", "Privacy Policy"),
         "cards.title": ("Cartões e carteiras", "Cards and wallets"), "cards.add": ("Adicionar cartão", "Add card"), "cards.addWallet": ("Adicionar carteira", "Add wallet"), "cards.bank": ("Banco", "Bank"),
         "cards.type": ("Tipo de cartão", "Card type"), "cards.product": ("Cartão", "Card"), "cards.empty": ("Ainda não adicionou cartões.", "You have not added any cards yet."), "cards.noWallets": ("Ainda não adicionou carteiras.", "You have not added any wallets yet."),
         "cards.nickname": ("Alcunha (opcional)", "Nickname (optional)"), "cards.never": ("Nunca pedimos o número, validade ou CVV.", "We never ask for the number, expiry or CVV."),

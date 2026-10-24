@@ -13,7 +13,7 @@ interface Item { href: string; label: MessageKey; icon: string }
 const NAV: Record<string, Item[]> = {
   ADMIN: [
     { href: "/dashboard", label: "nav.dashboard", icon: "home" }, { href: "/admin/users", label: "nav.users", icon: "users" },
-    { href: "/admin/businesses", label: "nav.businesses", icon: "building" }, { href: "/admin/catalogue", label: "nav.catalogue", icon: "tag" },
+    { href: "/admin/businesses", label: "nav.businesses", icon: "building" }, { href: "/admin/discounts", label: "nav.discounts", icon: "tag" }, { href: "/admin/catalogue", label: "nav.catalogue", icon: "tag" },
     { href: "/admin/audit", label: "nav.audit", icon: "shield" }, { href: "/admin/alerts", label: "nav.alerts", icon: "bell" }, { href: "/admin/settings", label: "nav.settings", icon: "settings" },
     { href: "/account", label: "nav.account", icon: "user" },
   ],

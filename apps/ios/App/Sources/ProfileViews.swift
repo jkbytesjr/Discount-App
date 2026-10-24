@@ -36,6 +36,7 @@ struct ProfileView: View {
                     Text(app.t("profile.privacyNote")).font(.manrope(size: 13)).foregroundStyle(Theme.secondary)
                     Text("\(app.t("profile.about")): Moz Discounts \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0") · \(app.t("demo.ribbon"))").font(.manrope(size: 12)).foregroundStyle(Theme.muted)
                 }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(22)
+                row("hand.raised", app.t("profile.privacyPolicy")) { if let u = URL(string: AppModel.privacyPolicyURL) { UIApplication.shared.open(u) } }
                 row("key", app.t("profile.changePassword")) { showPassword = true }
                 row("square.and.arrow.down", app.t("profile.exportData")) { Task { await exportData() } }
                 Button(app.t("auth.logout")) { Task { await app.logout() } }.buttonStyle(GlassButtonStyle())

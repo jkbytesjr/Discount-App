@@ -41,14 +41,18 @@ struct IDBox: Identifiable { var id: String }
 struct HomeView: View {
     enum Filter: Hashable { case all, mine, general, issuer(String), wallet(String) }
     @EnvironmentObject var app: AppModel
-    @State private var camera: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: -25.9692, longitude: 32.5732), span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12)))
+    @State private var camera: MapCameraPosition = .userLocation(fallback: .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: -25.9692, longitude: 32.5732), span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12))))
     @State private var places: [PremiseSummary] = []
     @State private var nearby: [NearbyItem] = []
     @State private var recent: [Offer] = []
     @State private var chips: FilterChips?
     @State private var filter: Filter = .all
     @State private var selected: String?
-    @State private var panelOpen = true
+    enum Detent { case collapsed, half, full }
+    @State private var detent: Detent = .half
+    @GestureState private var dragY: CGFloat = 0
+    @State private var category: String?
+    @State private var listItems: [NearbyItem] = []
     @State private var lastBBox: (Double, Double, Double, Double)?
     @State private var error = false
     @State private var placesSeq = 0   // a late response for an old filter must not overwrite a newer one
@@ -108,43 +112,61 @@ struct HomeView: View {
                 Spacer()
             }.padding(.top, 6)
 
-            VStack { Spacer(); bottomPanel.padding(.horizontal, 12).padding(.bottom, 84) }
+            GeometryReader { g in drawer(height: g.size.height).frame(maxHeight: .infinity, alignment: .bottom) }
         }
-        .task { chips = try? await app.api.filters(lang: app.lang); await loadRecent(); await loadNearby() }
+        .task { if app.location.authorization == .notDetermined { app.location.requestPermission() }; chips = try? await app.api.filters(lang: app.lang); await loadRecent(); await loadNearby() }
+        .onChange(of: category) { _, _ in Task { await loadNearby() } }
         .onChange(of: filter) { _, _ in Task { if let b = lastBBox { await fetch(b) }; await loadNearby() } }
         .onChange(of: app.lang) { _, _ in Task { await loadRecent(); await loadNearby() } }
         .onChange(of: app.location.location) { old, new in if old == nil, let l = new { camera = .region(MKCoordinateRegion(center: l.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))); Task { await loadNearby() } } }
         .sheet(item: Binding(get: { selected.map(IDBox.init) }, set: { selected = $0?.id })) { box in PremiseDetailView(premiseId: box.id).bannerOverlay() }
     }
 
-    private var bottomPanel: some View {
-        VStack(spacing: 8) {
-            Button { withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { panelOpen.toggle() } } label: {
-                HStack { Text(app.t("home.places", ["n": String(places.count)])).font(.manrope(size: 13, weight: .bold)).foregroundStyle(.white); Spacer(); Image(systemName: panelOpen ? "chevron.down" : "chevron.up").foregroundStyle(Theme.secondary) }
-            }.buttonStyle(.plain)
-            if panelOpen {
-                if !recent.isEmpty {
-                    Text(app.t("home.recent").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) { ForEach(recent) { o in Button { app.openOfferId = o.id } label: { OfferMiniCard(offer: o) }.buttonStyle(.plain) } }
-                    }
+    /// Three-stop drawer: peek, half, and full screen with every discount in a list grouped by category (home drawer).
+    private func drawer(height: CGFloat) -> some View {
+        let top: CGFloat = 96, bottomBar: CGFloat = 84
+        let full = height - top - bottomBar
+        let base: CGFloat = detent == .full ? full : detent == .half ? height * 0.46 : 74
+        let h = min(max(base - dragY, 74), full)
+        return VStack(spacing: 10) {
+            VStack(spacing: 6) {
+                Capsule().fill(Color.white.opacity(0.4)).frame(width: 40, height: 5)
+                HStack { Text(app.t(detent == .full ? "home.discounts" : "home.places", ["n": String(places.count)])).font(.manrope(size: 14, weight: .bold)).foregroundStyle(.white); Spacer(); Image(systemName: detent == .full ? "chevron.down" : "chevron.up").foregroundStyle(Theme.secondary) }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture { withAnimation(.spring(response: 0.4, dampingFraction: 0.82)) { detent = detent == .collapsed ? .half : detent == .half ? .full : .collapsed } }
+            .gesture(DragGesture().updating($dragY) { v, st, _ in st = -v.translation.height }.onEnded { v in
+                let up = v.translation.height < -40, down = v.translation.height > 40
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.82)) {
+                    if up { detent = detent == .collapsed ? .half : .full } else if down { detent = detent == .full ? .half : .collapsed }
                 }
-                Text(app.t("home.nearby").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).frame(maxWidth: .infinity, alignment: .leading)
-                if nearby.isEmpty { Text(error ? app.t("common.offline") : app.t("home.noPlaces")).font(.manrope(size: 13)).foregroundStyle(Theme.secondary).frame(maxWidth: .infinity, alignment: .leading) }
+            })
+            if detent != .collapsed {
                 ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(nearby) { item in
-                            Button { selected = item.premise.id } label: {
-                                HStack { VStack(alignment: .leading, spacing: 2) { Text(item.premise.name).font(.manrope(size: 14, weight: .semibold)).foregroundStyle(.white); Text(item.discount.rows.first(where: \.matched)?.label ?? item.discount.title).font(.manrope(size: 13)).foregroundStyle(Theme.secondary) }
-                                    Spacer(); Text("\(item.distanceM) m").font(.manrope(size: 12, weight: .semibold)).foregroundStyle(Theme.cyan) }
-                                .padding(10).background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            }.buttonStyle(.plain)
+                    VStack(alignment: .leading, spacing: 12) {
+                        if !recent.isEmpty {
+                            Text(app.t("home.recent").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                            OffersCarousel(offers: recent) { app.openOfferId = $0 }
                         }
-                    }
-                }.frame(maxHeight: 150)
+                        Text(app.t(detent == .full ? "home.discounts" : "home.nearby", ["n": ""]).uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                Chip(title: app.t("home.allCategories"), selected: category == nil) { category = nil }
+                                ForEach(chips?.categories ?? []) { c in Chip(title: c.name, selected: category == c.id) { category = c.id } }
+                            }
+                        }
+                        if listItems.isEmpty { Text(error ? app.t("common.offline") : app.t("home.noPlaces")).font(.manrope(size: 14)).foregroundStyle(Theme.secondary) }
+                        LazyVStack(spacing: 12) {
+                            ForEach(listItems) { item in
+                                Button { selected = item.premise.id } label: { DiscountCard(item: item, icon: icon(item.premise.categoryId)) }.buttonStyle(.plain)
+                            }
+                        }
+                    }.padding(.bottom, 12)
+                }
             }
         }
-        .padding(14).glass(26, dark: true)
+        .padding(14).frame(height: h, alignment: .top).glass(28, dark: true)
+        .padding(.horizontal, 10).padding(.bottom, bottomBar)
     }
 
     private func icon(_ cat: String) -> String {
@@ -161,7 +183,8 @@ struct HomeView: View {
     private func loadNearby() async {
         let c = app.location.location.map { Coordinate(lat: $0.coordinate.latitude, lng: $0.coordinate.longitude) } ?? Coordinate(lat: -25.9692, lng: 32.5732)
         nearbySeq += 1; let mine = nearbySeq
-        do { let r = try await app.api.nearby(at: c, radiusM: app.settings.nearbyRadiusM, filter: query(), lang: app.lang).items; if mine == nearbySeq { nearby = r; error = false } } catch { if mine == nearbySeq { self.error = true } }
+        var q = query(); if let category { q["category"] = category }
+        do { let r = try await app.api.nearby(at: c, radiusM: 10_000, filter: q, lang: app.lang).items; if mine == nearbySeq { listItems = r; nearby = r; error = false } } catch { if mine == nearbySeq { self.error = true } }
     }
     private func loadRecent() async { recent = (try? await app.api.recent(lang: app.lang).items) ?? [] }
 }
@@ -169,11 +192,61 @@ struct HomeView: View {
 struct OfferMiniCard: View {
     var offer: Offer
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(offer.businessName).font(.manrope(size: 11)).foregroundStyle(Theme.muted).lineLimit(1)
-            Text(offer.rows.first?.label ?? "").font(.display(20, weight: .regular)).foregroundStyle(Theme.accent)
-            Text(offer.title).font(.manrope(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2)
-        }.frame(width: 160, alignment: .leading).padding(12).glass(18)
+        VStack(alignment: .leading, spacing: 6) {
+            Text(offer.businessName).font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.secondary).lineLimit(1)
+            Text(offer.rows.first?.label ?? "").font(.display(40, weight: .bold)).foregroundStyle(Theme.accent).minimumScaleFactor(0.6).lineLimit(1)
+            Text(offer.title).font(.manrope(size: 15, weight: .semibold)).foregroundStyle(.white).lineLimit(2)
+        }.frame(width: 250, height: 138, alignment: .leading).padding(16).glass(22)
+    }
+}
+
+/// Horizontal offers with arrow buttons on both sides so it is clear there is more to scroll.
+struct OffersCarousel: View {
+    var offers: [Offer]; var onTap: (String) -> Void
+    @State private var index = 0
+    var body: some View {
+        ScrollViewReader { proxy in
+            ZStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) { ForEach(offers) { o in Button { onTap(o.id) } label: { OfferMiniCard(offer: o) }.buttonStyle(.plain).id(o.id) } }.padding(.horizontal, 2)
+                }
+                HStack {
+                    arrow("chevron.left", visible: index > 0) { go(-1, proxy) }
+                    Spacer()
+                    arrow("chevron.right", visible: index < offers.count - 1) { go(1, proxy) }
+                }
+            }
+        }
+    }
+    private func go(_ d: Int, _ proxy: ScrollViewProxy) {
+        index = min(max(index + d, 0), offers.count - 1)
+        withAnimation(.easeInOut(duration: 0.35)) { proxy.scrollTo(offers[index].id, anchor: .leading) }
+    }
+    private func arrow(_ name: String, visible: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) { Image(systemName: name).font(.system(size: 16, weight: .bold)).foregroundStyle(.white).frame(width: 38, height: 38).background(.ultraThinMaterial, in: Circle()).overlay(Circle().stroke(.white.opacity(0.35), lineWidth: 1)) }
+            .opacity(visible ? 1 : 0.0).accessibilityLabel(name == "chevron.left" ? "Previous" : "Next").accessibilityHidden(!visible)
+    }
+}
+
+/// Large list card: big percentage, business, where and how far.
+struct DiscountCard: View {
+    @EnvironmentObject var app: AppModel
+    var item: NearbyItem; var icon: String
+    var body: some View {
+        HStack(alignment: .center, spacing: 14) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(item.discount.rows.first(where: \.matched)?.label ?? item.discount.rows.first?.label ?? "").font(.display(44, weight: .bold)).foregroundStyle(Theme.accent).minimumScaleFactor(0.5).lineLimit(1)
+                Text(item.discount.title).font(.manrope(size: 17, weight: .semibold)).foregroundStyle(.white).lineLimit(2)
+                Text(item.premise.name).font(.manrope(size: 14)).foregroundStyle(Theme.secondary).lineLimit(1)
+            }
+            Spacer(minLength: 8)
+            VStack(spacing: 8) {
+                Image(systemName: icon).font(.system(size: 22, weight: .semibold)).foregroundStyle(.white).frame(width: 46, height: 46).background(Theme.accent, in: Circle())
+                Text(item.distanceM >= 1000 ? String(format: "%.1f km", Double(item.distanceM) / 1000) : "\(item.distanceM) m").font(.manrope(size: 13, weight: .bold)).foregroundStyle(Theme.cyan)
+            }
+        }
+        .padding(18).frame(maxWidth: .infinity, minHeight: 112).glass(24)
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -192,7 +265,7 @@ struct OffersList: View {
                 }
                 ForEach(o.rows) { r in
                     HStack(alignment: .firstTextBaseline, spacing: 8) {
-                        Text(r.label).font(.display(20, weight: .regular)).foregroundStyle(Theme.accent)
+                        Text(r.label).font(.display(34, weight: .bold)).foregroundStyle(Theme.accent)
                         Text(who(r)).font(.manrope(size: 13)).foregroundStyle(Theme.secondary)
                     }
                     if let m = r.minSpendMzn { Text(app.t("detail.minSpend", ["n": String(m)])).font(.manrope(size: 12)).foregroundStyle(Theme.muted) }

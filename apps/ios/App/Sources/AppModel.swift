@@ -11,6 +11,8 @@ private let logger = Logger(subsystem: "mz.mozdiscounts.app", category: "alerts"
 
 @MainActor
 final class AppModel: ObservableObject {
+    /// Public HTTPS privacy policy (App Store requirement); also entered in App Store Connect.
+    static let privacyPolicyURL = "https://discount-app-rho.vercel.app/privacy"
     enum Phase { case launching, onboarding, signedOut, signedIn }
 
     @Published var phase: Phase = .launching

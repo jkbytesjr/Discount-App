@@ -65,7 +65,8 @@ function body(s: State, forUpdate: boolean) {
   };
 }
 
-export function DiscountForm({ initial }: { initial?: DiscountDto }) {
+export function DiscountForm({ initial, admin }: { initial?: DiscountDto; admin?: { businessId: string } }) {
+  const base = admin ? "/admin/discounts" : "/business/discounts";
   const { t, locale } = useT();
   const errText = useErrorText();
   const router = useRouter();
@@ -84,8 +85,8 @@ export function DiscountForm({ initial }: { initial?: DiscountDto }) {
   const setRow = (i: number, patch: Partial<Row>) => setS((x) => ({ ...x, rows: x.rows.map((r, j) => (j === i ? { ...r, ...patch } : r)) }));
 
   useEffect(() => {
-    api<{ items: PremiseOpt[] }>("/premises?limit=100").then((r) => setPremises(r.items.filter((p) => p.status === "ACTIVE" || s.premiseIds.includes(p.id)))).catch(() => {});
-    api<{ status: string }>("/businesses/me").then((b) => setApproved(b.status === "APPROVED")).catch(() => setApproved(false));
+    api<{ items: PremiseOpt[] }>(`/premises?limit=100${admin?.businessId ? `&businessId=${admin.businessId}` : ""}`).then((r) => setPremises(r.items.filter((p) => p.status === "ACTIVE" || s.premiseIds.includes(p.id)))).catch(() => {});
+    if (admin) setApproved(true); else api<{ status: string }>("/businesses/me").then((b) => setApproved(b.status === "APPROVED")).catch(() => setApproved(false));
     api<Opt[]>("/card-products").then(setCards).catch(() => {}); api<Opt[]>("/issuers").then(setIssuers).catch(() => {});
     api<Opt[]>("/wallet-providers").then(setWallets).catch(() => {}); api<Opt[]>("/card-networks").then(setNetworks).catch(() => {});
   }, []);
@@ -109,9 +110,9 @@ export function DiscountForm({ initial }: { initial?: DiscountDto }) {
     if (!s.titlePt.trim() || !s.titleEn.trim()) { setProblems([{ id: "d-titlePt", message: `${t("df.chkTitle")}` }]); setStep(0); return null; }
     setBusy(true); setProblems([]);
     try {
-      const saved = dto ? await api<DiscountDto>(`/discounts/${dto.id}`, { method: "PATCH", body: body(s, true) }) : await api<DiscountDto>("/discounts", { method: "POST", body: body(s, false) });
+      const saved = dto ? await api<DiscountDto>(`/discounts/${dto.id}`, { method: "PATCH", body: body(s, true) }) : await api<DiscountDto>("/discounts", { method: "POST", body: { ...body(s, false), ...(admin?.businessId ? { businessId: admin.businessId } : {}) } });
       setDto(saved); setS(fromDto(saved));
-      if (!dto) window.history.replaceState(null, "", `/business/discounts/${saved.id}`); // keeps the wizard mounted (router.replace would reset the step)
+      if (!dto) window.history.replaceState(null, "", `${base}/${saved.id}`); // keeps the wizard mounted (router.replace would reset the step)
       if (!quiet) toast(t("df.saved"));
       return saved;
     } catch (e) { setProblems(explain(e)); return null; }
@@ -126,7 +127,7 @@ export function DiscountForm({ initial }: { initial?: DiscountDto }) {
   async function publish() {
     const saved = await save(true); if (!saved) { setConfirmPublish(false); return; }
     setBusy(true);
-    try { setDto(await api<DiscountDto>(`/discounts/${saved.id}/publish`, { method: "POST" })); toast(t("df.published")); router.push("/business/discounts"); }
+    try { setDto(await api<DiscountDto>(`/discounts/${saved.id}/publish`, { method: "POST" })); toast(t("df.published")); router.push(base); }
     catch (e) { setProblems(explain(e)); setConfirmPublish(false); }
     setBusy(false);
   }
@@ -138,7 +139,7 @@ export function DiscountForm({ initial }: { initial?: DiscountDto }) {
     <>
       <div className="row between">
         <h1>{t(dto ? "disc.edit" : "disc.new")}</h1>
-        <div className="row">{dto ? <Badge tone={dto.effectiveStatus === "PUBLISHED" ? "good" : undefined}>{t(`dstatus.${dto.effectiveStatus}` as MessageKey)}</Badge> : null}<Link className="btn secondary sm" href="/business/discounts">{t("df.back")}</Link></div>
+        <div className="row">{dto ? <Badge tone={dto.effectiveStatus === "PUBLISHED" ? "good" : undefined}>{t(`dstatus.${dto.effectiveStatus}` as MessageKey)}</Badge> : null}<Link className="btn secondary sm" href={base}>{t("df.back")}</Link></div>
       </div>
       {approved === false ? <div className="notice" role="status">{t("disc.needApproval")}</div> : null}
       {locked ? <div className="notice" role="status">{t(`dstatus.${dto!.effectiveStatus}` as MessageKey)}</div> : null}

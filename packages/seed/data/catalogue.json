@@ -1,60 +1,422 @@
 {
   "issuers": [
-    { "id": "iss-bci", "name": "Banco Comercial e de Investimentos", "shortName": "BCI" },
-    { "id": "iss-mbim", "name": "Millennium bim", "shortName": "Millennium bim" },
-    { "id": "iss-sbm", "name": "Standard Bank Moçambique", "shortName": "Standard Bank" },
-    { "id": "iss-absa", "name": "Absa Bank Moçambique", "shortName": "Absa" },
-    { "id": "iss-moza", "name": "Moza Banco", "shortName": "Moza" },
-    { "id": "iss-fnb", "name": "FNB Moçambique", "shortName": "FNB" },
-    { "id": "iss-ned", "name": "Nedbank Moçambique", "shortName": "Nedbank", "note": "Formerly Banco Único" },
-    { "id": "iss-access", "name": "Access Bank Moçambique", "shortName": "Access Bank" },
-    { "id": "iss-eco", "name": "Ecobank Moçambique", "shortName": "Ecobank" },
-    { "id": "iss-fcb", "name": "First Capital Bank Moçambique", "shortName": "FCB" },
-    { "id": "iss-letshego", "name": "Banco Letshego", "shortName": "Letshego" },
-    { "id": "iss-vista", "name": "Vista Bank Moçambique", "shortName": "Vista Bank", "note": "Formerly Banco Société Générale Moçambique; confirm current trading name" },
-    { "id": "iss-uba", "name": "United Bank for Africa Moçambique", "shortName": "UBA" },
-    { "id": "iss-big", "name": "Banco BIG Moçambique", "shortName": "BIG" }
+    {
+      "id": "iss-bci",
+      "name": "Banco Comercial e de Investimentos",
+      "shortName": "BCI"
+    },
+    {
+      "id": "iss-mbim",
+      "name": "Millennium bim",
+      "shortName": "Millennium bim"
+    },
+    {
+      "id": "iss-sbm",
+      "name": "Standard Bank Moçambique",
+      "shortName": "Standard Bank"
+    },
+    {
+      "id": "iss-absa",
+      "name": "Absa Bank Moçambique",
+      "shortName": "Absa"
+    },
+    {
+      "id": "iss-moza",
+      "name": "Moza Banco",
+      "shortName": "Moza"
+    },
+    {
+      "id": "iss-fnb",
+      "name": "FNB Moçambique",
+      "shortName": "FNB"
+    },
+    {
+      "id": "iss-ned",
+      "name": "Nedbank Moçambique",
+      "shortName": "Nedbank",
+      "note": "Formerly Banco Único"
+    },
+    {
+      "id": "iss-access",
+      "name": "Access Bank Moçambique",
+      "shortName": "Access Bank"
+    },
+    {
+      "id": "iss-eco",
+      "name": "Ecobank Moçambique",
+      "shortName": "Ecobank"
+    },
+    {
+      "id": "iss-fcb",
+      "name": "First Capital Bank Moçambique",
+      "shortName": "FCB"
+    },
+    {
+      "id": "iss-letshego",
+      "name": "Banco Letshego",
+      "shortName": "Letshego"
+    },
+    {
+      "id": "iss-vista",
+      "name": "Vista Bank Moçambique",
+      "shortName": "Vista Bank",
+      "note": "Formerly Banco Société Générale Moçambique; confirm current trading name"
+    },
+    {
+      "id": "iss-uba",
+      "name": "United Bank for Africa Moçambique",
+      "shortName": "UBA"
+    },
+    {
+      "id": "iss-big",
+      "name": "Banco BIG Moçambique",
+      "shortName": "BIG"
+    },
+    {
+      "id": "iss-vista",
+      "name": "Vista Bank Moçambique",
+      "shortName": "Vista Bank"
+    }
   ],
   "networks": [
-    { "id": "net-visa", "name": "Visa" },
-    { "id": "net-mastercard", "name": "Mastercard" }
+    {
+      "id": "net-visa",
+      "name": "Visa"
+    },
+    {
+      "id": "net-mastercard",
+      "name": "Mastercard"
+    }
   ],
   "cardProducts": [
-    { "id": "cp-bci-bio", "issuer": "iss-bci", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "BCI BIO Visa Débito", "origin": "SEED_VERIFIED", "note": "Real product (biodegradable debit card; 0.04 % of each POS purchase goes to BIOFUND). Show as a product feature, not a discount.", "sourceUrl": "https://www.bci.co.mz/wp-content/uploads/2022/08/Vantagens-e-Funcionalidades_-Cartao-BIO.pdf" },
-    { "id": "cp-bci-gold", "issuer": "iss-bci", "network": "net-visa", "type": "CREDIT", "segment": "Gold", "name": "BCI Gold Visa Crédito" },
-    { "id": "cp-bci-platinum", "issuer": "iss-bci", "network": "net-visa", "type": "CREDIT", "segment": "Platinum", "name": "BCI Platinum Visa Crédito" },
-    { "id": "cp-mbim-classic", "issuer": "iss-mbim", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "Millennium bim Visa Débito" },
-    { "id": "cp-mbim-prestige", "issuer": "iss-mbim", "network": "net-visa", "type": "DEBIT", "segment": "Prestige", "name": "Millennium bim Prestige Débito", "note": "Prestige segment is real; card name illustrative" },
-    { "id": "cp-mbim-mlider", "issuer": "iss-mbim", "network": "net-visa", "type": "DEBIT", "segment": "Business", "name": "Millennium bim MLÍDER Empresas", "origin": "SEED_VERIFIED", "note": "MLÍDER is a real business programme; modelled as a business card product", "sourceUrl": "https://millenniumbim.co.mz/media/4308/parceiros_mlider_2021.pdf" },
-    { "id": "cp-sbm-debit", "issuer": "iss-sbm", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "Standard Bank Visa Débito" },
-    { "id": "cp-sbm-prestige", "issuer": "iss-sbm", "network": "net-mastercard", "type": "CREDIT", "segment": "Prestige", "name": "Standard Bank Prestige Mastercard" },
-    { "id": "cp-absa-wealth", "issuer": "iss-absa", "network": "net-visa", "type": "CREDIT", "segment": "Wealth", "name": "Absa Wealth Visa Crédito", "note": "From Jai's example; confirm with Absa" },
-    { "id": "cp-absa-premier", "issuer": "iss-absa", "network": "net-visa", "type": "CREDIT", "segment": "Premier", "name": "Absa Premier Visa Crédito" },
-    { "id": "cp-absa-debit", "issuer": "iss-absa", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "Absa Visa Débito" },
-    { "id": "cp-moza-debit", "issuer": "iss-moza", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "Moza Visa Débito" },
-    { "id": "cp-moza-credit", "issuer": "iss-moza", "network": "net-visa", "type": "CREDIT", "segment": "Gold", "name": "Moza Gold Visa Crédito" },
-    { "id": "cp-fnb-premier", "issuer": "iss-fnb", "network": "net-visa", "type": "CREDIT", "segment": "Premier", "name": "FNB Premier Visa Crédito" },
-    { "id": "cp-ned-debit", "issuer": "iss-ned", "network": "net-mastercard", "type": "DEBIT", "segment": "Classic", "name": "Nedbank Mastercard Débito" },
-    { "id": "cp-access-debit", "issuer": "iss-access", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "Access Bank Visa Débito" },
-    { "id": "cp-eco-prepaid", "issuer": "iss-eco", "network": "net-visa", "type": "PREPAID", "segment": "Classic", "name": "Ecobank Visa Pré-pago" },
-    { "id": "cp-letshego-debit", "issuer": "iss-letshego", "network": "net-mastercard", "type": "DEBIT", "segment": "Classic", "name": "Letshego Mastercard Débito", "origin": "SEED_VERIFIED", "note": "Real product, launched May 2026; confirm the exact name", "sourceUrl": "https://www.diarioeconomico.co.mz/2026/05/18/economia/banca/mastercard-e-letshego-lancam-cartao-de-debito-para-reforco-da-inclusao-financeira/" },
-    { "id": "cp-fcb-debit", "issuer": "iss-fcb", "network": "net-visa", "type": "DEBIT", "segment": "Classic", "name": "FCB Visa Débito" }
+    {
+      "id": "cp-bci-bio",
+      "issuer": "iss-bci",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "BCI BIO Visa Débito",
+      "origin": "SEED_VERIFIED",
+      "note": "Real product (biodegradable debit card; 0.04 % of each POS purchase goes to BIOFUND). Show as a product feature, not a discount.",
+      "sourceUrl": "https://www.bci.co.mz/wp-content/uploads/2022/08/Vantagens-e-Funcionalidades_-Cartao-BIO.pdf"
+    },
+    {
+      "id": "cp-bci-gold",
+      "issuer": "iss-bci",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "BCI Gold Visa Crédito"
+    },
+    {
+      "id": "cp-bci-platinum",
+      "issuer": "iss-bci",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Platinum",
+      "name": "BCI Platinum Visa Crédito"
+    },
+    {
+      "id": "cp-mbim-classic",
+      "issuer": "iss-mbim",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Millennium bim Visa Débito"
+    },
+    {
+      "id": "cp-mbim-prestige",
+      "issuer": "iss-mbim",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Prestige",
+      "name": "Millennium bim Prestige Débito",
+      "note": "Prestige segment is real; card name illustrative"
+    },
+    {
+      "id": "cp-mbim-mlider",
+      "issuer": "iss-mbim",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Business",
+      "name": "Millennium bim MLÍDER Empresas",
+      "origin": "SEED_VERIFIED",
+      "note": "MLÍDER is a real business programme; modelled as a business card product",
+      "sourceUrl": "https://millenniumbim.co.mz/media/4308/parceiros_mlider_2021.pdf"
+    },
+    {
+      "id": "cp-sbm-debit",
+      "issuer": "iss-sbm",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Standard Bank Visa Débito"
+    },
+    {
+      "id": "cp-sbm-prestige",
+      "issuer": "iss-sbm",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Prestige",
+      "name": "Standard Bank Prestige Mastercard"
+    },
+    {
+      "id": "cp-absa-wealth",
+      "issuer": "iss-absa",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Wealth",
+      "name": "Absa Wealth Visa Crédito",
+      "note": "From Jai's example; confirm with Absa"
+    },
+    {
+      "id": "cp-absa-premier",
+      "issuer": "iss-absa",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Premier",
+      "name": "Absa Premier Visa Crédito"
+    },
+    {
+      "id": "cp-absa-debit",
+      "issuer": "iss-absa",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Absa Visa Débito"
+    },
+    {
+      "id": "cp-moza-debit",
+      "issuer": "iss-moza",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Moza Visa Débito"
+    },
+    {
+      "id": "cp-moza-credit",
+      "issuer": "iss-moza",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Moza Gold Visa Crédito"
+    },
+    {
+      "id": "cp-fnb-premier",
+      "issuer": "iss-fnb",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Premier",
+      "name": "FNB Premier Visa Crédito"
+    },
+    {
+      "id": "cp-ned-debit",
+      "issuer": "iss-ned",
+      "network": "net-mastercard",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Nedbank Mastercard Débito"
+    },
+    {
+      "id": "cp-access-debit",
+      "issuer": "iss-access",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Access Bank Visa Débito"
+    },
+    {
+      "id": "cp-eco-prepaid",
+      "issuer": "iss-eco",
+      "network": "net-visa",
+      "type": "PREPAID",
+      "segment": "Classic",
+      "name": "Ecobank Visa Pré-pago"
+    },
+    {
+      "id": "cp-letshego-debit",
+      "issuer": "iss-letshego",
+      "network": "net-mastercard",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Letshego Mastercard Débito",
+      "origin": "SEED_VERIFIED",
+      "note": "Real product, launched May 2026; confirm the exact name",
+      "sourceUrl": "https://www.diarioeconomico.co.mz/2026/05/18/economia/banca/mastercard-e-letshego-lancam-cartao-de-debito-para-reforco-da-inclusao-financeira/"
+    },
+    {
+      "id": "cp-fcb-debit",
+      "issuer": "iss-fcb",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "FCB Visa Débito"
+    },
+    {
+      "id": "cp-vista-debit",
+      "issuer": "iss-vista",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Vista Bank Visa Débito",
+      "note": "Illustrative product; confirm with Vista Bank"
+    },
+    {
+      "id": "cp-vista-gold",
+      "issuer": "iss-vista",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Vista Bank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with Vista Bank"
+    },
+    {
+      "id": "cp-vista-platinum",
+      "issuer": "iss-vista",
+      "network": "net-visa",
+      "type": "CREDIT",
+      "segment": "Platinum",
+      "name": "Vista Bank Visa Platinum Crédito",
+      "note": "Illustrative product; confirm with Vista Bank"
+    }
   ],
   "wallets": [
-    { "id": "wl-mpesa", "name": "M-Pesa", "operator": "Vodacom Moçambique" },
-    { "id": "wl-emola", "name": "e-Mola", "operator": "Movitel" },
-    { "id": "wl-mkesh", "name": "mKesh", "operator": "Tmcel" }
+    {
+      "id": "wl-mpesa",
+      "name": "M-Pesa",
+      "operator": "Vodacom Moçambique"
+    },
+    {
+      "id": "wl-emola",
+      "name": "e-Mola",
+      "operator": "Movitel"
+    },
+    {
+      "id": "wl-mkesh",
+      "name": "mKesh",
+      "operator": "Tmcel"
+    }
   ],
   "categories": [
-    ["restaurant", "Restaurante", "Restaurant", "utensils"], ["cafe-bakery", "Café e Pastelaria", "Café & Bakery", "coffee"],
-    ["bar-lounge", "Bar e Lounge", "Bar & Lounge", "wine"], ["hotel-resort", "Hotel e Resort", "Hotel & Resort", "bed"],
-    ["spa-wellness", "Spa e Bem-estar", "Spa & Wellness", "flower"], ["hair-beauty", "Salão de Beleza", "Hair & Beauty Salon", "scissors"],
-    ["supermarket", "Supermercado", "Supermarket & Grocery", "shopping-cart"], ["fuel", "Posto de Combustível", "Fuel Station", "fuel"],
-    ["pharmacy", "Farmácia", "Pharmacy", "pill"], ["fashion-retail", "Moda e Retalho", "Fashion & Retail", "shirt"],
-    ["electronics", "Electrónica", "Electronics", "laptop"], ["travel-agency", "Agência de Viagens", "Travel Agency", "map"],
-    ["airline", "Companhia Aérea", "Airline", "plane"], ["car-rental", "Aluguer de Viaturas", "Car Rental", "car"],
-    ["entertainment", "Entretenimento e Cinema", "Entertainment & Cinema", "film"], ["gym-fitness", "Ginásio", "Gym & Fitness", "dumbbell"],
-    ["health-clinic", "Saúde e Clínica", "Health & Clinic", "stethoscope"], ["education", "Educação", "Education", "book"],
-    ["online", "Online", "Online", "globe"], ["other", "Outros", "Other", "tag"]
+    [
+      "restaurant",
+      "Restaurante",
+      "Restaurant",
+      "utensils"
+    ],
+    [
+      "cafe-bakery",
+      "Café e Pastelaria",
+      "Café & Bakery",
+      "coffee"
+    ],
+    [
+      "bar-lounge",
+      "Bar e Lounge",
+      "Bar & Lounge",
+      "wine"
+    ],
+    [
+      "hotel-resort",
+      "Hotel e Resort",
+      "Hotel & Resort",
+      "bed"
+    ],
+    [
+      "spa-wellness",
+      "Spa e Bem-estar",
+      "Spa & Wellness",
+      "flower"
+    ],
+    [
+      "hair-beauty",
+      "Salão de Beleza",
+      "Hair & Beauty Salon",
+      "scissors"
+    ],
+    [
+      "supermarket",
+      "Supermercado",
+      "Supermarket & Grocery",
+      "shopping-cart"
+    ],
+    [
+      "fuel",
+      "Posto de Combustível",
+      "Fuel Station",
+      "fuel"
+    ],
+    [
+      "pharmacy",
+      "Farmácia",
+      "Pharmacy",
+      "pill"
+    ],
+    [
+      "fashion-retail",
+      "Moda e Retalho",
+      "Fashion & Retail",
+      "shirt"
+    ],
+    [
+      "electronics",
+      "Electrónica",
+      "Electronics",
+      "laptop"
+    ],
+    [
+      "travel-agency",
+      "Agência de Viagens",
+      "Travel Agency",
+      "map"
+    ],
+    [
+      "airline",
+      "Companhia Aérea",
+      "Airline",
+      "plane"
+    ],
+    [
+      "car-rental",
+      "Aluguer de Viaturas",
+      "Car Rental",
+      "car"
+    ],
+    [
+      "entertainment",
+      "Entretenimento e Cinema",
+      "Entertainment & Cinema",
+      "film"
+    ],
+    [
+      "gym-fitness",
+      "Ginásio",
+      "Gym & Fitness",
+      "dumbbell"
+    ],
+    [
+      "health-clinic",
+      "Saúde e Clínica",
+      "Health & Clinic",
+      "stethoscope"
+    ],
+    [
+      "education",
+      "Educação",
+      "Education",
+      "book"
+    ],
+    [
+      "online",
+      "Online",
+      "Online",
+      "globe"
+    ],
+    [
+      "other",
+      "Outros",
+      "Other",
+      "tag"
+    ]
   ]
 }

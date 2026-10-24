@@ -79,6 +79,7 @@ struct AuthCard<Content: View>: View {
                 Text(title).font(.display(34)).foregroundStyle(.white).multilineTextAlignment(.center)
                 VStack(spacing: 14) { content }.padding(22).glass(28)
                 Text(app.t("demo.ribbon")).font(.manrope(size: 12, weight: .semibold)).foregroundStyle(Theme.warning)
+                Link(app.t("profile.privacyPolicy"), destination: URL(string: AppModel.privacyPolicyURL)!).font(.manrope(size: 12, weight: .semibold)).foregroundStyle(Theme.cyan)
             }.padding(20)
         }
     }

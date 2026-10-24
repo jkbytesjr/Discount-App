@@ -4,7 +4,7 @@ import type { Locale } from "./index";
 const pt = {
   "app.name": "Moz Discounts", "app.tagline": "Nunca perca um desconto no seu cartão.", "demo.ribbon": "Dados de demonstração / Demo data",
   "common.save": "Guardar", "common.cancel": "Cancelar", "common.create": "Criar", "common.edit": "Editar", "common.delete": "Eliminar", "common.close": "Fechar",
-  "common.confirm": "Confirmar", "common.search": "Pesquisar", "common.loading": "A carregar…", "common.loadMore": "Carregar mais", "common.all": "Todos",
+  "common.confirm": "Confirmar", "common.search": "Pesquisar", "common.loading": "A carregar…", "common.loadMore": "Carregar mais", "common.all": "Todos", "app.privacy": "Política de Privacidade", "common.select": "Escolher…",
   "common.yes": "Sim", "common.no": "Não", "common.actions": "Acções", "common.back": "Voltar", "common.optional": "(opcional)", "common.required": "obrigatório",
   "common.saved": "Alterações guardadas.", "common.error": "Algo correu mal. Tente novamente.", "common.retry": "Tentar novamente",
   "common.status": "Estado", "common.role": "Perfil", "common.name": "Nome", "common.email": "Email", "common.created": "Criado em", "common.details": "Detalhes",
@@ -415,7 +415,7 @@ export type MessageKey = keyof typeof pt;
 const en: Record<MessageKey, string> = {
   "app.name": "Moz Discounts", "app.tagline": "Never miss a discount on your card.", "demo.ribbon": "Dados de demonstração / Demo data",
   "common.save": "Save", "common.cancel": "Cancel", "common.create": "Create", "common.edit": "Edit", "common.delete": "Delete", "common.close": "Close",
-  "common.confirm": "Confirm", "common.search": "Search", "common.loading": "Loading…", "common.loadMore": "Load more", "common.all": "All",
+  "common.confirm": "Confirm", "common.search": "Search", "common.loading": "Loading…", "common.loadMore": "Load more", "common.all": "All", "app.privacy": "Privacy Policy", "common.select": "Choose…",
   "common.yes": "Yes", "common.no": "No", "common.actions": "Actions", "common.back": "Back", "common.optional": "(optional)", "common.required": "required",
   "common.saved": "Changes saved.", "common.error": "Something went wrong. Please try again.", "common.retry": "Try again",
   "common.status": "Status", "common.role": "Role", "common.name": "Name", "common.email": "Email", "common.created": "Created", "common.details": "Details",

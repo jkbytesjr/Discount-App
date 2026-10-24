@@ -18,6 +18,7 @@ export default async function Home() {
           <Link className="btn secondary" href="/register">{t("auth.register")}</Link>
           <Link className="btn ghost" href="/map">{t("map.title")}</Link>
         </div>
+        <p style={{ marginTop: 16 }}><Link href="/privacy" className="muted">Privacy / Privacidade</Link></p>
       </div>
     </main>
   );
