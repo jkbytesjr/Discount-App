@@ -723,5 +723,173 @@
     "validTo": "2026-12-31",
     "status": "PUBLISHED",
     "isOnline": false
+  },
+  {
+    "id": "d-28",
+    "title": {
+      "pt": "10% em combustível",
+      "en": "10% off fuel"
+    },
+    "business": "biz-standard",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-posto-avenida"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-standard",
+        "value": 10
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
+  },
+  {
+    "id": "d-29",
+    "title": {
+      "pt": "15% no Café Jardim",
+      "en": "15% at Café Jardim"
+    },
+    "business": "biz-fnb",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-cafejardim"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-fnb",
+        "value": 15
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
+  },
+  {
+    "id": "d-30",
+    "title": {
+      "pt": "20% em ginásio",
+      "en": "20% off gym membership"
+    },
+    "business": "biz-nedbank",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-forca"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-nedbank",
+        "value": 20
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
+  },
+  {
+    "id": "d-31",
+    "title": {
+      "pt": "25% em bilhetes de cinema",
+      "en": "25% off cinema tickets"
+    },
+    "business": "biz-ecobank",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-cinema"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-ecobank",
+        "value": 25
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
+  },
+  {
+    "id": "d-32",
+    "title": {
+      "pt": "5% em restaurante",
+      "en": "5% off dining"
+    },
+    "business": "biz-uba",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-bela-vista"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-uba",
+        "value": 5
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
+  },
+  {
+    "id": "d-33",
+    "title": {
+      "pt": "12% em aluguer de viaturas",
+      "en": "12% off car rental"
+    },
+    "business": "biz-firstcapital",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-savana"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-firstcapital",
+        "value": 12
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
+  },
+  {
+    "id": "d-34",
+    "title": {
+      "pt": "10% em salão de beleza",
+      "en": "10% off at the salon"
+    },
+    "business": "biz-bancomais",
+    "dataOrigin": "SEED_ILLUSTRATIVE",
+    "premises": [
+      "pr-beleza"
+    ],
+    "eligibility": [
+      {
+        "scope": "ISSUER_ANY",
+        "benefit": "PERCENT",
+        "issuer": "iss-bancomais",
+        "value": 10
+      }
+    ],
+    "validFrom": "2026-10-01",
+    "validTo": "2026-12-31",
+    "status": "PUBLISHED",
+    "isOnline": false
   }
 ]

@@ -95,5 +95,54 @@
     "tradingName": "Vista Bank Moçambique",
     "issuerId": "iss-vista",
     "status": "APPROVED"
+  },
+  {
+    "id": "biz-standard",
+    "type": "BANK",
+    "tradingName": "Standard Bank Moçambique",
+    "issuerId": "iss-standard",
+    "status": "APPROVED"
+  },
+  {
+    "id": "biz-fnb",
+    "type": "BANK",
+    "tradingName": "FNB Moçambique (First National Bank)",
+    "issuerId": "iss-fnb",
+    "status": "APPROVED"
+  },
+  {
+    "id": "biz-nedbank",
+    "type": "BANK",
+    "tradingName": "Nedbank Moçambique",
+    "issuerId": "iss-nedbank",
+    "status": "APPROVED"
+  },
+  {
+    "id": "biz-ecobank",
+    "type": "BANK",
+    "tradingName": "Ecobank Moçambique",
+    "issuerId": "iss-ecobank",
+    "status": "APPROVED"
+  },
+  {
+    "id": "biz-uba",
+    "type": "BANK",
+    "tradingName": "United Bank for Africa (UBA)",
+    "issuerId": "iss-uba",
+    "status": "APPROVED"
+  },
+  {
+    "id": "biz-firstcapital",
+    "type": "BANK",
+    "tradingName": "First Capital Bank",
+    "issuerId": "iss-firstcapital",
+    "status": "APPROVED"
+  },
+  {
+    "id": "biz-bancomais",
+    "type": "BANK",
+    "tradingName": "Banco Mais",
+    "issuerId": "iss-bancomais",
+    "status": "APPROVED"
   }
 ]

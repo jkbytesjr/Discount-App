@@ -76,6 +76,41 @@
       "id": "iss-vista",
       "name": "Vista Bank Moçambique",
       "shortName": "Vista Bank"
+    },
+    {
+      "id": "iss-standard",
+      "name": "Standard Bank Moçambique",
+      "shortName": "Standard Bank"
+    },
+    {
+      "id": "iss-fnb",
+      "name": "FNB Moçambique (First National Bank)",
+      "shortName": "FNB"
+    },
+    {
+      "id": "iss-nedbank",
+      "name": "Nedbank Moçambique",
+      "shortName": "Nedbank"
+    },
+    {
+      "id": "iss-ecobank",
+      "name": "Ecobank Moçambique",
+      "shortName": "Ecobank"
+    },
+    {
+      "id": "iss-uba",
+      "name": "United Bank for Africa (UBA)",
+      "shortName": "UBA"
+    },
+    {
+      "id": "iss-firstcapital",
+      "name": "First Capital Bank",
+      "shortName": "First Capital"
+    },
+    {
+      "id": "iss-bancomais",
+      "name": "Banco Mais",
+      "shortName": "Banco Mais"
     }
   ],
   "networks": [
@@ -278,6 +313,132 @@
       "segment": "Platinum",
       "name": "Vista Bank Visa Platinum Crédito",
       "note": "Illustrative product; confirm with Vista Bank"
+    },
+    {
+      "id": "cp-standard-debit",
+      "issuer": "iss-standard",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Standard Bank Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-standard-gold",
+      "issuer": "iss-standard",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Standard Bank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-fnb-debit",
+      "issuer": "iss-fnb",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "FNB Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-fnb-gold",
+      "issuer": "iss-fnb",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "FNB Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-nedbank-debit",
+      "issuer": "iss-nedbank",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Nedbank Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-nedbank-gold",
+      "issuer": "iss-nedbank",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Nedbank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-ecobank-debit",
+      "issuer": "iss-ecobank",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Ecobank Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-ecobank-gold",
+      "issuer": "iss-ecobank",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Ecobank Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-uba-debit",
+      "issuer": "iss-uba",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "UBA Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-uba-gold",
+      "issuer": "iss-uba",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "UBA Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-firstcapital-debit",
+      "issuer": "iss-firstcapital",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "First Capital Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-firstcapital-gold",
+      "issuer": "iss-firstcapital",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "First Capital Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-bancomais-debit",
+      "issuer": "iss-bancomais",
+      "network": "net-visa",
+      "type": "DEBIT",
+      "segment": "Classic",
+      "name": "Banco Mais Visa Débito",
+      "note": "Illustrative product; confirm with the bank"
+    },
+    {
+      "id": "cp-bancomais-gold",
+      "issuer": "iss-bancomais",
+      "network": "net-mastercard",
+      "type": "CREDIT",
+      "segment": "Gold",
+      "name": "Banco Mais Mastercard Gold Crédito",
+      "note": "Illustrative product; confirm with the bank"
     }
   ],
   "wallets": [
