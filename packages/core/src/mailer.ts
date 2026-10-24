@@ -1,4 +1,4 @@
-// Mail transport. Local/dev: ConsoleMailer. POC deploy: Resend over its HTTP API.
+// Mail transport. Local/dev: ConsoleMailer. POC deploy: Gmail SMTP (app password) or Resend over its HTTP API.
 export interface Mail {
   to: string;
   subject: string;
@@ -31,6 +31,16 @@ export class ResendMailer implements Mailer {
       body: JSON.stringify({ from: this.from, to: mail.to, subject: mail.subject, html: mail.html }),
     });
     if (!res.ok) throw new Error(`Resend failed: ${res.status}`);
+  }
+}
+
+// Gmail (or any SMTP) with an app password: delivers to any address, no domain needed.
+export class SmtpMailer implements Mailer {
+  constructor(private user: string, private pass: string, private from: string, private host = "smtp.gmail.com") {}
+  async send(mail: Mail) {
+    const { createTransport } = await import("nodemailer");
+    const t = createTransport({ host: this.host, port: 465, secure: true, auth: { user: this.user, pass: this.pass } });
+    await t.sendMail({ from: this.from, to: mail.to, subject: mail.subject, html: mail.html });
   }
 }
 
