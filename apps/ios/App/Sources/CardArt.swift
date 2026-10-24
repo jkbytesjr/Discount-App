@@ -6,15 +6,15 @@ enum BrandStyle {
 
     private static let premiumSegments = ["wealth", "prestige", "premium", "platinum", "infinite", "private", "black"]
     private static let brands: [(keys: [String], hex: [UInt32])] = [
-        (["absa"], [0xE0102B, 0x8F0014]),
-        (["standard bank", "standard"], [0x1E7BFF, 0x0A3A9E]),
-        (["fnb", "first national"], [0x2FB457, 0x0B6B30]),
-        (["moza"], [0xF0172B, 0x95000F]),
-        (["m-pesa", "mpesa", "vodacom"], [0xF01616, 0x960000]),
-        (["emola", "movitel"], [0xFF8A1F, 0xC24F00]),
-        (["bci"], [0x14B4C8, 0x00637A]),
+        (["absa"], [0xE8003D, 0xAF0A32]),                 // Absa red
+        (["standard bank", "standard"], [0x0A4BC8, 0x00267A]), // Standard Bank blue
+        (["fnb", "first national"], [0x14B87E, 0x007A52]),     // FNB green
+        (["moza"], [0xE4161F, 0x9A0A12]),                     // Moza red
+        (["m-pesa", "mpesa", "vodacom"], [0xE60000, 0xA00000]), // M-Pesa / Vodacom red
+        (["emola", "movitel"], [0xFF8C1A, 0xD1590A]),          // Emola orange
+        (["bci"], [0x0E8FB5, 0x00566F]),
         (["millennium", "bim"], [0xE0107C, 0x8A0050]),
-        (["letshego"], [0x9B5CFF, 0x4A1FA8]),
+        (["letshego"], [0x2F7BD1, 0x123F7A]),
         (["mkesh", "tmcel"], [0xFFD21F, 0xC79A00]),
     ]
 

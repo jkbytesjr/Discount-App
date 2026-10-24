@@ -40,7 +40,8 @@ export class SmtpMailer implements Mailer {
   async send(mail: Mail) {
     const { createTransport } = await import("nodemailer");
     const t = createTransport({ host: this.host, port: 465, secure: true, auth: { user: this.user, pass: this.pass } });
-    await t.sendMail({ from: this.from, to: mail.to, subject: mail.subject, html: mail.html });
+    const text = mail.html.replace(/<a [^>]*href="([^"]+)"[^>]*>(.*?)<\/a>/gi, "$2: $1").replace(/<\/(p|div|h\d|li)>|<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "").replace(/\n{3,}/g, "\n\n").trim();
+    await t.sendMail({ from: this.from, to: mail.to, subject: mail.subject, html: mail.html, text }); // a plain-text part helps spam filters
   }
 }
 
