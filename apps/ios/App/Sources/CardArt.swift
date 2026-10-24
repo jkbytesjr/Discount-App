@@ -6,15 +6,22 @@ enum BrandStyle {
 
     private static let premiumSegments = ["wealth", "prestige", "premium", "platinum", "infinite", "private", "black"]
     private static let brands: [(keys: [String], hex: [UInt32])] = [
-        (["absa"], [0xE8003D, 0xAF0A32]),                 // Absa red
-        (["standard bank", "standard"], [0x0A4BC8, 0x00267A]), // Standard Bank blue
-        (["fnb", "first national"], [0x14B87E, 0x007A52]),     // FNB green
-        (["moza"], [0xE4161F, 0x9A0A12]),                     // Moza red
+        // Colours follow the bank reference sheet (docs/design/mz-banks-colours.jpg).
+        (["absa"], [0xC4224F, 0x7A1236]),                      // Absa crimson
+        (["standard bank", "standard"], [0x1D4FB8, 0x0A2A78]), // Standard Bank blue
+        (["nedbank"], [0x1F8F4E, 0x0B4D2A]),                   // Nedbank green
+        (["fnb", "first national"], [0x00A3A1, 0x2F9F9B, 0xF47B20]), // FNB teal to orange
+        (["moza"], [0xF2C200, 0xD31F26, 0x0B0B0B]),            // Moza yellow, red, black
+        (["ecobank"], [0x0A8CAB, 0x03556B]),                   // Ecobank teal-blue
+        (["uba", "united bank"], [0xE3262B, 0xF2701F]),        // UBA red to orange
+        (["first capital"], [0x7DC242, 0x3F8F2A]),             // First Capital green
+        (["banco mais", "mais"], [0x1C6FD6, 0x2FA55B]),        // Banco Mais blue to green
+        (["letshego", "letsiego"], [0x7A3FB5, 0x3D1E78]),      // Letshego purple
+        (["vista"], [0xE5173F, 0xB30F2E]),                     // Vista Bank red
         (["m-pesa", "mpesa", "vodacom"], [0xE60000, 0xA00000]), // M-Pesa / Vodacom red
         (["emola", "movitel"], [0xFF8C1A, 0xD1590A]),          // Emola orange
-        (["bci"], [0x0E8FB5, 0x00566F]),
-        (["millennium", "bim"], [0xE0107C, 0x8A0050]),
-        (["letshego"], [0x2F7BD1, 0x123F7A]),
+        (["bci"], [0xF7692C, 0xD94A12]),                       // BCI orange
+        (["millennium", "bim"], [0xDB1F7F, 0x9C1160]),         // Millennium bim magenta
         (["mkesh", "tmcel"], [0xFFD21F, 0xC79A00]),
     ]
 
