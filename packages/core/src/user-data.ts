@@ -123,3 +123,26 @@ export async function registerPushToken(d: AuthDeps, ctx: AuthContext, raw: unkn
   await writeAudit(d.db, d.clock, { action: "me.push_token", summary: "Push token registered", actor: actor(ctx), entityType: "device", entityId: dev.id, meta });
   return { ok: true, deviceId: dev.id };
 }
+
+/** IOS-4: everything the service holds about the caller, as JSON (a person's right to their data). Secrets are never included. */
+export async function exportMyData(d: AuthDeps, ctx: AuthContext, meta: Meta) {
+  const u = ctx.user;
+  const [cards, wallets, prefs, favourites, events, devices] = await Promise.all([
+    d.db.userCard.findMany({ where: { userId: u.id }, include: { cardProduct: true } }),
+    d.db.userWallet.findMany({ where: { userId: u.id } }),
+    d.db.alertPreference.findUnique({ where: { userId: u.id } }),
+    d.db.favorite.findMany({ where: { userId: u.id } }),
+    d.db.alertEvent.findMany({ where: { userId: u.id }, orderBy: { id: "desc" }, take: 5000 }),
+    d.db.device.findMany({ where: { userId: u.id } }),
+  ]);
+  await writeAudit(d.db, d.clock, { action: "me.export", summary: "Personal data exported", actor: actor(ctx), entityType: "user", entityId: u.id, meta });
+  return {
+    exportedAt: d.clock.now().toISOString(),
+    profile: { id: u.id, email: u.email, role: u.role, firstName: u.firstName, lastName: u.lastName, phone: u.phone, locale: u.locale, createdAt: u.createdAt, emailVerifiedAt: u.emailVerifiedAt },
+    cards: cards.map((c) => ({ cardProductId: c.cardProductId, name: c.cardProduct.name, nickname: c.nickname, addedAt: c.createdAt })),
+    wallets: wallets.map((w) => ({ walletProviderId: w.walletProviderId, addedAt: w.createdAt })),
+    alertPreferences: prefs, favourites: favourites.map((f) => ({ discountId: f.discountId, at: f.createdAt })),
+    alertEvents: events.map((e) => ({ type: e.type, reason: e.reason, premiseId: e.premiseId, discountIds: e.discountIds, occurredAt: e.occurredAt, distanceM: e.distanceM, coarseLat: e.coarseLat, coarseLng: e.coarseLng })),
+    devices: devices.map((x) => ({ model: x.model, osVersion: x.osVersion, appVersion: x.appVersion, lastSeenAt: x.lastSeenAt, revokedAt: x.revokedAt })),
+  };
+}

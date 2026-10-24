@@ -162,6 +162,16 @@ public actor APIClient {
         let _: DeviceAck = try await put("/me/push-token", body: Req(vendorId: vendorId, pushToken: token, model: device.model, osVersion: device.osVersion, appVersion: device.appVersion))
     }
     public func postEvents(_ events: [AlertEvent]) async throws { struct Req: Encodable { var events: [AlertEvent] }; let _: IngestAck = try await post("/alerts/events", body: Req(events: events)) }
+    public func updateProfile(firstName: String, lastName: String, phone: String?) async throws -> SessionUser {
+        struct Req: Encodable { var firstName: String, lastName: String, phone: String?
+            func encode(to e: Encoder) throws { var c = e.container(keyedBy: K.self); try c.encode(firstName, forKey: .firstName); try c.encode(lastName, forKey: .lastName); try c.encode(phone, forKey: .phone) }
+            enum K: String, CodingKey { case firstName, lastName, phone } }
+        struct R: Decodable { var id: String, email: String, role: String, firstName: String, lastName: String, locale: String }
+        let r: R = try decode(R.self, try await perform("PATCH", "/me", body: Req(firstName: firstName, lastName: lastName, phone: phone)).0)
+        return SessionUser(id: r.id, email: r.email, role: r.role, firstName: r.firstName, lastName: r.lastName, locale: r.locale)
+    }
+    public func changePassword(current: String, new: String) async throws { struct Req: Encodable { var currentPassword: String, newPassword: String }; let _: Ack = try await post("/me/change-password", body: Req(currentPassword: current, newPassword: new)) }
+    public func exportMyData() async throws -> Data { try await perform("GET", "/me/export").0 }
     public func deleteAccount(password: String) async throws { struct Req: Encodable { var password: String }; let _: Ack = try await send(deleteReq: Req(password: password)) }
     private func send(deleteReq body: any Encodable) async throws -> Ack { try decode(Ack.self, try await perform("DELETE", "/me", body: body).0) }
 }

@@ -42,6 +42,7 @@ export default function Page() {
   const box = useRef<HTMLDivElement>(null); const search = useRef<HTMLInputElement>(null);
   const g = useRef<{ map: any; maps: any; markers: Map<string, any>; clusterer: any } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const seq = useRef(0); // only the newest request may update the list: an older response arriving late must not overwrite a filtered result
   const selRef = useRef(sel); selRef.current = sel;
   const nearRef = useRef(near); nearRef.current = near;
   const radiusRef = useRef(radiusKm); radiusRef.current = radiusKm;
@@ -49,6 +50,7 @@ export default function Page() {
   useEffect(() => { api<Chips>(`/map/filters?lang=${lang}`).then(setChips).catch(() => {}); }, [lang]);
 
   const fetchPlaces = useCallback(async () => {
+    const mine = ++seq.current;
     setLoading(true); setError("");
     try {
       const nr = nearRef.current;
@@ -56,16 +58,16 @@ export default function Page() {
         const r = await api<{ items: { distanceM: number; premise: Summary; discount: Offer }[] }>(`/discounts/nearby?${qs(selRef.current, { lat: String(nr.lat), lng: String(nr.lng), radius: String(radiusRef.current * 1000), lang, limit: "100" })}`);
         const by = new Map<string, Summary>();
         for (const it of r.items) { const p = by.get(it.premise.id) ?? { ...it.premise, offerCount: 0, best: null, distanceM: it.distanceM }; p.offerCount += 1; p.best ??= { label: it.discount.rows.find((x) => x.matched)?.label ?? "" }; by.set(it.premise.id, p); }
-        setPlaces([...by.values()]);
+        if (mine === seq.current) setPlaces([...by.values()]);
       } else {
         let bbox = WHOLE_COUNTRY;
         const b = g.current?.map.getBounds();
         if (b) { const ne = b.getNorthEast(), sw = b.getSouthWest(); bbox = [sw.lng(), sw.lat(), ne.lng(), ne.lat()].map((n: number) => n.toFixed(5)).join(","); }
         const r = await api<{ items: Summary[] }>(`/map/premises?${qs(selRef.current, { bbox, lang, limit: "500" })}`);
-        setPlaces(r.items);
+        if (mine === seq.current) setPlaces(r.items);
       }
-    } catch { setError(t("map.loadError")); }
-    setLoading(false);
+    } catch { if (mine === seq.current) setError(t("map.loadError")); }
+    if (mine === seq.current) setLoading(false);
   }, [lang, t]);
   const refetchSoon = useCallback(() => { clearTimeout(timer.current); timer.current = setTimeout(() => void fetchPlaces(), 250); }, [fetchPlaces]);
 

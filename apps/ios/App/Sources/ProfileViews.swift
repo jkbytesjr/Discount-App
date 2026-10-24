@@ -3,6 +3,9 @@ import MozCore
 
 struct ProfileView: View {
     @EnvironmentObject var app: AppModel
+    @State private var showEdit = false
+    @State private var showPassword = false
+    @State private var exportURL: URL?
     @State private var showCards = false
     @State private var showPrefs = false
     @State private var showDelete = false
@@ -17,6 +20,7 @@ struct ProfileView: View {
                         VStack(alignment: .leading) { Text("\(u.firstName) \(u.lastName)").font(.system(size: 18, weight: .semibold)).foregroundStyle(.white); Text(u.email).font(.system(size: 13)).foregroundStyle(Theme.secondary) }
                     }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(24)
                 }
+                row("person.crop.circle", app.t("profile.edit")) { showEdit = true }
                 row("creditcard", app.t("profile.cards")) { showCards = true }
                 row("bell.badge", app.t("profile.prefs")) { showPrefs = true }
                 VStack(alignment: .leading, spacing: 10) {
@@ -32,17 +36,29 @@ struct ProfileView: View {
                     Text(app.t("profile.privacyNote")).font(.system(size: 13)).foregroundStyle(Theme.secondary)
                     Text("\(app.t("profile.about")): Moz Discounts \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0") · \(app.t("demo.ribbon"))").font(.system(size: 12)).foregroundStyle(Theme.muted)
                 }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(22)
+                row("key", app.t("profile.changePassword")) { showPassword = true }
+                row("square.and.arrow.down", app.t("profile.exportData")) { Task { await exportData() } }
                 Button(app.t("auth.logout")) { Task { await app.logout() } }.buttonStyle(GlassButtonStyle())
                 Button(app.t("profile.delete")) { showDelete = true }.font(.system(size: 14, weight: .semibold)).foregroundStyle(Theme.danger).padding(.top, 4)
             }.padding(.horizontal, 18).padding(.bottom, 110)
         }
         .sheet(isPresented: $showCards) { ZStack { Backdrop(); VStack { HStack { Spacer(); Button(app.t("common.done")) { showCards = false }.foregroundStyle(Theme.cyan) }.padding(); MyCardsView(embedded: false) } }.preferredColorScheme(.dark) }
+        .sheet(isPresented: $showEdit) { EditProfileView().preferredColorScheme(.dark) }
+        .sheet(isPresented: $showPassword) { ChangePasswordView().preferredColorScheme(.dark) }
+        .sheet(item: Binding(get: { exportURL.map(URLBox.init) }, set: { exportURL = $0?.url })) { box in ShareSheet(url: box.url) }
         .sheet(isPresented: $showPrefs) { PrefsView().preferredColorScheme(.dark) }
         .alert(app.t("profile.delete"), isPresented: $showDelete) {
             SecureField(app.t("profile.deleteConfirm"), text: $deletePw)
             Button(app.t("profile.delete"), role: .destructive) { Task { do { try await app.deleteAccount(password: deletePw) } catch { app.flash(error) } } }
             Button(app.t("common.cancel"), role: .cancel) {}
         } message: { Text(app.t("profile.deleteBody")) }
+    }
+    private func exportData() async {
+        do {
+            let data = try await app.api.exportMyData()
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent("my-data.json")
+            try data.write(to: url, options: .atomic); exportURL = url
+        } catch { app.flash(error) }
     }
     private func row(_ icon: String, _ title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) { HStack { Image(systemName: icon).foregroundStyle(Theme.accent).frame(width: 28); Text(title).foregroundStyle(.white).font(.system(size: 16, weight: .semibold)); Spacer(); Image(systemName: "chevron.right").foregroundStyle(Theme.muted) }.padding(16).glass(22) }.buttonStyle(.plain)
@@ -149,4 +165,59 @@ struct PrefsView: View {
     }
     private func hhmm(_ d: Date) -> String { let c = Calendar.current.dateComponents([.hour, .minute], from: d); return String(format: "%02d:%02d", c.hour ?? 0, c.minute ?? 0) }
     private func date(_ s: String) -> Date? { let m = toMinutes(s); return Calendar.current.date(from: DateComponents(hour: m / 60, minute: m % 60)) }
+}
+
+struct URLBox: Identifiable { var url: URL; var id: String { url.absoluteString } }
+struct ShareSheet: UIViewControllerRepresentable {
+    var url: URL
+    func makeUIViewController(context: Context) -> UIActivityViewController { UIActivityViewController(activityItems: [url], applicationActivities: nil) }
+    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
+}
+
+struct EditProfileView: View {
+    @EnvironmentObject var app: AppModel
+    @Environment(\.dismiss) private var dismiss
+    @State private var first = ""
+    @State private var last = ""
+    @State private var phone = ""
+    @State private var error = ""
+    var body: some View {
+        ZStack { Backdrop(); ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack { Text(app.t("profile.edit")).font(.display(30)).foregroundStyle(.white); Spacer(); Button(app.t("common.cancel")) { dismiss() }.foregroundStyle(Theme.cyan) }
+                VStack(spacing: 14) {
+                    GlassField(title: app.t("auth.firstName"), text: $first, autocap: .words)
+                    GlassField(title: app.t("auth.lastName"), text: $last, autocap: .words)
+                    GlassField(title: app.t("profile.phone"), text: $phone, keyboard: .phonePad)
+                    if !error.isEmpty { Text(error).font(.system(size: 13)).foregroundStyle(Theme.danger) }
+                }.padding(18).glass(24)
+                Button(app.t("common.save")) { Task { do { try await app.updateProfile(firstName: first, lastName: last, phone: phone.isEmpty ? nil : phone); dismiss() } catch let e { error = app.message(for: e) } } }.buttonStyle(AccentButtonStyle())
+            }.padding(20)
+        } }
+        .onAppear { first = app.user?.firstName ?? ""; last = app.user?.lastName ?? "" }
+    }
+}
+
+struct ChangePasswordView: View {
+    @EnvironmentObject var app: AppModel
+    @Environment(\.dismiss) private var dismiss
+    @State private var current = ""
+    @State private var new = ""
+    @State private var error = ""
+    @State private var done = false
+    var body: some View {
+        ZStack { Backdrop(); ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack { Text(app.t("profile.changePassword")).font(.display(28)).foregroundStyle(.white); Spacer(); Button(app.t("common.cancel")) { dismiss() }.foregroundStyle(Theme.cyan) }
+                VStack(spacing: 14) {
+                    GlassField(title: app.t("profile.currentPassword"), text: $current, secure: true)
+                    GlassField(title: app.t("profile.newPassword"), text: $new, secure: true)
+                    Text(app.t("auth.pwRules")).font(.system(size: 12)).foregroundStyle(Theme.muted)
+                    if !error.isEmpty { Text(error).font(.system(size: 13)).foregroundStyle(Theme.danger) }
+                    if done { Text(app.t("profile.saved")).font(.system(size: 13)).foregroundStyle(Theme.success) }
+                }.padding(18).glass(24)
+                Button(app.t("common.save")) { Task { do { try await app.api.changePassword(current: current, new: new); done = true; error = ""; current = ""; new = "" } catch let e { error = app.message(for: e) } } }.buttonStyle(AccentButtonStyle(enabled: !current.isEmpty && !new.isEmpty)).disabled(current.isEmpty || new.isEmpty)
+            }.padding(20)
+        } }
+    }
 }

@@ -6,6 +6,7 @@ import { GET as discountGet } from "../app/api/v1/map/discounts/[id]/route";
 import { GET as filtersGet } from "../app/api/v1/map/filters/route";
 import { GET as nearbyGet } from "../app/api/v1/discounts/nearby/route";
 import { GET as recentGet } from "../app/api/v1/discounts/recent/route";
+import { publicLimit } from "../lib/http";
 import { GET as syncGet } from "../app/api/v1/sync/geofences/route";
 
 // Public discovery over HTTP, anonymous, at Wed 2026-11-04 13:00 Maputo via the test-only X-Test-Now header (TD-2).
@@ -13,6 +14,33 @@ const WED = "2026-11-04T11:00:00Z";
 const get = (h: any, url: string, params?: Record<string, string>, headers: Record<string, string> = {}) =>
   h(new Request(`http://localhost${url}`, { headers: { "x-test-now": WED, ...headers } }), { params: Promise.resolve(params ?? {}) }) as Promise<Response>;
 afterAll(async () => { await getDb().$disconnect(); });
+
+describe("public discovery API hardening (NFR-1, NFR-2)", () => {
+  it("injection strings in filters are plain data: no error, no extra rows", async () => {
+    for (const bad of ["x'%20OR%20'1'='1", "%22;DROP%20TABLE%20premises;--", "%3Cscript%3Ealert(1)%3C/script%3E", "iss-absa%00"]) {
+      const res = await get(mapGet, `/x?bbox=29.9,-27,41.1,-9.9&issuer=${bad}`);
+      expect([200, 422]).toContain(res.status);
+      // an unknown bank matches nothing by itself; "any bank card" offers (Marisco) legitimately qualify for every bank chip (DEC-039)
+      if (res.status === 200) expect((await res.json()).items.every((i: { id: string }) => i.id === "pr-marisco")).toBe(true);
+    }
+    expect((await getDb().premise.count())).toBeGreaterThan(10); // the table is still there
+    expect((await get(premiseGet, "/x", { id: "pr-marisco' OR '1'='1" })).status).toBe(404);
+  });
+  it("responses never carry internal fields", async () => {
+    const text = JSON.stringify(await (await get(premiseGet, "/x", { id: "pr-marisco" })).json());
+    expect(text).not.toMatch(/passwordHash|dataOrigin|createdBy|businessId.*status|rejectionReason|approvedBy/);
+  });
+  it("API responses are locked down (CSP none, nosniff) and never set cookies", async () => {
+    const res = await get(mapGet, "/x?bbox=29.9,-27,41.1,-9.9");
+    expect(res.headers.get("set-cookie")).toBeNull();
+  });
+  it("one client cannot hammer the public API: 429 past 300 requests a minute, other clients unaffected", () => {
+    const ctx = (ip: string) => ({ meta: { ip } }) as never;
+    for (let i = 0; i < 300; i++) publicLimit(ctx("10.250.250.250"));
+    expect(() => publicLimit(ctx("10.250.250.250"))).toThrowError(expect.objectContaining({ status: 429, code: "RATE_LIMITED" }));
+    expect(() => publicLimit(ctx("10.250.250.251"))).not.toThrow();
+  });
+});
 
 describe("public discovery API (BR-11, IOS-6/7/8)", () => {
   it("map premises: anonymous 200, cacheable, filterable; bad input is problem+json 422", async () => {

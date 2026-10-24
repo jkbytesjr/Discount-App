@@ -5,6 +5,7 @@ import CoreLocation
 import UserNotifications
 import MozCore
 import os
+import LocalAuthentication
 
 private let logger = Logger(subsystem: "mz.mozdiscounts.app", category: "alerts")
 
@@ -22,7 +23,8 @@ final class AppModel: ObservableObject {
     @Published var favouriteIds: Set<String> = []
     @Published var banner: String?
     @Published var locked = false
-    @Published var lockEnabled: Bool { didSet { UserDefaults.standard.set(lockEnabled, forKey: "lockEnabled") } }
+    @Published var lockEnabled: Bool { didSet { UserDefaults.standard.set(lockEnabled, forKey: "lockEnabled"); tokens.reprotect() } }
+    @Published var offerFaceID = false
     @Published var openOfferId: String?
     @Published var alertLog: [AlertLogEntry] = []
     @Published var needsCardOnboarding = false
@@ -94,6 +96,11 @@ final class AppModel: ObservableObject {
             if phase == .signedIn { return }
         }
         #endif
+        if lockEnabled, tokens.load() == nil, tokens.hasStoredTokens {
+            // IOS-1: Face ID unlocks the stored refresh token, then we are signed in with no password typed.
+            let ctx = LAContext()
+            if (try? await ctx.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: t("lock.reason"))) == true { _ = tokens.unlock(with: ctx) }
+        }
         if tokens.load() != nil, let u = try? await api.me() {
             user = u; phase = .signedIn
             await loadBundle(); await afterSignIn()
@@ -117,6 +124,7 @@ final class AppModel: ObservableObject {
     func login(email: String, password: String) async throws {
         user = try await api.login(email: email, password: password, device: deviceInfo, location: location.location.map { Coordinate(lat: $0.coordinate.latitude, lng: $0.coordinate.longitude) })
         phase = .signedIn; await loadBundle(); await afterSignIn()
+        if Biometrics.available, !lockEnabled, !UserDefaults.standard.bool(forKey: "faceIdAsked") { offerFaceID = true }
     }
     func logout() async {
         await api.logout()
@@ -124,6 +132,7 @@ final class AppModel: ObservableObject {
         for r in CLLocationManager().monitoredRegions { CLLocationManager().stopMonitoring(for: r) }
     }
     private func sessionExpired() { if phase == .signedIn { user = nil; phase = .signedOut } }
+    func updateProfile(firstName: String, lastName: String, phone: String?) async throws { user = try await api.updateProfile(firstName: firstName, lastName: lastName, phone: phone) }
     func deleteAccount(password: String) async throws { try await api.deleteAccount(password: password); await logout() }
 
     // MARK: Cards, wallets, preferences, favourites

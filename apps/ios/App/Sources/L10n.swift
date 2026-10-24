@@ -56,6 +56,9 @@ enum L10n {
         "perm.location.title": ("Alertas perto de si", "Alerts near you"), "perm.location.body": ("Para o avisar quando passa por um local com desconto, precisamos da localização «Sempre». A localização exacta nunca sai do telemóvel: enviamos só uma versão arredondada.", "To tell you when you pass a place with a discount we need “Always” location. Your exact position never leaves the phone: we only send a rounded version."),
         "perm.location.allow": ("Permitir localização", "Allow location"), "perm.notif.title": ("Notificações", "Notifications"), "perm.notif.body": ("Mostramos o alerta como notificação quando estiver perto.", "We show the alert as a notification when you are nearby."),
         "perm.notif.allow": ("Permitir notificações", "Allow notifications"), "onb.cards.title": ("Os seus cartões", "Your cards"), "onb.cards.body": ("Escolha banco, tipo e cartão. Pode saltar e fazer depois.", "Pick bank, type and card. You can skip and do it later."),
+        "lock.offerTitle": ("Entrar com Face ID?", "Sign in with Face ID?"), "lock.offerBody": ("Da próxima vez entra sem escrever a palavra-passe.", "Next time you will sign in without typing your password."), "lock.enable": ("Activar", "Enable"), "lock.notNow": ("Agora não", "Not now"),
+        "profile.edit": ("Editar perfil", "Edit profile"), "profile.phone": ("Telefone (+258…)", "Phone (+258…)"), "profile.changePassword": ("Alterar palavra-passe", "Change password"), "profile.currentPassword": ("Palavra-passe actual", "Current password"),
+        "profile.newPassword": ("Nova palavra-passe", "New password"), "profile.saved": ("Guardado.", "Saved."), "profile.exportData": ("Descarregar os meus dados", "Download my data"),
         "lock.title": ("Desbloquear", "Unlock"), "lock.reason": ("Desbloqueie a Moz Discounts", "Unlock Moz Discounts"), "lock.button": ("Usar Face ID", "Use Face ID"),
     ]
 }

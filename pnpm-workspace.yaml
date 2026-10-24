@@ -1,6 +1,9 @@
 packages:
   - apps/web
   - packages/*
+# exceljs pins uuid 8; 11.1.1 fixes GHSA-w5hq-g745-h8pq (exceljs only calls v4)
+overrides:
+  uuid: ">=11.1.1"
 allowBuilds:
   '@prisma/engines': false
   argon2: false

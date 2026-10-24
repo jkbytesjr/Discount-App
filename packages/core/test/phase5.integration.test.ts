@@ -5,7 +5,7 @@ import {
   AppError, MemoryPushSender, addMyCard, addMyFavourite, addMyWallet, adminStats, approveBusiness, businessStats, createBusiness, createDiscount, createPremise,
   exportAlertEvents, exportAudit, exportBusinessReport, geofenceSync, getMyPrefs, getSettings, ingestAlertEvents, listAlertEvents, listAudit, listMyCards, listMyFavourites,
   listMyWallets, myAlertEvents, myBundle, putMyPrefs, registerPushToken, removeMyCard, removeMyFavourite, removeMyWallet, submitBusiness, transitionDiscount, updateBusiness,
-  updateDiscount, updateSettings,
+  updateDiscount, updateSettings, exportMyData,
 } from "../src";
 import { cleanup, cleanupBusinesses, db, makeCaller, makeDeps } from "./helpers";
 
@@ -202,6 +202,19 @@ describe("IOS-7 / BR-R7 favourite-update pushes", () => {
   it("a push failure never fails the edit", async () => {
     const bad = makeDeps(); bad.deps.push = { send: async () => { throw new Error("APNs down"); } };
     await expect(updateDiscount(bad.deps, owner.ctx, discountId, { validTo: "2101-01-01" }, owner.meta)).resolves.toMatchObject({ id: discountId });
+  });
+});
+
+describe("IOS-4 download my data", () => {
+  it("returns the caller's own data without secrets and audits the export", async () => {
+    const out = await exportMyData(t.deps, user.ctx, user.meta);
+    expect(out.profile).toMatchObject({ email: user.email, role: "USER" });
+    expect(out.alertEvents.length).toBeGreaterThanOrEqual(2);
+    expect(out.alertEvents.every((e) => e.premiseId === premiseId)).toBe(true);
+    const text = JSON.stringify(out);
+    expect(text).not.toMatch(/passwordHash|mfaSecret|pushToken|tokenHash/i);
+    expect(text).not.toContain(user2.email);
+    expect(await db.auditLog.count({ where: { action: "me.export", actorEmail: user.email } })).toBe(1);
   });
 });
 

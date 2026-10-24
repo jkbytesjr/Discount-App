@@ -1,0 +1,3 @@
+# Phases 9 and 10 report (POC)
+Phase 9 done within POC scope: axe on all web screens (WCAG A/AA, contrast, 375 px), SQL-injection and IDOR tests, tenant isolation tests (S17, S18), public API rate limit, `pnpm audit --prod` clean, security headers and nonce CSP, formula-injection defence, audit append-only trigger. Skipped by POC: k6, ZAP, MobSF, external pen test.
+Phase 10 prepared, not executed: `docs/runbook.md` (deploy steps and env vars), `vercel.json` cron, `docs/privacy-notice.md`, `docs/uat-checklist.md`. Deploying needs Jai's Vercel, Neon production branch, Resend domain, Apple Developer account.

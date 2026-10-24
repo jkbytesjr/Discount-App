@@ -28,6 +28,10 @@ struct MainTabs: View {
             LiquidTabBar(tabs: [(.home, app.t("tab.home"), "map"), (.favourites, app.t("tab.favourites"), "heart"), (.alerts, app.t("tab.alerts"), "bell"), (.profile, app.t("tab.profile"), "person")], selection: $tab)
                 .padding(.horizontal, 16).padding(.bottom, 6)
         }
+        .alert(app.t("lock.offerTitle"), isPresented: $app.offerFaceID) {
+            Button(app.t("lock.enable")) { UserDefaults.standard.set(true, forKey: "faceIdAsked"); app.lockEnabled = true }
+            Button(app.t("lock.notNow"), role: .cancel) { UserDefaults.standard.set(true, forKey: "faceIdAsked") }
+        } message: { Text(app.t("lock.offerBody")) }
         .sheet(item: Binding(get: { app.openOfferId.map(IDBox.init) }, set: { app.openOfferId = $0?.id })) { box in OfferDetailView(discountId: box.id) }
     }
 }
@@ -47,6 +51,8 @@ struct HomeView: View {
     @State private var panelOpen = true
     @State private var lastBBox: (Double, Double, Double, Double)?
     @State private var error = false
+    @State private var placesSeq = 0   // a late response for an old filter must not overwrite a newer one
+    @State private var nearbySeq = 0
 
     private func query() -> [String: String] {
         switch filter {
@@ -149,11 +155,13 @@ struct HomeView: View {
         lastBBox = b; await fetch(b)
     }
     private func fetch(_ b: (Double, Double, Double, Double)) async {
-        do { places = try await app.api.mapPremises(bbox: (b.0, b.1, b.2, b.3), filter: query(), lang: app.lang).items; error = false } catch { self.error = true }
+        placesSeq += 1; let mine = placesSeq
+        do { let r = try await app.api.mapPremises(bbox: (b.0, b.1, b.2, b.3), filter: query(), lang: app.lang).items; if mine == placesSeq { places = r; error = false } } catch { if mine == placesSeq { self.error = true } }
     }
     private func loadNearby() async {
         let c = app.location.location.map { Coordinate(lat: $0.coordinate.latitude, lng: $0.coordinate.longitude) } ?? Coordinate(lat: -25.9692, lng: 32.5732)
-        do { nearby = try await app.api.nearby(at: c, radiusM: app.settings.nearbyRadiusM, filter: query(), lang: app.lang).items; error = false } catch { self.error = true }
+        nearbySeq += 1; let mine = nearbySeq
+        do { let r = try await app.api.nearby(at: c, radiusM: app.settings.nearbyRadiusM, filter: query(), lang: app.lang).items; if mine == nearbySeq { nearby = r; error = false } } catch { if mine == nearbySeq { self.error = true } }
     }
     private func loadRecent() async { recent = (try? await app.api.recent(lang: app.lang).items) ?? [] }
 }

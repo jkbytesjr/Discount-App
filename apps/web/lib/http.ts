@@ -91,3 +91,13 @@ export function handleWithId(fn: (c: Ctx, id: string) => Promise<Response>) {
 export function xlsxResponse(file: Buffer, name: string, extra: Record<string, string> = {}) {
   return new Response(new Uint8Array(file), { status: 200, headers: { "Content-Type": XLSX_TYPE, "Content-Disposition": `attachment; filename="${name}"`, "Cache-Control": "no-store", ...extra } });
 }
+
+// Best-effort per-instance limit for the public discovery endpoints (DEC-040): 300 requests per minute per client IP.
+const publicHits = new Map<string, { n: number; at: number }>();
+export function publicLimit(c: Ctx, perMinute = 300): void {
+  const ip = c.meta.ip ?? "unknown";
+  const now = performance.now(); // monotonic: an in-memory throttle, not business time
+  const h = publicHits.get(ip);
+  if (!h || now - h.at > 60_000) { publicHits.set(ip, { n: 1, at: now }); if (publicHits.size > 5000) publicHits.clear(); return; }
+  if (++h.n > perMinute) throw new AppError(429, "RATE_LIMITED", "Too many requests");
+}
