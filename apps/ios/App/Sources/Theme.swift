@@ -6,7 +6,7 @@ extension Color {
 }
 
 enum Theme {
-    static let base = Color(hex: 0x07060F)
+    static let base = Color(hex: 0x030208)
     static let magenta = Color(hex: 0xFF2D9B), violet = Color(hex: 0x7B3CFF), cyan = Color(hex: 0x19D3FF), orange = Color(hex: 0xFF8A3D)
     static let success = Color(hex: 0x3DFFB0), warning = Color(hex: 0xFFC83D), danger = Color(hex: 0xFF4D6D)
     static let accent = LinearGradient(colors: [magenta, violet, cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -36,13 +36,14 @@ struct Backdrop: View {
         GeometryReader { g in
             ZStack {
                 Theme.base
-                Circle().fill(Theme.magenta).frame(width: 340).blur(radius: 70).opacity(0.65).offset(x: -g.size.width * 0.4, y: -g.size.height * 0.4)
-                Circle().fill(Theme.violet).frame(width: 340).blur(radius: 70).opacity(0.65).offset(x: g.size.width * 0.45, y: g.size.height * 0.05)
-                Circle().fill(Theme.cyan).frame(width: 320).blur(radius: 70).opacity(0.5).offset(x: -g.size.width * 0.1, y: g.size.height * 0.45)
+                Circle().fill(Theme.magenta).frame(width: 340).blur(radius: 70).opacity(0.38).offset(x: -g.size.width * 0.4, y: -g.size.height * 0.4)
+                Circle().fill(Theme.violet).frame(width: 340).blur(radius: 70).opacity(0.38).offset(x: g.size.width * 0.45, y: g.size.height * 0.05)
+                Circle().fill(Theme.cyan).frame(width: 320).blur(radius: 70).opacity(0.3).offset(x: -g.size.width * 0.1, y: g.size.height * 0.45)
                 VividCard(colors: [Theme.magenta, Color(hex: 0xFF6A5C), Theme.orange], width: 420, rotation: -14, blur: 5).offset(x: -g.size.width * 0.25, y: -g.size.height * 0.28)
                 VividCard(colors: [Theme.cyan, Color(hex: 0x2F6BFF), Theme.violet], width: 400, rotation: 12, blur: 3).offset(x: g.size.width * 0.3, y: g.size.height * 0.1)
                 VividCard(colors: [Theme.violet, Color(hex: 0xA23BD8), Theme.magenta], width: 380, rotation: -7, blur: 7).offset(x: -g.size.width * 0.1, y: g.size.height * 0.42)
-                RadialGradient(colors: [.clear, Color.black.opacity(0.35)], center: .center, startRadius: g.size.width * 0.4, endRadius: g.size.height * 0.75)
+                Color.black.opacity(0.4)
+                RadialGradient(colors: [.clear, Color.black.opacity(0.4)], center: .center, startRadius: g.size.width * 0.4, endRadius: g.size.height * 0.75)
             }
             .frame(width: g.size.width, height: g.size.height).clipped()
         }

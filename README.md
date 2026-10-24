@@ -80,7 +80,7 @@ open MozDiscounts.xcodeproj            # choose your Team, run on a simulator or
 swift test --package-path MozCore      # logic tests
 ```
 
-The app talks to `http://localhost:3000` in Debug. For a physical phone set `MOZ_API_BASE_URL` in the target's build settings to `http://<your Mac's IP>:3000`. Local proximity alerts work without a paid Apple account; push notifications need the Apple Developer Program.
+The app talks to the live site (https://discount-app-rho.vercel.app) by default, so it works on a phone without your Mac running. To test against a local server, set `MOZ_API_BASE_URL` in the target's build settings (or the scheme environment) to `http://<your Mac's IP>:3000`. Local proximity alerts work without a paid Apple account; push notifications need the Apple Developer Program.
 
 UI tests (need the API running and the demo password):
 

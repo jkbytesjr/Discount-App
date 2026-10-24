@@ -85,8 +85,8 @@ w(cfg(PREL, "Release", common_proj + ["DEBUG_INFORMATION_FORMAT = \"dwarf-with-d
 tcommon = ["ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon", "CODE_SIGN_STYLE = Automatic", "CURRENT_PROJECT_VERSION = 1", "DEVELOPMENT_TEAM = \"\"", "GENERATE_INFOPLIST_FILE = NO", "INFOPLIST_FILE = App/Info.plist",
            "LD_RUNPATH_SEARCH_PATHS = \"$(inherited) @executable_path/Frameworks\"", "MARKETING_VERSION = 1.0", "PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app", "PRODUCT_NAME = \"$(TARGET_NAME)\"",
            "SWIFT_EMIT_LOC_STRINGS = YES", "TARGETED_DEVICE_FAMILY = 1"]
-w(cfg(TDEBUG, "Debug", tcommon + ["MOZ_API_BASE_URL = \"http:/$()/localhost:3000\""]))
-w(cfg(TREL, "Release", tcommon + ["MOZ_API_BASE_URL = \"https:/$()/CHANGE-ME.vercel.app\""]))
+w(cfg(TDEBUG, "Debug", tcommon + ["MOZ_API_BASE_URL = \"https:/$()/discount-app-rho.vercel.app\""]))
+w(cfg(TREL, "Release", tcommon + ["MOZ_API_BASE_URL = \"https:/$()/discount-app-rho.vercel.app\""]))
 uicommon = ["CODE_SIGN_STYLE = Automatic", "CURRENT_PROJECT_VERSION = 1", "DEVELOPMENT_TEAM = \"\"", "GENERATE_INFOPLIST_FILE = YES", "MARKETING_VERSION = 1.0", "PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app.uitests", "PRODUCT_NAME = \"$(TARGET_NAME)\"", "SWIFT_EMIT_LOC_STRINGS = NO", "TARGETED_DEVICE_FAMILY = 1", "TEST_TARGET_NAME = MozDiscounts"]
 w(cfg(UIDEBUG, "Debug", uicommon))
 w(cfg(UIREL, "Release", uicommon))

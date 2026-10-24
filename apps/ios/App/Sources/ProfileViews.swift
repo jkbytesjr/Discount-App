@@ -76,16 +76,17 @@ struct MyCardsView: View {
                 if !embedded { Text(app.t("cards.title")).font(.display(32)).foregroundStyle(.white) }
                 Text(app.t("cards.never")).font(.manrope(size: 12)).foregroundStyle(Theme.muted)
                 if app.cards.isEmpty { Text(app.t("cards.empty")).foregroundStyle(Theme.secondary) }
-                ForEach(app.cards) { c in
-                    HStack { VStack(alignment: .leading, spacing: 2) { Text(c.nickname ?? c.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Text("\(c.issuerName) · \(app.t("type.\(c.cardType)")) · \(c.segment)").font(.manrope(size: 12)).foregroundStyle(Theme.secondary) }
-                        Spacer(); Button(app.t("common.remove")) { Task { await app.removeCard(c.id) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger).accessibilityLabel("\(app.t("common.remove")): \(c.nickname ?? c.name)") }
-                    .padding(14).glass(20)
-                }
+                VStack(spacing: -112) {
+                    ForEach(app.cards) { c in
+                        BankCardView(bank: c.issuerName, product: c.nickname ?? c.name, detail: "\(app.t("type.\(c.cardType)")) · \(c.segment)", segment: c.segment,
+                                     onRemove: { Task { await app.removeCard(c.id) } }, removeLabel: "\(app.t("common.remove")): \(c.nickname ?? c.name)")
+                    }
+                }.padding(.bottom, app.cards.isEmpty ? 0 : 0)
                 Button(app.t("cards.add")) { adding = true }.buttonStyle(AccentButtonStyle())
                 Text(app.t("profile.cards").uppercased()).font(.manrope(size: 11, weight: .bold)).tracking(1.6).foregroundStyle(Theme.muted).padding(.top, 6)
                 if app.wallets.isEmpty { Text(app.t("cards.noWallets")).foregroundStyle(Theme.secondary) }
                 ForEach(app.wallets) { w in
-                    HStack { Text(w.name).font(.manrope(size: 16, weight: .semibold)).foregroundStyle(.white); Spacer(); Button(app.t("common.remove")) { Task { await app.removeWallet(w.walletProviderId) } }.font(.manrope(size: 13, weight: .semibold)).foregroundStyle(Theme.danger).accessibilityLabel("\(app.t("common.remove")): \(w.name)") }.padding(14).glass(20)
+                    BankCardView(bank: w.name, product: w.name, detail: "", compact: true, onRemove: { Task { await app.removeWallet(w.walletProviderId) } }, removeLabel: "\(app.t("common.remove")): \(w.name)")
                 }
                 if app.catalogue.wallets.isEmpty {
                     CatalogueRetry()
@@ -122,9 +123,9 @@ struct AddCardFlow: View {
                         ForEach(app.catalogue.products.filter { $0.issuerId == i.id && $0.cardType == t }) { p in
                             let held = app.cards.contains { $0.cardProductId == p.id }
                             Button { Task { if await app.addCard(p.id, nickname: nickname.isEmpty ? nil : nickname) { dismiss() } } } label: {
-                                VStack(alignment: .leading, spacing: 8) { RoundedRectangle(cornerRadius: 10).fill(Theme.accent).frame(height: 70).overlay(alignment: .bottomTrailing) { Image(systemName: "creditcard").foregroundStyle(.white.opacity(0.8)).padding(8) }
-                                    Text(p.name).font(.manrope(size: 13, weight: .semibold)).foregroundStyle(.white).lineLimit(2).multilineTextAlignment(.leading); if held { Text("✓").foregroundStyle(Theme.success) } }
-                                .padding(10).glass(16)
+                                VStack(alignment: .leading, spacing: 6) {
+                                    BankCardView(bank: i.shortName, product: p.name, detail: p.segment, segment: p.segment, compact: true)
+                                    if held { Text("✓").foregroundStyle(Theme.success) } }
                             }.buttonStyle(.plain).disabled(held)
                         }
                     }
