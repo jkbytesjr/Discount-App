@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { PRIVACY, PRIVACY_CONTACT, PRIVACY_UPDATED } from "@/lib/privacy-content";
+import { LABELS, PRIVACY, PRIVACY_CONTACT, PRIVACY_UPDATED } from "@/lib/privacy-content";
 
 export const metadata: Metadata = { title: "Moz Discounts · Privacy Policy / Política de Privacidade" };
 
@@ -9,7 +9,7 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Prom
   const sp = await searchParams;
   const cookieLocale = (await cookies()).get("moz_locale")?.value;
   const lang: "pt" | "en" = sp.lang === "en" || sp.lang === "pt" ? sp.lang : cookieLocale === "en" ? "en" : "pt";
-  const doc = PRIVACY[lang];
+  const doc = PRIVACY[lang]; const lab = LABELS[lang];
   return (
     <main id="main" style={{ maxWidth: 780, margin: "0 auto", padding: "24px 16px 64px" }}>
       <div className="row between" style={{ marginBottom: 16 }}>
@@ -32,6 +32,18 @@ export default async function PrivacyPage({ searchParams }: { searchParams: Prom
             {s.ul ? <ul>{s.ul.map((x) => <li key={x}>{x}</li>)}</ul> : null}
           </section>
         ))}
+        <section id="labels" className="stack" aria-labelledby="labels-h">
+          <h2 id="labels-h" style={{ fontSize: 20 }}>{lab.title}</h2>
+          <p>{lab.intro}</p>
+          <div className="table-wrap">
+            <table className="label-table">
+              <thead><tr>{lab.cols.map((c) => <th key={c} scope="col">{c}</th>)}</tr></thead>
+              <tbody>{lab.rows.map((r) => <tr key={r[0]}><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody>
+            </table>
+          </div>
+          <p>{lab.notCollected}</p>
+          <p><strong>{lab.tracking}</strong></p>
+        </section>
       </article>
     </main>
   );

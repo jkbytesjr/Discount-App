@@ -287,3 +287,8 @@ dialog.drawer { margin: 0 0 0 auto; height: 100dvh; max-height: 100dvh; width: m
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   .blob { animation: none; }
 }
+
+.site-foot { text-align: center; padding: 14px 16px 22px; font-size: 13px; color: var(--text-muted); position: relative; z-index: 1; }
+.site-foot a { color: var(--text-secondary); text-decoration: underline; }
+.label-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.label-table th, .label-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--glass-border); vertical-align: top; }

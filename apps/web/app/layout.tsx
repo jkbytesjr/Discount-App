@@ -6,6 +6,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, translate, type Locale } from "@moz/
 import { LocaleProvider } from "@/components/i18n";
 import { Toaster } from "@/components/ui";
 import { Backdrop } from "@/components/backdrop";
+import Link from "next/link";
 
 const display = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500", "600"], style: ["normal", "italic"], variable: "--font-display-loaded", display: "swap" });
 const ui = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-ui-loaded", display: "swap" });
@@ -24,6 +25,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <div className="ribbon" role="note">{translate(locale, "demo.ribbon")}</div>
         <LocaleProvider locale={locale}>
           {children}
+          <footer className="site-foot">
+            <Link href="/privacy">{translate(locale, "app.privacy")}</Link> · <Link href="/privacy#labels">{translate(locale, "app.privacyLabel")}</Link>
+          </footer>
           <Toaster />
         </LocaleProvider>
       </body>

@@ -79,3 +79,43 @@ export const PRIVACY: Record<"pt" | "en", Doc> = {
     ],
   },
 };
+
+// App Store privacy label ("nutrition label"), same rows as docs/app-store-submission.md. Shown on /privacy#labels and mirrored in the iOS app.
+export const LABELS: Record<"pt" | "en", { title: string; intro: string; cols: [string, string, string]; rows: [string, string, string][]; notCollected: string; tracking: string }> = {
+  pt: {
+    title: "Etiqueta de privacidade",
+    intro: "Resumo dos dados que a app e o serviço recolhem, no formato das etiquetas de privacidade da App Store. Todos os dados abaixo estão ligados à sua conta e são usados apenas para o funcionamento da app.",
+    cols: ["Tipo de dado", "Para quê", "Notas"],
+    rows: [
+      ["Nome", "Funcionamento da app", "Nome e apelido da conta"],
+      ["Email", "Funcionamento da app", "Início de sessão, confirmação, recuperação de palavra-passe, avisos de segurança"],
+      ["Telefone", "Funcionamento da app", "Opcional"],
+      ["Localização aproximada", "Funcionamento da app", "Posição arredondada (~100 m) nos eventos de alerta e ao pedir ofertas próximas; a localização exata fica no telemóvel"],
+      ["Identificador de utilizador", "Funcionamento da app", "ID interno da conta"],
+      ["Identificador do dispositivo", "Funcionamento da app", "Token de notificações push, se permitir notificações"],
+      ["Conteúdo do utilizador", "Funcionamento da app", "Favoritos e produtos de cartão/carteira escolhidos (nunca números de cartão)"],
+      ["Interação com o produto", "Funcionamento da app", "Histórico de alertas (tipo, local, desconto, hora)"],
+      ["Outros dados", "Funcionamento da app", "Preferências de alertas"],
+    ],
+    notCollected: "Não recolhemos: dados financeiros (número do cartão, validade, CVV, últimos dígitos), saúde, contactos, histórico de navegação ou pesquisa, compras, diagnósticos, fotografias, áudio ou localização exata.",
+    tracking: "Seguimento (tracking): não. Não usamos SDKs de terceiros para publicidade ou análise.",
+  },
+  en: {
+    title: "Privacy label",
+    intro: "A summary of the data the app and service collect, in the format of App Store privacy labels. All data below is linked to your account and used only to run the app.",
+    cols: ["Data type", "Used for", "Notes"],
+    rows: [
+      ["Name", "App functionality", "Account first and last name"],
+      ["Email address", "App functionality", "Sign-in, confirmation, password reset, security notices"],
+      ["Phone number", "App functionality", "Optional"],
+      ["Coarse location", "App functionality", "Position rounded (~100 m) in alert events and when requesting nearby offers; precise location stays on the phone"],
+      ["User ID", "App functionality", "Internal account id"],
+      ["Device ID", "App functionality", "Push-notification token, if you allow notifications"],
+      ["User content", "App functionality", "Favourites and chosen card/wallet products (never card numbers)"],
+      ["Product interaction", "App functionality", "Alert history (type, place, discount, time)"],
+      ["Other data", "App functionality", "Alert preferences"],
+    ],
+    notCollected: "Not collected: financial info (card number, expiry, CVV, last digits), health, contacts, browsing or search history, purchases, diagnostics, photos, audio, or precise location.",
+    tracking: "Tracking: no. We use no third-party SDKs for advertising or analytics.",
+  },
+};

@@ -58,7 +58,7 @@ final class AppModel: ObservableObject {
         log = AlertLogStore(url: docs.appendingPathComponent("alert-log.json"))
         alertState = (try? Data(contentsOf: docs.appendingPathComponent("alert-state.json"))).flatMap { try? JSONDecoder().decode(AlertState.self, from: $0) } ?? AlertState()
         alertLog = log.entries
-        Task { await api.setOnSessionExpired { [weak self] in Task { @MainActor in self?.sessionExpired() } } }
+        Task { await api.setOnSessionExpired { [weak self = self] in Task { @MainActor in self?.sessionExpired() } } }
         wire()
     }
 

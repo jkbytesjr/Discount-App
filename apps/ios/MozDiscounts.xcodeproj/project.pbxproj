@@ -3,27 +3,51 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05709E0581F02F36F5412841 /* Sources/ProfileViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A0F10E91157909F51BB2D5 /* Sources/ProfileViews.swift */; };
+		6587F0AE4FF5FF5340CF7ACC /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B60FBD99F3F684C390AC9B /* AppModel.swift */; };
+		49AAFA55840595B8F24C04EF /* AuthViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276BAC7BBB183AF111D1E6A5 /* AuthViews.swift */; };
+		6BD6415798B4360DAA7892CA /* CardArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF15F9851B4B56F7B1F61A4 /* CardArt.swift */; };
+		25994CC45D82C8552AFA4447 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AAA0330F54791D0CCAEC53 /* Keychain.swift */; };
+		8C6BD6984C9948C42C7A5B85 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC46072C11B9FEBA6D4FD8E /* L10n.swift */; };
+		CC09A574A406364906502337 /* MainViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE8AE618537A41169F3687 /* MainViews.swift */; };
+		8C9A5F54FD7071D4073D3EE6 /* MozDiscountsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F261448508F1380F89A8393E /* MozDiscountsApp.swift */; };
+		507ACCE6FE9AEEEE73E7E884 /* PrivacyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A21180029270E7DE6954428 /* PrivacyViews.swift */; };
+		05709E0581F02F36F5412841 /* ProfileViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A0F10E91157909F51BB2D5 /* ProfileViews.swift */; };
+		F501B0E0193003655F5FC65D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99434C7AC70C96032DC63112 /* Services.swift */; };
+		3CE9E92A18EC61DAA21A6072 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C612EF37DEF6456204642 /* Theme.swift */; };
+		C594899526E929042D4421EB /* Manrope.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5965510E937CF4383343AD8E /* Manrope.ttf */; };
+		1ACC2379D74E29AFB06ECFFC /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A78D0F88798E83EBF0B5C600 /* Montserrat-Italic.ttf */; };
+		CC849160298E739D3D16C91A /* Montserrat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 332205C63F699C7986F43B38 /* Montserrat.ttf */; };
 		0E6469C82B38633DA090D51B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32BB636196F91ED59D7A4919 /* Assets.xcassets */; };
-		1ACC2379D74E29AFB06ECFFC /* Fonts/Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A78D0F88798E83EBF0B5C600 /* Fonts/Montserrat-Italic.ttf */; };
-		25994CC45D82C8552AFA4447 /* Sources/Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6AAA0330F54791D0CCAEC53 /* Sources/Keychain.swift */; };
 		39CA2D6E8E1399CA430452B7 /* MozCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2BAFBE90D711F96380E9193E /* MozCore */; };
-		3CE9E92A18EC61DAA21A6072 /* Sources/Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C612EF37DEF6456204642 /* Sources/Theme.swift */; };
-		49AAFA55840595B8F24C04EF /* Sources/AuthViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276BAC7BBB183AF111D1E6A5 /* Sources/AuthViews.swift */; };
-		6587F0AE4FF5FF5340CF7ACC /* Sources/AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B60FBD99F3F684C390AC9B /* Sources/AppModel.swift */; };
-		6BD6415798B4360DAA7892CA /* Sources/CardArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF15F9851B4B56F7B1F61A4 /* Sources/CardArt.swift */; };
-		8C6BD6984C9948C42C7A5B85 /* Sources/L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC46072C11B9FEBA6D4FD8E /* Sources/L10n.swift */; };
-		8C9A5F54FD7071D4073D3EE6 /* Sources/MozDiscountsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F261448508F1380F89A8393E /* Sources/MozDiscountsApp.swift */; };
-		C594899526E929042D4421EB /* Fonts/Manrope.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5965510E937CF4383343AD8E /* Fonts/Manrope.ttf */; };
-		CC09A574A406364906502337 /* Sources/MainViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CE8AE618537A41169F3687 /* Sources/MainViews.swift */; };
-		CC849160298E739D3D16C91A /* Fonts/Montserrat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 332205C63F699C7986F43B38 /* Fonts/Montserrat.ttf */; };
-		F501B0E0193003655F5FC65D /* Sources/Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99434C7AC70C96032DC63112 /* Sources/Services.swift */; };
 		FA5F595E230DD82770E34559 /* MozDiscountsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDBDD23EC2AA298BFD40382 /* MozDiscountsUITests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		61B60FBD99F3F684C390AC9B /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/AppModel.swift; sourceTree = "<group>"; };
+		276BAC7BBB183AF111D1E6A5 /* AuthViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/AuthViews.swift; sourceTree = "<group>"; };
+		6EF15F9851B4B56F7B1F61A4 /* CardArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CardArt.swift; sourceTree = "<group>"; };
+		A6AAA0330F54791D0CCAEC53 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Keychain.swift; sourceTree = "<group>"; };
+		4FC46072C11B9FEBA6D4FD8E /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/L10n.swift; sourceTree = "<group>"; };
+		71CE8AE618537A41169F3687 /* MainViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MainViews.swift; sourceTree = "<group>"; };
+		F261448508F1380F89A8393E /* MozDiscountsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MozDiscountsApp.swift; sourceTree = "<group>"; };
+		0A21180029270E7DE6954428 /* PrivacyViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/PrivacyViews.swift; sourceTree = "<group>"; };
+		45A0F10E91157909F51BB2D5 /* ProfileViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/ProfileViews.swift; sourceTree = "<group>"; };
+		99434C7AC70C96032DC63112 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Services.swift; sourceTree = "<group>"; };
+		1F0C612EF37DEF6456204642 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Theme.swift; sourceTree = "<group>"; };
+		5965510E937CF4383343AD8E /* Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fonts/Manrope.ttf; sourceTree = "<group>"; };
+		A78D0F88798E83EBF0B5C600 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fonts/Montserrat-Italic.ttf; sourceTree = "<group>"; };
+		332205C63F699C7986F43B38 /* Montserrat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fonts/Montserrat.ttf; sourceTree = "<group>"; };
+		707A1B8AA6F495C9BF6658C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32BB636196F91ED59D7A4919 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F5BF48AA40CAD7891EB709FC /* MozDiscounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MozDiscounts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F758B95EA811C07A1426482F /* MozCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MozCore; path = MozCore; sourceTree = "<group>"; };
+		DDDBDD23EC2AA298BFD40382 /* MozDiscountsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MozDiscountsUITests.swift; sourceTree = "<group>"; };
+		FB284A2D1F6B0A64B505C371 /* MozDiscountsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MozDiscountsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
 
 /* Begin PBXContainerItemProxy section */
 		04D9379C3231D074B070E8DF /* PBXContainerItemProxy */ = {
@@ -35,41 +59,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXFileReference section */
-		1F0C612EF37DEF6456204642 /* Sources/Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Theme.swift; sourceTree = "<group>"; };
-		276BAC7BBB183AF111D1E6A5 /* Sources/AuthViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/AuthViews.swift; sourceTree = "<group>"; };
-		32BB636196F91ED59D7A4919 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		332205C63F699C7986F43B38 /* Fonts/Montserrat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fonts/Montserrat.ttf; sourceTree = "<group>"; };
-		45A0F10E91157909F51BB2D5 /* Sources/ProfileViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/ProfileViews.swift; sourceTree = "<group>"; };
-		4FC46072C11B9FEBA6D4FD8E /* Sources/L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/L10n.swift; sourceTree = "<group>"; };
-		5965510E937CF4383343AD8E /* Fonts/Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fonts/Manrope.ttf; sourceTree = "<group>"; };
-		61B60FBD99F3F684C390AC9B /* Sources/AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/AppModel.swift; sourceTree = "<group>"; };
-		6EF15F9851B4B56F7B1F61A4 /* Sources/CardArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/CardArt.swift; sourceTree = "<group>"; };
-		707A1B8AA6F495C9BF6658C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71CE8AE618537A41169F3687 /* Sources/MainViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MainViews.swift; sourceTree = "<group>"; };
-		99434C7AC70C96032DC63112 /* Sources/Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Services.swift; sourceTree = "<group>"; };
-		A6AAA0330F54791D0CCAEC53 /* Sources/Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/Keychain.swift; sourceTree = "<group>"; };
-		A78D0F88798E83EBF0B5C600 /* Fonts/Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Fonts/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
-		DDDBDD23EC2AA298BFD40382 /* MozDiscountsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MozDiscountsUITests.swift; sourceTree = "<group>"; };
-		F261448508F1380F89A8393E /* Sources/MozDiscountsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/MozDiscountsApp.swift; sourceTree = "<group>"; };
-		F5BF48AA40CAD7891EB709FC /* MozDiscounts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MozDiscounts.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F758B95EA811C07A1426482F /* MozCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MozCore; sourceTree = "<group>"; };
-		FB284A2D1F6B0A64B505C371 /* MozDiscountsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MozDiscountsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
+/* Begin PBXTargetDependency section */
+		EE92263BAE764B7467034BD4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42AEFBAE01D2DFD981F7DA7D /* MozDiscounts */;
+			targetProxy = 04D9379C3231D074B070E8DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		869A013D31422C5A54E66FB6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DAF6AA633395B1B76148E35B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				39CA2D6E8E1399CA430452B7 /* MozCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		869A013D31422C5A54E66FB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,12 +96,27 @@
 			);
 			sourceTree = "<group>";
 		};
-		9D931B2457D98D60C159BCF7 /* UITests */ = {
+		D8DBA3F9900DD17689CA0C4D /* App */ = {
 			isa = PBXGroup;
 			children = (
-				DDDBDD23EC2AA298BFD40382 /* MozDiscountsUITests.swift */,
+				61B60FBD99F3F684C390AC9B /* AppModel.swift */,
+				276BAC7BBB183AF111D1E6A5 /* AuthViews.swift */,
+				6EF15F9851B4B56F7B1F61A4 /* CardArt.swift */,
+				A6AAA0330F54791D0CCAEC53 /* Keychain.swift */,
+				4FC46072C11B9FEBA6D4FD8E /* L10n.swift */,
+				71CE8AE618537A41169F3687 /* MainViews.swift */,
+				F261448508F1380F89A8393E /* MozDiscountsApp.swift */,
+				0A21180029270E7DE6954428 /* PrivacyViews.swift */,
+				45A0F10E91157909F51BB2D5 /* ProfileViews.swift */,
+				99434C7AC70C96032DC63112 /* Services.swift */,
+				1F0C612EF37DEF6456204642 /* Theme.swift */,
+				707A1B8AA6F495C9BF6658C2 /* Info.plist */,
+				32BB636196F91ED59D7A4919 /* Assets.xcassets */,
+				5965510E937CF4383343AD8E /* Manrope.ttf */,
+				A78D0F88798E83EBF0B5C600 /* Montserrat-Italic.ttf */,
+				332205C63F699C7986F43B38 /* Montserrat.ttf */,
 			);
-			path = UITests;
+			path = App;
 			sourceTree = "<group>";
 		};
 		A8CBE22D73EBCC4E5F27B59C /* Products */ = {
@@ -103,26 +128,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D8DBA3F9900DD17689CA0C4D /* App */ = {
+		9D931B2457D98D60C159BCF7 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
-				61B60FBD99F3F684C390AC9B /* Sources/AppModel.swift */,
-				276BAC7BBB183AF111D1E6A5 /* Sources/AuthViews.swift */,
-				6EF15F9851B4B56F7B1F61A4 /* Sources/CardArt.swift */,
-				A6AAA0330F54791D0CCAEC53 /* Sources/Keychain.swift */,
-				4FC46072C11B9FEBA6D4FD8E /* Sources/L10n.swift */,
-				71CE8AE618537A41169F3687 /* Sources/MainViews.swift */,
-				F261448508F1380F89A8393E /* Sources/MozDiscountsApp.swift */,
-				45A0F10E91157909F51BB2D5 /* Sources/ProfileViews.swift */,
-				99434C7AC70C96032DC63112 /* Sources/Services.swift */,
-				1F0C612EF37DEF6456204642 /* Sources/Theme.swift */,
-				707A1B8AA6F495C9BF6658C2 /* Info.plist */,
-				32BB636196F91ED59D7A4919 /* Assets.xcassets */,
-				5965510E937CF4383343AD8E /* Fonts/Manrope.ttf */,
-				A78D0F88798E83EBF0B5C600 /* Fonts/Montserrat-Italic.ttf */,
-				332205C63F699C7986F43B38 /* Fonts/Montserrat.ttf */,
+				DDDBDD23EC2AA298BFD40382 /* MozDiscountsUITests.swift */,
 			);
-			path = App;
+			path = UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +141,7 @@
 /* Begin PBXNativeTarget section */
 		42AEFBAE01D2DFD981F7DA7D /* MozDiscounts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9150498069B5DCF7272312D9 /* Build configuration list for PBXNativeTarget "MozDiscounts" */;
+			buildConfigurationList = 9150498069B5DCF7272312D9;
 			buildPhases = (
 				0F78FE532035D122ED352DBA /* Sources */,
 				DAF6AA633395B1B76148E35B /* Frameworks */,
@@ -150,7 +161,7 @@
 		};
 		4C70860B40F8D4EBB1E3E0F0 /* MozDiscountsUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7DA27B367C9EBB5D9AB7CD80 /* Build configuration list for PBXNativeTarget "MozDiscountsUITests" */;
+			buildConfigurationList = 7DA27B367C9EBB5D9AB7CD80;
 			buildPhases = (
 				B800C7B7DE758AE9585DDA4F /* Sources */,
 				869A013D31422C5A54E66FB6 /* Frameworks */,
@@ -174,14 +185,14 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2700;
-				LastUpgradeCheck = 2710;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					4C70860B40F8D4EBB1E3E0F0 = {
 						TestTargetID = 42AEFBAE01D2DFD981F7DA7D;
 					};
 				};
 			};
-			buildConfigurationList = 01076EBF22530E406F54B419 /* Build configuration list for PBXProject "MozDiscounts" */;
+			buildConfigurationList = 01076EBF22530E406F54B419;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = pt;
 			hasScannedForEncodings = 0;
@@ -205,21 +216,21 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0E75266863BF43F86FDD3B84 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		943E4BBD9B51C81965501BA3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0E6469C82B38633DA090D51B /* Assets.xcassets in Resources */,
-				C594899526E929042D4421EB /* Fonts/Manrope.ttf in Resources */,
-				1ACC2379D74E29AFB06ECFFC /* Fonts/Montserrat-Italic.ttf in Resources */,
-				CC849160298E739D3D16C91A /* Fonts/Montserrat.ttf in Resources */,
+				C594899526E929042D4421EB /* Manrope.ttf in Resources */,
+				1ACC2379D74E29AFB06ECFFC /* Montserrat-Italic.ttf in Resources */,
+				CC849160298E739D3D16C91A /* Montserrat.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E75266863BF43F86FDD3B84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,16 +241,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6587F0AE4FF5FF5340CF7ACC /* Sources/AppModel.swift in Sources */,
-				49AAFA55840595B8F24C04EF /* Sources/AuthViews.swift in Sources */,
-				6BD6415798B4360DAA7892CA /* Sources/CardArt.swift in Sources */,
-				25994CC45D82C8552AFA4447 /* Sources/Keychain.swift in Sources */,
-				8C6BD6984C9948C42C7A5B85 /* Sources/L10n.swift in Sources */,
-				CC09A574A406364906502337 /* Sources/MainViews.swift in Sources */,
-				8C9A5F54FD7071D4073D3EE6 /* Sources/MozDiscountsApp.swift in Sources */,
-				05709E0581F02F36F5412841 /* Sources/ProfileViews.swift in Sources */,
-				F501B0E0193003655F5FC65D /* Sources/Services.swift in Sources */,
-				3CE9E92A18EC61DAA21A6072 /* Sources/Theme.swift in Sources */,
+				6587F0AE4FF5FF5340CF7ACC /* AppModel.swift in Sources */,
+				49AAFA55840595B8F24C04EF /* AuthViews.swift in Sources */,
+				6BD6415798B4360DAA7892CA /* CardArt.swift in Sources */,
+				25994CC45D82C8552AFA4447 /* Keychain.swift in Sources */,
+				8C6BD6984C9948C42C7A5B85 /* L10n.swift in Sources */,
+				CC09A574A406364906502337 /* MainViews.swift in Sources */,
+				8C9A5F54FD7071D4073D3EE6 /* MozDiscountsApp.swift in Sources */,
+				507ACCE6FE9AEEEE73E7E884 /* PrivacyViews.swift in Sources */,
+				05709E0581F02F36F5412841 /* ProfileViews.swift in Sources */,
+				F501B0E0193003655F5FC65D /* Services.swift in Sources */,
+				3CE9E92A18EC61DAA21A6072 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,162 +265,39 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		EE92263BAE764B7467034BD4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 42AEFBAE01D2DFD981F7DA7D /* MozDiscounts */;
-			targetProxy = 04D9379C3231D074B070E8DF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		2B645610CD3D8D67581A2E9D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = 5.0;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		2D53B50AE2273FABAAF8B8FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_VERSION = 5.0;
+				MTL_FAST_MATH = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2B645610CD3D8D67581A2E9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		5F1F1141997F7891BD33A832 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app.uitests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_TARGET_NAME = MozDiscounts;
-			};
-			name = Debug;
-		};
-		6791BF1F1E8A3A0981023556 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2647Q7US7A;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = App/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MOZ_API_BASE_URL = "https:/$()/discount-app-rho.vercel.app";
-				PRODUCT_BUNDLE_IDENTIFIER = mozdiscounts.app.jkbytes;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		F991C508A52866E0D6842FDF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app.uitests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_TARGET_NAME = MozDiscounts;
+				MTL_FAST_MATH = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -416,26 +305,71 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2647Q7US7A;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
-				MOZ_API_BASE_URL = "https:/$()/discount-app-rho.vercel.app";
-				PRODUCT_BUNDLE_IDENTIFIER = mozdiscounts.app.jkbytes;
+				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 1;
+				MOZ_API_BASE_URL = "https:/$()/discount-app-rho.vercel.app";
 			};
 			name = Debug;
+		};
+		6791BF1F1E8A3A0981023556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+				MOZ_API_BASE_URL = "https:/$()/discount-app-rho.vercel.app";
+			};
+			name = Release;
+		};
+		5F1F1141997F7891BD33A832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MozDiscounts;
+			};
+			name = Debug;
+		};
+		F991C508A52866E0D6842FDF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mz.mozdiscounts.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MozDiscounts;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -449,20 +383,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7DA27B367C9EBB5D9AB7CD80 /* Build configuration list for PBXNativeTarget "MozDiscountsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5F1F1141997F7891BD33A832 /* Debug */,
-				F991C508A52866E0D6842FDF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		9150498069B5DCF7272312D9 /* Build configuration list for PBXNativeTarget "MozDiscounts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA7C752E798F561D7D156D98 /* Debug */,
 				6791BF1F1E8A3A0981023556 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DA27B367C9EBB5D9AB7CD80 /* Build configuration list for PBXNativeTarget "MozDiscountsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5F1F1141997F7891BD33A832 /* Debug */,
+				F991C508A52866E0D6842FDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

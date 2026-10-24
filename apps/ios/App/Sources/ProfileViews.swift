@@ -4,6 +4,7 @@ import MozCore
 struct ProfileView: View {
     @EnvironmentObject var app: AppModel
     @State private var showEdit = false
+    @State private var showLabel = false
     @State private var showPassword = false
     @State private var exportURL: URL?
     @State private var showCards = false
@@ -36,6 +37,7 @@ struct ProfileView: View {
                     Text(app.t("profile.privacyNote")).font(.manrope(size: 13)).foregroundStyle(Theme.secondary)
                     Text("\(app.t("profile.about")): Moz Discounts \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0") · \(app.t("demo.ribbon"))").font(.manrope(size: 12)).foregroundStyle(Theme.muted)
                 }.padding(16).frame(maxWidth: .infinity, alignment: .leading).glass(22)
+                row("checklist", app.t("privacy.labelTitle")) { showLabel = true }
                 row("hand.raised", app.t("profile.privacyPolicy")) { if let u = URL(string: AppModel.privacyPolicyURL) { UIApplication.shared.open(u) } }
                 row("key", app.t("profile.changePassword")) { showPassword = true }
                 row("square.and.arrow.down", app.t("profile.exportData")) { Task { await exportData() } }
@@ -44,6 +46,7 @@ struct ProfileView: View {
             }.padding(.horizontal, 18).padding(.bottom, 110)
         }
         .sheet(isPresented: $showCards) { ZStack { Backdrop(); VStack { HStack { Spacer(); Button(app.t("common.done")) { showCards = false }.foregroundStyle(Theme.cyan) }.padding(); MyCardsView(embedded: false) } }.bannerOverlay().preferredColorScheme(.dark) }
+        .sheet(isPresented: $showLabel) { PrivacyLabelView().preferredColorScheme(.dark) }
         .sheet(isPresented: $showEdit) { EditProfileView().preferredColorScheme(.dark) }
         .sheet(isPresented: $showPassword) { ChangePasswordView().bannerOverlay().preferredColorScheme(.dark) }
         .sheet(item: Binding(get: { exportURL.map(URLBox.init) }, set: { exportURL = $0?.url })) { box in ShareSheet(url: box.url) }
