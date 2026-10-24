@@ -11,7 +11,7 @@ const display = Montserrat({ subsets: ["latin"], weight: ["300", "400", "500", "
 const ui = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--font-ui-loaded", display: "swap" });
 
 export const viewport = { themeColor: "#07060f", colorScheme: "dark" };
-export const metadata = { title: "Moz Discounts", description: "Never miss a discount on your card.", icons: { icon: "/brand/logo.svg" } };
+export const metadata = { title: "Moz Discounts", description: "Never miss a discount on your card." };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const raw = (await cookies()).get("moz_locale")?.value;
