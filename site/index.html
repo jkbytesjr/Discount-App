@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moz Discounts: never miss a card or wallet discount</title>
+<meta name="description" content="Moz Discounts alerts you when you are near a restaurant, supermarket or spa that offers a discount on your bank card or mobile wallet in Mozambique.">
+<meta name="theme-color" content="#07060f">
+<link rel="icon" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Moz Discounts">
+<meta property="og:description" content="Walk past a place with a discount on your card or wallet and get alerted. Open source, made in Mozambique.">
+<meta property="og:image" content="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Montserrat:ital,wght@0,200;0,300;0,600;1,300&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="backdrop" aria-hidden="true">
+  <i class="bd-card bd-a"></i><i class="bd-card bd-b"></i><i class="bd-card bd-c"></i>
+</div>
+<div class="progress" aria-hidden="true"><b id="bar"></b></div>
+
+<header class="nav glass">
+  <a class="brand" href="#top"><img src="assets/logo.png" width="36" height="36" alt="" > <span>Moz Discounts</span></a>
+  <nav aria-label="Main">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#personal">Your cards</a>
+    <a href="#audiences">For business</a>
+    <a href="#open-source">Open source</a>
+    <a href="#guides">Guides</a>
+  </nav>
+  <a class="btn btn-sm" href="https://discount-app-rho.vercel.app/login">Sign in</a>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow reveal">Mozambique · MZN · cards and wallets</p>
+      <h1 class="reveal d1">The discount was <em>right there.</em><br>You just didn&rsquo;t know.</h1>
+      <p class="lead reveal d2">Moz Discounts alerts you when you walk near a restaurant, supermarket or spa that offers a deal on <strong>your</strong> bank card or mobile wallet, so you stop missing out.</p>
+      <div class="cta reveal d3">
+        <a class="btn" href="https://discount-app-rho.vercel.app/register">Create account</a>
+        <a class="btn btn-ghost" href="https://discount-app-rho.vercel.app/map">Explore the map</a>
+      </div>
+      <p class="note reveal d3">iOS app available to test via <strong>TestFlight</strong>. <a href="#testflight">How to join</a></p>
+    </div>
+    <div class="hero-visual reveal d2" aria-hidden="true">
+      <div class="hv-card c1"><span>BCI</span></div>
+      <div class="hv-card c2"><span>Absa</span></div>
+      <div class="hv-card c3"><span>M-Pesa</span></div>
+      <div class="hv-notif glass">
+        <img src="assets/logo.png" alt="" width="34" height="34">
+        <div><small>Moz Discounts · now</small><b>10% off, 80 m away</b><span>on your BCI card</span></div>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-hint" href="#problem" aria-label="Scroll to the problem"><span></span></a>
+</section>
+
+<!-- 1. PROBLEM : pinned scroll scene -->
+<section class="scene" id="problem" data-scene="problem" aria-labelledby="problem-h">
+  <div class="stage">
+    <div class="wrap scene-copy">
+      <p class="eyebrow">1 · The problem</p>
+      <h2 id="problem-h">Discounts exist. <em>Nobody tells you where.</em></h2>
+      <p class="lead">Banks and wallets sign deals with shops and restaurants, but the offer sits in a leaflet, an SMS or an app you never open. You pay full price, then find out later.</p>
+      <p class="counter glass" aria-live="polite">Discounts walked past: <b id="missed">0</b></p>
+    </div>
+    <div class="map glass" role="img" aria-label="Animation: a person walks along a street and passes a restaurant, a supermarket and a spa, each with a discount they never see.">
+      <svg viewBox="0 0 800 420" id="svg-problem" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SOLUTION -->
+<section class="scene" id="solution" data-scene="solution" aria-labelledby="solution-h">
+  <div class="stage">
+    <div class="wrap scene-copy">
+      <p class="eyebrow">2 · The solution</p>
+      <h2 id="solution-h">Your phone <em>speaks up</em> at the right moment.</h2>
+      <p class="lead">Every participating place has an invisible circle around it. Step inside and you get a notification with the exact offer on your card or wallet. Proximity is worked out on your phone.</p>
+      <div class="notif-slot" id="notif" aria-live="polite">
+        <div class="notif glass"><img src="assets/logo.png" alt="" width="34" height="34"><div><small>Moz Discounts · now</small><b id="n-title">Walking&hellip;</b><span id="n-body">Alerts appear as you come close.</span></div></div>
+      </div>
+    </div>
+    <div class="map glass" role="img" aria-label="Animation: the same walk, but each place has a glowing alert circle and a notification appears as the person enters it.">
+      <svg viewBox="0 0 800 420" id="svg-solution" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PERSONALISATION -->
+<section class="block" id="personal" aria-labelledby="personal-h">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow reveal">3 · Made for your wallet</p>
+      <h2 id="personal-h" class="reveal d1">Add your cards. <em>We never ask for the numbers.</em></h2>
+      <p class="lead reveal d2">Pick your bank cards and wallets such as BCI, Absa, Millennium bim, M-Pesa, e-Mola and mKesh. We never collect a card number, expiry date or CVV. Only the product you hold.</p>
+      <div class="chips reveal d2" role="group" aria-label="Which offers do you want alerts for?">
+        <button class="chip on" type="button" data-mode="mine" aria-pressed="true">Only for my cards</button>
+        <button class="chip" type="button" data-mode="banks" aria-pressed="false">Mine plus chosen banks</button>
+        <button class="chip" type="button" data-mode="all" aria-pressed="false">All offers</button>
+      </div>
+      <label class="toggle reveal d3"><input type="checkbox" id="quiet"> <span class="sw" aria-hidden="true"></span> Quiet hours: <span id="quiet-state">off</span></label>
+      <p class="mini reveal d3" id="mode-desc">You only hear about discounts your own cards and wallets unlock.</p>
+    </div>
+    <div class="phones reveal d2">
+      <figure class="phone p1"><img src="assets/shot-cards.jpg" width="270" height="587" loading="lazy" alt="Cards and wallets screen: ABSA, BCI cards and an M-Pesa wallet, with the note that the app never asks for number, expiry or CVV."></figure>
+      <figure class="phone p2"><img src="assets/shot-alerts.jpg" width="270" height="587" loading="lazy" alt="Alert preferences screen with Only for my cards, Mine plus chosen banks, All offers and a quiet hours switch."></figure>
+      <figure class="phone p3"><img src="assets/shot-map.jpg" width="270" height="587" loading="lazy" alt="Home map of Maputo with category pins and a New offers carousel."></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 4. AUDIENCES -->
+<section class="block" id="audiences" aria-labelledby="aud-h">
+  <div class="wrap">
+    <p class="eyebrow reveal">4 · Who it is for</p>
+    <h2 id="aud-h" class="reveal d1">One web portal. <em>Three kinds of people.</em></h2>
+    <div class="flow">
+      <article class="glass tilt reveal">
+        <span class="ico" aria-hidden="true">🏦</span>
+        <h3>Banks and wallet providers</h3>
+        <p>Capture partner offers and link them to your cards and wallets, per card type or per wallet. Customers holding them get the alert.</p>
+      </article>
+      <article class="glass tilt reveal d1">
+        <span class="ico" aria-hidden="true">🍽️</span>
+        <h3>Restaurants, shops and spas</h3>
+        <p>Add your premises on a map and publish offers for the general public. Set schedules, pause or end them any time.</p>
+      </article>
+      <article class="glass tilt reveal d2">
+        <span class="ico" aria-hidden="true">📱</span>
+        <h3>Everyday customers</h3>
+        <p>Choose your cards, browse the map, favourite offers and get alerts as you walk by. No more leaflets.</p>
+      </article>
+    </div>
+    <div class="glass manage reveal">
+      <b>Everything is managed from the web app:</b>
+      <ul>
+        <li>Business profile and approval</li><li>Premises on a map</li><li>Discounts with a step-by-step wizard</li><li>Stats and Excel exports</li>
+      </ul>
+      <a class="btn btn-sm" href="https://discount-app-rho.vercel.app/register">Register your business</a>
+    </div>
+  </div>
+</section>
+
+<!-- 5. OPEN SOURCE -->
+<section class="block" id="open-source" aria-labelledby="os-h">
+  <div class="wrap split rev">
+    <div class="glass code reveal" aria-hidden="true">
+      <pre><span class="dim">$</span> git clone https://github.com/jkbytesjr/Discount-App
+<span class="dim">$</span> corepack pnpm install
+<span class="dim">$</span> corepack pnpm dev
+<span class="ok">ready</span> http://localhost:3000</pre>
+    </div>
+    <div>
+      <p class="eyebrow reveal">5 · Open source</p>
+      <h2 id="os-h" class="reveal d1">Built in the open. <em>Read it, run it, improve it.</em></h2>
+      <p class="lead reveal d2">The web portal, the API and the iOS app all live in one public repository. It is a proof of concept, so feedback and pull requests are welcome.</p>
+      <a class="btn reveal d3" href="https://github.com/jkbytesjr/Discount-App">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DEVELOPERS -->
+<section class="block" id="developers" aria-labelledby="dev-h">
+  <div class="wrap">
+    <p class="eyebrow reveal">6 · The developers</p>
+    <h2 id="dev-h" class="reveal d1">A father and son <em>fixing an everyday problem.</em></h2>
+    <p class="lead reveal d2">Jaikumar and Joshkyle built Moz Discounts together because missing out on a deal you were entitled to is something everyone has felt.</p>
+    <div class="devs">
+      <article class="glass tilt reveal">
+        <span class="avatar" aria-hidden="true">JS</span>
+        <h3>Jaikumar Sathish</h3>
+        <a class="link" href="https://www.linkedin.com/in/jkbytes">LinkedIn profile &rarr;</a>
+      </article>
+      <article class="glass tilt reveal d1">
+        <span class="avatar alt" aria-hidden="true">JS</span>
+        <h3>Joshkyle Sathish</h3>
+        <a class="link" href="https://www.linkedin.com/in/joshkyle-sathish-b24831360">LinkedIn profile &rarr;</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 7. GUIDES / STACK / PRIVACY / TESTFLIGHT -->
+<section class="block" id="guides" aria-labelledby="guides-h">
+  <div class="wrap">
+    <p class="eyebrow reveal">7 · Guides</p>
+    <h2 id="guides-h" class="reveal d1">Get started <em>in minutes.</em></h2>
+    <div class="steps">
+      <div class="glass reveal"><b>1</b><h3>Create an account</h3><p>Customers register on the web or in the app. Businesses register and wait for admin approval.</p></div>
+      <div class="glass reveal d1"><b>2</b><h3>Pick your cards and wallets</h3><p>Choose the product only. No number, expiry or CVV, ever.</p></div>
+      <div class="glass reveal d2"><b>3</b><h3>Set your alerts</h3><p>Only my cards, mine plus chosen banks, or all offers. Add quiet hours if you like.</p></div>
+      <div class="glass reveal d3"><b>4</b><h3>Allow location and walk</h3><p>Allow location when prompted so the phone can tell when you are near an offer.</p></div>
+    </div>
+
+    <div class="links">
+      <a class="glass tilt" href="https://discount-app-rho.vercel.app/login"><b>Sign in</b><span>Open the web app</span></a>
+      <a class="glass tilt" href="https://discount-app-rho.vercel.app/register"><b>Create account</b><span>Customers and businesses</span></a>
+      <a class="glass tilt" href="https://discount-app-rho.vercel.app/map"><b>Public map</b><span>See offers, no sign-in</span></a>
+      <a class="glass tilt" href="https://discount-app-rho.vercel.app/privacy"><b>Privacy policy</b><span>What we store and why</span></a>
+    </div>
+
+    <h3 class="sub reveal" id="stack">Technology stack</h3>
+    <ul class="stack reveal" aria-label="Technology stack">
+      <li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>PostgreSQL on Neon</li><li>Prisma 7</li><li>Vercel</li><li>SwiftUI</li><li>MapKit</li><li>CoreLocation</li><li>Vitest</li><li>Playwright + axe</li><li>XCTest</li>
+    </ul>
+    <p class="mini">Business rules live in a framework-free core package, mirrored in Swift, so web and iOS behave the same. Details in the <a href="https://github.com/jkbytesjr/Discount-App#tech-stack">repository README</a>.</p>
+
+    <div class="glass tf reveal" id="testflight">
+      <div><h3>Try the iOS app on TestFlight</h3><p>The iPhone app is in testing. Ask Jaikumar for an invitation, install Apple&rsquo;s TestFlight app, then open the invite link. Offers shown today are demonstration data.</p></div>
+      <a class="btn" href="https://www.linkedin.com/in/jkbytes">Ask for an invite</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap foot">
+    <div><img src="assets/logo.png" width="40" height="40" alt=""> <b>Moz Discounts</b><p>A proof of concept made in Mozambique. Not affiliated with any bank or wallet provider. Offers shown are demonstration data.</p></div>
+    <nav aria-label="Footer">
+      <a href="https://discount-app-rho.vercel.app/login">Sign in</a>
+      <a href="https://discount-app-rho.vercel.app/register">Create account</a>
+      <a href="https://discount-app-rho.vercel.app/privacy">Privacy policy</a>
+      <a href="#guides">Guides</a>
+      <a href="#stack">Technology stack</a>
+      <a href="https://github.com/jkbytesjr/Discount-App">GitHub</a>
+    </nav>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>
