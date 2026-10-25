@@ -12,7 +12,7 @@ This repository is a **proof of concept (POC)** with three parts:
 
 All sample data is fictional and marked "Dados de demonstração / Demo data".
 
-**Live demo:** https://discount-app-rho.vercel.app (Vercel, with its own Neon database; sign-in needs an account the owner has shared with you).
+**Live demo:** https://discount-app-rho.vercel.app (Vercel, with its own Neon database; sign-in needs an account the owner has shared with you). The home page is a scroll-driven marketing site that leads into the web application (`/login`, `/register`, `/map`); its source is `apps/web/components/landing.tsx`, with the original static version in `docs/site`.
 
 ## Screenshots
 

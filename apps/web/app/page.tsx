@@ -1,25 +1,20 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { DEFAULT_LOCALE, translate, SUPPORTED_LOCALES, type Locale } from "@moz/shared";
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type Locale } from "@moz/shared";
+import { Landing } from "@/components/landing";
+import { LANDING } from "@/lib/landing-content";
+import { COOKIE } from "@/lib/http";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const jar = await cookies(); const raw = jar.get("moz_locale")?.value;
+  const c = LANDING[raw === "en" ? "en" : "pt"];
+  return { metadataBase: new URL(process.env.APP_URL ?? "http://localhost:3000"), title: c.title, description: c.description, openGraph: { title: "Moz Discounts", description: c.description, images: ["/site/logo.png"] } };
+}
 
 export default async function Home() {
-  const raw = (await cookies()).get("moz_locale")?.value;
+  const jar = await cookies();
+  const raw = jar.get("moz_locale")?.value;
   const locale = (SUPPORTED_LOCALES as readonly string[]).includes(raw ?? "") ? (raw as Locale) : DEFAULT_LOCALE;
-  const t = (k: Parameters<typeof translate>[1]) => translate(locale, k);
-  return (
-    <main id="main" className="auth">
-      <div className="card" style={{ textAlign: "center" }}>
-        <img src="/brand/app-icon.png" alt="" width={72} height={72} style={{ borderRadius: 18 }} />
-        <h1 style={{ marginTop: 16 }}>{t("app.name")}</h1>
-        <p className="muted">{t("app.tagline")}</p>
-        <hr className="rule" />
-        <div className="row" style={{ justifyContent: "center" }}>
-          <Link className="btn" href="/login">{t("auth.login")}</Link>
-          <Link className="btn secondary" href="/register">{t("auth.register")}</Link>
-          <Link className="btn ghost" href="/map">{t("map.title")}</Link>
-        </div>
-        <p style={{ marginTop: 16 }}><Link href="/privacy" className="muted">Privacy / Privacidade</Link></p>
-      </div>
-    </main>
-  );
+  // Presence of the session cookie only decides which button to show; the dashboard itself still checks the session.
+  return <Landing lang={locale === "en" ? "en" : "pt"} signedIn={jar.has(COOKIE)} />;
 }
