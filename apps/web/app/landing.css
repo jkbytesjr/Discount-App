@@ -326,3 +326,6 @@ body:has(.lp) > .backdrop, body:has(.lp) .site-foot{display:none}
 .lp .lp-navlang{background:transparent;border:1px solid var(--glass-border);color:#fff;font:600 13px var(--display);padding:8px 14px;border-radius:999px;cursor:pointer}
 .lp .lp-navlang:hover{background:rgba(255,255,255,.1)}
 @media (max-width:480px){.lp .lp-nav{gap:10px;padding-left:12px}.lp .lp-brand span{font-size:14px}.lp .lp-navlang{padding:8px 10px;margin-left:auto}.lp .lp-nav .lp-btn{margin-left:0}}
+
+/* darker backdrop so the multicolour headings read clearly */
+.lp .lp-backdrop::after{content:"";position:absolute;inset:0;background:rgba(4,3,12,.55)}

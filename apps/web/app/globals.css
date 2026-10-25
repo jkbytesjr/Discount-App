@@ -47,7 +47,8 @@ a:hover { text-decoration-color: var(--glow-magenta); }
 .vc3 { width: 680px; left: 22vw; bottom: -230px; transform: rotate(-7deg); filter: blur(8px); opacity: 0.9;
   background: radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.45), transparent 42%), linear-gradient(135deg, #7b3cff, #a23bd8 55%, #ff2d9b); }
 .grain { position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
-.vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.35) 100%); }
+/* dark scrim so gradient text and small copy stay readable over the bright cards */
+.vignette { position: absolute; inset: 0; background: linear-gradient(rgba(4, 3, 12, 0.58), rgba(4, 3, 12, 0.58)), radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%); }
 @media (max-width: 860px) {
   .blob { filter: blur(70px); width: 380px; height: 380px; }
   .vc1 { width: 400px; left: -120px; } .vc2 { width: 380px; right: -140px; } .vc3 { width: 360px; left: 10vw; }
