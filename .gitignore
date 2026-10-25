@@ -21,3 +21,7 @@ xcuserdata/
 .build/
 DerivedData/
 *.xcresult
+
+# Xcode export/archive output
+*.ipa
+apps/MozDiscounts 20*/

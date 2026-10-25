@@ -1,4 +1,6 @@
-# Moz Discounts marketing site
+# Moz Discounts marketing site (reference copy)
+
+> This static version is the design source. The live home page is now built into the web app: `apps/web/components/landing.tsx` (copy in `lib/landing-content.ts`, styles in `app/landing.css`, images in `apps/web/public/site/`), served at `/` with PT/EN and relative links into the app (DEC-057). Edit those files, not this folder, to change the live site; keep this folder only if you still want the standalone version.
 
 A static, motion-filled glassmorphism website (plain HTML, CSS and JS, no build step).
 

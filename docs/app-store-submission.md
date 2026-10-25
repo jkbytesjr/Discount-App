@@ -8,6 +8,8 @@ Answers for App Store Connect. They describe what the app and the API actually d
 
 Apple also requires an in-app way to delete the account: Profile → Delete account (data is anonymised).
 
+The same label is shown to users on the web at `/privacy#labels` (footer link on every page) and in the iOS app under Profile → Privacy label.
+
 ## 2. App Privacy labels ("nutrition labels")
 
 Third-party SDKs: none. The iOS app uses only Apple frameworks (SwiftUI, MapKit, CoreLocation, UserNotifications, LocalAuthentication). No analytics, advertising or crash-reporting SDK. Hosting (Vercel), database (Neon) and email (Gmail) are server-side processors, not SDKs.

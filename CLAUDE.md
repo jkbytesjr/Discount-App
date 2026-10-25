@@ -9,6 +9,9 @@ Source of truth: `docs/SPEC.md` (POC-Profile overrides production sections). Req
 - iOS: `apps/ios/MozDiscounts.xcodeproj` (regenerate with `python3 apps/ios/tools/make_xcodeproj.py`), logic tests `swift test --package-path apps/ios/MozCore`, simulator build `xcodebuild -project apps/ios/MozDiscounts.xcodeproj -scheme MozDiscounts -destination 'platform=iOS Simulator,name=iPhone 17' build CODE_SIGNING_ALLOWED=NO`.
 - Browser tests: `pnpm --filter @moz/web e2e` (builds, starts the app on :3100, runs Playwright + axe). Core logic: `packages/core/src/auth/*`; HTTP: `apps/web/app/api/v1/*` via `lib/http.ts`
 
+- Home page `/` is the marketing site (`apps/web/components/landing.tsx`, copy `lib/landing-content.ts`, CSS `app/landing.css`, all classes `lp-` prefixed; DEC-057). `/privacy` holds the policy and privacy label (`lib/privacy-content.ts`); keep it in step with `docs/app-store-submission.md`.
+- Seed: demo-only banks live in `packages/seed/data/extra.json` and are skipped for the test branch (integration tests assert on the base fixtures). Live deploy steps: `docs/runbook.md`.
+
 ## Layout
 apps/web (Next.js portal + public map + /api/v1) · apps/ios (SwiftUI, Phase 6+) · packages/core (framework-free rules, Clock) · packages/shared (tokens, constants) · packages/seed · docs/
 
