@@ -27,11 +27,11 @@
 <header class="nav glass">
   <a class="brand" href="#top"><img src="assets/logo.png" width="36" height="36" alt="" > <span>Moz Discounts</span></a>
   <nav aria-label="Main">
-    <a href="#problem">Problem</a>
-    <a href="#solution">Solution</a>
-    <a href="#personal">Your cards</a>
+    <a href="#story">Story</a>
+    <a href="#ios">iOS app</a>
+    <a href="#web">Web app</a>
     <a href="#audiences">For business</a>
-    <a href="#open-source">Open source</a>
+    <a href="#developers">Developers</a>
     <a href="#guides">Guides</a>
   </nav>
   <a class="btn btn-sm" href="https://discount-app-rho.vercel.app/login">Sign in</a>
@@ -61,37 +61,57 @@
       </div>
     </div>
   </div>
-  <a class="scroll-hint" href="#problem" aria-label="Scroll to the problem"><span></span></a>
+  <a class="scroll-hint" href="#story" aria-label="Scroll to the story"><span></span></a>
 </section>
 
-<!-- 1. PROBLEM : pinned scroll scene -->
-<section class="scene" id="problem" data-scene="problem" aria-labelledby="problem-h">
-  <div class="stage">
-    <div class="wrap scene-copy">
-      <p class="eyebrow">1 · The problem</p>
-      <h2 id="problem-h">Discounts exist. <em>Nobody tells you where.</em></h2>
-      <p class="lead">Banks and wallets sign deals with shops and restaurants, but the offer sits in a leaflet, an SMS or an app you never open. You pay full price, then find out later.</p>
-      <p class="counter glass" aria-live="polite">Discounts walked past: <b id="missed">0</b></p>
+<!-- 1+2. PROBLEM AND SOLUTION : one side-scrolling parallax street -->
+<section class="scene" id="story" data-scene="story" aria-labelledby="problem-h">
+  <div class="stage story-stage">
+    <svg class="street" id="street" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Animation: a person walks down a street past a restaurant, a supermarket and a spa without noticing their discounts. On the second walk, an alert circle around each place triggers a notification with the offer."></svg>
+    <div class="story-copy">
+      <div class="chapter c1 on" id="ch-problem">
+        <div class="copy-card">
+          <p class="eyebrow">1 &middot; The problem</p>
+          <h2 id="problem-h">Discounts exist. <em>Nobody tells you where.</em></h2>
+          <p class="lead">Banks and wallets sign deals with shops and restaurants, but the offer sits in a leaflet, an SMS or an app you never open. You pay full price, then find out later.</p>
+          <p class="counter" aria-live="polite">Discounts walked past: <b id="missed">0</b></p>
+        </div>
+      </div>
+      <div class="chapter c2" id="ch-solution">
+        <div class="copy-card">
+          <p class="eyebrow">2 &middot; The solution</p>
+          <h2 id="solution-h">Your phone <em>speaks up</em> at the right moment.</h2>
+          <p class="lead">Every participating place has an invisible circle around it. Step inside and you get a notification with the exact offer on your card or wallet. Proximity is worked out on your phone.</p>
+          <div class="notif" id="notif" aria-live="polite"><img src="assets/logo.png" alt="" width="34" height="34"><div><small>Moz Discounts &middot; now</small><b id="n-title">Walking&hellip;</b><span id="n-body">Alerts appear as you come close.</span></div></div>
+        </div>
+      </div>
     </div>
-    <div class="map glass" role="img" aria-label="Animation: a person walks along a street and passes a restaurant, a supermarket and a spa, each with a discount they never see.">
-      <svg viewBox="0 0 800 420" id="svg-problem" preserveAspectRatio="xMidYMid meet"></svg>
-    </div>
+    <div class="story-meter" aria-hidden="true"><i id="story-bar"></i><span>Problem</span><span>Solution</span></div>
   </div>
 </section>
 
-<!-- 2. SOLUTION -->
-<section class="scene" id="solution" data-scene="solution" aria-labelledby="solution-h">
-  <div class="stage">
-    <div class="wrap scene-copy">
-      <p class="eyebrow">2 · The solution</p>
-      <h2 id="solution-h">Your phone <em>speaks up</em> at the right moment.</h2>
-      <p class="lead">Every participating place has an invisible circle around it. Step inside and you get a notification with the exact offer on your card or wallet. Proximity is worked out on your phone.</p>
-      <div class="notif-slot" id="notif" aria-live="polite">
-        <div class="notif glass"><img src="assets/logo.png" alt="" width="34" height="34"><div><small>Moz Discounts · now</small><b id="n-title">Walking&hellip;</b><span id="n-body">Alerts appear as you come close.</span></div></div>
-      </div>
+<!-- 3. iOS APP WALKTHROUGH -->
+<section class="scene" id="ios" data-scene="ios" aria-labelledby="ios-h">
+  <div class="stage split-stage">
+    <div class="fcards" aria-hidden="true"><i class="fcard f1" data-depth="-90"></i><i class="fcard f2" data-depth="140"></i><i class="fcard f3" data-depth="-200"></i></div>
+    <div class="copy">
+      <p class="eyebrow">3 &middot; The iOS app</p>
+      <h2 id="ios-h">Scroll through <em>the app.</em></h2>
+      <ol class="steps-list" id="ios-steps">
+        <li class="on"><b>Sign in and get started</b><span>Create your account in the app or sign in, then unlock with Face ID next time.</span></li>
+        <li><b>Discover offers on the map</b><span>Filter by All, Mine, General or a bank. Category pins, a New offers carousel, Near you chips, and tabs for Home, Favourites, Alerts and Profile.</span></li>
+        <li><b>Add your cards and wallets</b><span>BCI, Absa, M-Pesa, e-Mola, mKesh and more. Only the product, never the number, expiry or CVV.</span></li>
+        <li><b>Choose your alerts</b><span>Only my cards, mine plus chosen banks, or all offers, with quiet hours when you want peace.</span></li>
+      </ol>
+      <p class="mini">Available to test on iOS through TestFlight.</p>
     </div>
-    <div class="map glass" role="img" aria-label="Animation: the same walk, but each place has a glowing alert circle and a notification appears as the person enters it.">
-      <svg viewBox="0 0 800 420" id="svg-solution" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="phone-wrap">
+      <div class="device"><div class="screen"><div class="strip" id="ios-strip">
+        <img src="assets/shot-splash.jpg" width="540" height="1173" alt="Splash screen of the app with the Moz Discounts logo over blurred bank cards.">
+        <img src="assets/shot-map.jpg" width="540" height="1173" loading="lazy" alt="Home map of Maputo with category pins, filter chips, a New offers carousel and the tab bar.">
+        <img src="assets/shot-cards.jpg" width="540" height="1173" loading="lazy" alt="Cards and wallets screen with ABSA, BCI and M-Pesa and a note that the app never asks for number, expiry or CVV.">
+        <img src="assets/shot-alerts.jpg" width="540" height="1173" loading="lazy" alt="Alert preferences: only for my cards, mine plus chosen banks, all offers and quiet hours.">
+      </div></div></div>
     </div>
   </div>
 </section>
@@ -100,7 +120,7 @@
 <section class="block" id="personal" aria-labelledby="personal-h">
   <div class="wrap split">
     <div>
-      <p class="eyebrow reveal">3 · Made for your wallet</p>
+      <p class="eyebrow reveal">4 &middot; Made for your wallet</p>
       <h2 id="personal-h" class="reveal d1">Add your cards. <em>We never ask for the numbers.</em></h2>
       <p class="lead reveal d2">Pick your bank cards and wallets such as BCI, Absa, Millennium bim, M-Pesa, e-Mola and mKesh. We never collect a card number, expiry date or CVV. Only the product you hold.</p>
       <div class="chips reveal d2" role="group" aria-label="Which offers do you want alerts for?">
@@ -119,10 +139,46 @@
   </div>
 </section>
 
+<!-- 5. WEB APP WALKTHROUGH -->
+<section class="scene" id="web" data-scene="web" aria-labelledby="web-h">
+  <div class="stage split-stage rev">
+    <div class="fcards" aria-hidden="true"><i class="fcard f1" data-depth="120"></i><i class="fcard f2" data-depth="-150"></i><i class="fcard f3" data-depth="180"></i></div>
+    <div class="browser-wrap">
+      <div class="browser">
+        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>discount-app-rho.vercel.app</span></div>
+        <div class="bscreen"><div class="strip" id="web-strip">
+          <img src="assets/web-home.jpg" width="1100" height="688" alt="Web app landing page with Sign in, Create account and Discount map.">
+          <img src="assets/web-profile.jpg" width="1100" height="688" loading="lazy" alt="Business profile page showing an approved bank and brand details.">
+          <img src="assets/web-premises.jpg" width="1100" height="688" loading="lazy" alt="Premises list with category, city, alert radius in metres and status, plus Import CSV and Add premises.">
+          <img src="assets/web-discounts.jpg" width="1100" height="688" loading="lazy" alt="Discounts list with status tabs: all, draft, published, paused, expired, archived.">
+          <div class="tiles" role="img" aria-label="Reports, Excel exports, admin approvals, catalogue, users and audit trail">
+            <span>Reports and stats</span><span>Excel export</span><span>Admin approvals</span><span>Card and wallet catalogue</span><span>User management</span><span>Audit trail</span>
+          </div>
+        </div></div>
+      </div>
+      <span class="chip-f cf1" data-depth="-60">Import CSV</span>
+      <span class="chip-f cf2" data-depth="90">Alert radius per place</span>
+      <span class="chip-f cf3" data-depth="-110">Per-card benefits</span>
+    </div>
+    <div class="copy">
+      <p class="eyebrow">5 &middot; The web app</p>
+      <h2 id="web-h">Everything, <em>managed in one place.</em></h2>
+      <ol class="steps-list" id="web-steps">
+        <li class="on"><b>One front door</b><span>Sign in, create an account or open the public discount map with no account. Portuguese first, English one tap away.</span></li>
+        <li><b>Business profile and approval</b><span>Banks, wallet providers and merchants set up their profile. An admin approves it before offers go live.</span></li>
+        <li><b>Premises and alert radius</b><span>Add places on a map or import a CSV. Each place gets its own alert radius, such as 150 m.</span></li>
+        <li><b>Discounts from draft to expired</b><span>A step-by-step wizard, per-card and per-wallet benefits, schedules, preview and bulk actions. Draft, published, paused, expired, archived.</span></li>
+        <li><b>Reports and admin tools</b><span>Statistics, Excel exports, business approvals, the card and wallet catalogue, users and an audit trail.</span></li>
+      </ol>
+      <a class="btn btn-sm" href="https://discount-app-rho.vercel.app/login">Open the web app</a>
+    </div>
+  </div>
+</section>
+
 <!-- 4. AUDIENCES -->
 <section class="block" id="audiences" aria-labelledby="aud-h">
   <div class="wrap">
-    <p class="eyebrow reveal">4 · Who it is for</p>
+    <p class="eyebrow reveal">6 &middot; Who it is for</p>
     <h2 id="aud-h" class="reveal d1">One web portal. <em>Three kinds of people.</em></h2>
     <div class="flow">
       <article class="glass tilt reveal">
@@ -161,7 +217,7 @@
 <span class="ok">ready</span> http://localhost:3000</pre>
     </div>
     <div>
-      <p class="eyebrow reveal">5 · Open source</p>
+      <p class="eyebrow reveal">7 &middot; Open source</p>
       <h2 id="os-h" class="reveal d1">Built in the open. <em>Read it, run it, improve it.</em></h2>
       <p class="lead reveal d2">The web portal, the API and the iOS app all live in one public repository. It is a proof of concept, so feedback and pull requests are welcome.</p>
       <a class="btn reveal d3" href="https://github.com/jkbytesjr/Discount-App">View on GitHub</a>
@@ -169,31 +225,44 @@
   </div>
 </section>
 
-<!-- 6. DEVELOPERS -->
-<section class="block" id="developers" aria-labelledby="dev-h">
+<!-- 8. DEVELOPERS : layered parallax -->
+<section class="dev" id="developers" aria-labelledby="dev-h">
+  <div class="dev-bg" aria-hidden="true">
+    <div class="marq m1" data-x="-1">FATHER &amp; SON &middot; FATHER &amp; SON &middot; FATHER &amp; SON</div>
+    <div class="marq m2" data-x="1">BUILT TOGETHER &middot; BUILT TOGETHER &middot; BUILT TOGETHER</div>
+    <i class="orb o1" data-speed="0.35"></i><i class="orb o2" data-speed="-0.25"></i><i class="orb o3" data-speed="0.5"></i>
+    <b class="pct p1" data-speed="0.6">%</b><b class="pct p2" data-speed="-0.4">%</b><b class="pct p3" data-speed="0.25">%</b>
+  </div>
   <div class="wrap">
-    <p class="eyebrow reveal">6 · The developers</p>
+    <p class="eyebrow reveal">8 &middot; The developers</p>
     <h2 id="dev-h" class="reveal d1">A father and son <em>fixing an everyday problem.</em></h2>
     <p class="lead reveal d2">Jaikumar and Joshkyle built Moz Discounts together because missing out on a deal you were entitled to is something everyone has felt.</p>
     <div class="devs">
-      <article class="glass tilt reveal">
-        <span class="avatar" aria-hidden="true">JS</span>
-        <h3>Jaikumar Sathish</h3>
-        <a class="link" href="https://www.linkedin.com/in/jkbytes">LinkedIn profile &rarr;</a>
-      </article>
-      <article class="glass tilt reveal d1">
-        <span class="avatar alt" aria-hidden="true">JS</span>
-        <h3>Joshkyle Sathish</h3>
-        <a class="link" href="https://www.linkedin.com/in/joshkyle-sathish-b24831360">LinkedIn profile &rarr;</a>
-      </article>
+      <div class="dv" data-speed="0.14">
+        <article class="glass tilt reveal">
+          <span class="avatar" aria-hidden="true">JS</span>
+          <h3>Jaikumar Sathish</h3>
+          <p>Developer, Moz Discounts</p>
+          <a class="link" href="https://www.linkedin.com/in/jkbytes">LinkedIn profile &rarr;</a>
+        </article>
+      </div>
+      <div class="dv" data-speed="-0.08">
+        <article class="glass tilt reveal d1">
+          <span class="avatar alt" aria-hidden="true">JS</span>
+          <h3>Joshkyle Sathish</h3>
+          <p>Developer, Moz Discounts</p>
+          <a class="link" href="https://www.linkedin.com/in/joshkyle-sathish-b24831360">LinkedIn profile &rarr;</a>
+        </article>
+      </div>
     </div>
+    <p class="mini reveal">Built in the open: <a class="link" href="https://github.com/jkbytesjr/Discount-App">github.com/jkbytesjr/Discount-App</a></p>
   </div>
 </section>
 
 <!-- 7. GUIDES / STACK / PRIVACY / TESTFLIGHT -->
 <section class="block" id="guides" aria-labelledby="guides-h">
   <div class="wrap">
-    <p class="eyebrow reveal">7 · Guides</p>
+    <p class="eyebrow reveal">9 &middot; Guides</p>
     <h2 id="guides-h" class="reveal d1">Get started <em>in minutes.</em></h2>
     <div class="steps">
       <div class="glass reveal"><b>1</b><h3>Create an account</h3><p>Customers register on the web or in the app. Businesses register and wait for admin approval.</p></div>
